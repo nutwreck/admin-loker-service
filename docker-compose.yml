@@ -9,7 +9,7 @@ services:
     env_file:
       - .env
     ports:
-      - 3000:3000
+      - 7778:7778
     networks:
       - digylabs-admin-loker-service
     # depends_on:
