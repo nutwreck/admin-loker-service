@@ -22,7 +22,7 @@ import (
 //	@version		1.0
 //	@description	Dokumentasi untuk Service API Admin Loker
 
-//	@host		localhost:7778
+//	@host		103.175.221.43:7778
 
 //  @Schemes http https
 
