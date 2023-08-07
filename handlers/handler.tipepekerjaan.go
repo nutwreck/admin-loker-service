@@ -1,0 +1,355 @@
+package handlers
+
+import (
+	"fmt"
+	"net/http"
+
+	"github.com/gin-gonic/gin"
+	"github.com/nutwreck/admin-loker-service/entities"
+	"github.com/nutwreck/admin-loker-service/helpers"
+	"github.com/nutwreck/admin-loker-service/pkg"
+	"github.com/nutwreck/admin-loker-service/schemes"
+	gpc "github.com/restuwahyu13/go-playground-converter"
+)
+
+type handleTipePekerjaan struct {
+	tipePekerjaan entities.EntityTipePekerjaan
+}
+
+func NewHandlerTipePekerjaan(tipePekerjaan entities.EntityTipePekerjaan) *handleTipePekerjaan {
+	return &handleTipePekerjaan{tipePekerjaan: tipePekerjaan}
+}
+
+/**
+* ============================================
+* Handler Ping Status Tipe Pekerjaan Teritory
+*=============================================
+ */
+
+func (h *handleTipePekerjaan) HandlerPing(ctx *gin.Context) {
+	helpers.APIResponse(ctx, "Ping Tipe Pekerjaan", http.StatusOK, nil)
+}
+
+/**
+* ===========================================
+* Handler Create New Tipe Pekerjaan Teritory
+*============================================
+ */
+// CreateTipePekerjaan godoc
+// @Summary		Create Tipe Pekerjaan
+// @Description	Create Tipe Pekerjaan
+// @Tags		Tipe Pekerjaan
+// @Accept		json
+// @Produce		json
+// @Param		TipePekerjaan body schemes.SchemeTipePekerjaanRequest true "Create Tipe Pekerjaan"
+// @Success 200 {object} schemes.SchemeResponses
+// @Success 201 {object} schemes.SchemeResponses201Example
+// @Failure 400 {object} schemes.SchemeResponses400Example
+// @Failure 401 {object} schemes.SchemeResponses401Example
+// @Failure 403 {object} schemes.SchemeResponses403Example
+// @Failure 404 {object} schemes.SchemeResponses404Example
+// @Failure 409 {object} schemes.SchemeResponses409Example
+// @Failure 500 {object} schemes.SchemeResponses500Example
+// @Security	ApiKeyAuth
+// @Router /api/v1/tipe-pekerjaan/create [post]
+func (h *handleTipePekerjaan) HandlerCreate(ctx *gin.Context) {
+	var body schemes.SchemeTipePekerjaan
+	err := ctx.ShouldBindJSON(&body)
+
+	if err != nil {
+		helpers.APIResponse(ctx, "Parse json data from body failed", http.StatusBadRequest, nil)
+		return
+	}
+
+	errors, code := ValidatorTipePekerjaan(ctx, body, "create")
+
+	if code > 0 {
+		helpers.ErrorResponse(ctx, errors)
+		return
+	}
+
+	_, error := h.tipePekerjaan.EntityCreate(&body)
+
+	if error.Type == "error_update_01" {
+		helpers.APIResponse(ctx, "Tipe Pekerjaan name already exist", error.Code, nil)
+		return
+	}
+
+	if error.Type == "error_create_02" {
+		helpers.APIResponse(ctx, "Create new Tipe Pekerjaan failed", error.Code, nil)
+		return
+	}
+
+	helpers.APIResponse(ctx, "Create new Tipe Pekerjaan successfully", http.StatusCreated, nil)
+}
+
+/**
+* ============================================
+* Handler Results All Tipe Pekerjaan Teritory
+*=============================================
+ */
+// GetListTipePekerjaan godoc
+// @Summary		Get List Tipe Pekerjaan
+// @Description	Get List Tipe Pekerjaan
+// @Tags		Tipe Pekerjaan
+// @Accept		json
+// @Produce		json
+// @Success 200 {object} schemes.SchemeResponses
+// @Failure 400 {object} schemes.SchemeResponses400Example
+// @Failure 401 {object} schemes.SchemeResponses401Example
+// @Failure 403 {object} schemes.SchemeResponses403Example
+// @Failure 404 {object} schemes.SchemeResponses404Example
+// @Failure 409 {object} schemes.SchemeResponses409Example
+// @Failure 500 {object} schemes.SchemeResponses500Example
+// @Security	ApiKeyAuth
+// @Router /api/v1/tipe-pekerjaan/results [get]
+func (h *handleTipePekerjaan) HandlerResults(ctx *gin.Context) {
+	res, error := h.tipePekerjaan.EntityResults()
+
+	if error.Type == "error_results_01" {
+		helpers.APIResponse(ctx, "Tipe Pekerjaan data not found", error.Code, nil)
+		return
+	}
+
+	helpers.APIResponse(ctx, "Tipe Pekerjaan data already to use", http.StatusOK, res)
+}
+
+/**
+* =============================================
+* Handler Result Tipe Pekerjaan By ID Teritory
+*==============================================
+ */
+// GetByIDTipePekerjaan godoc
+// @Summary		Get By ID Tipe Pekerjaan
+// @Description	Get By ID Tipe Pekerjaan
+// @Tags		Tipe Pekerjaan
+// @Accept		json
+// @Produce		json
+// @Param		id path string true "Get By ID Tipe Pekerjaan"
+// @Success 200 {object} schemes.SchemeResponses
+// @Failure 400 {object} schemes.SchemeResponses400Example
+// @Failure 401 {object} schemes.SchemeResponses401Example
+// @Failure 403 {object} schemes.SchemeResponses403Example
+// @Failure 404 {object} schemes.SchemeResponses404Example
+// @Failure 409 {object} schemes.SchemeResponses409Example
+// @Failure 500 {object} schemes.SchemeResponses500Example
+// @Security	ApiKeyAuth
+// @Router /api/v1/tipe-pekerjaan/result/{id} [get]
+func (h *handleTipePekerjaan) HandlerResult(ctx *gin.Context) {
+	var body schemes.SchemeTipePekerjaan
+	id := ctx.Param("id")
+	body.ID = id
+
+	errors, code := ValidatorTipePekerjaan(ctx, body, "result")
+
+	if code > 0 {
+		helpers.ErrorResponse(ctx, errors)
+		return
+	}
+
+	res, error := h.tipePekerjaan.EntityResult(&body)
+
+	if error.Type == "error_result_01" {
+		helpers.APIResponse(ctx, fmt.Sprintf("Tipe Pekerjaan data not found for this id %s ", id), error.Code, nil)
+		return
+	}
+
+	helpers.APIResponse(ctx, "Tipe Pekerjaan data already to use", http.StatusOK, res)
+}
+
+/**
+* =============================================
+* Handler Delete Tipe Pekerjaan By ID Teritory
+*==============================================
+ */
+// GetDeleteTipePekerjaan godoc
+// @Summary		Get Delete Tipe Pekerjaan
+// @Description	Get Delete Tipe Pekerjaan
+// @Tags		Tipe Pekerjaan
+// @Accept		json
+// @Produce		json
+// @Param		id path string true "Delete Tipe Pekerjaan"
+// @Success 200 {object} schemes.SchemeResponses
+// @Failure 400 {object} schemes.SchemeResponses400Example
+// @Failure 401 {object} schemes.SchemeResponses401Example
+// @Failure 403 {object} schemes.SchemeResponses403Example
+// @Failure 404 {object} schemes.SchemeResponses404Example
+// @Failure 409 {object} schemes.SchemeResponses409Example
+// @Failure 500 {object} schemes.SchemeResponses500Example
+// @Security	ApiKeyAuth
+// @Router /api/v1/tipe-pekerjaan/delete/{id} [delete]
+func (h *handleTipePekerjaan) HandlerDelete(ctx *gin.Context) {
+	var body schemes.SchemeTipePekerjaan
+	id := ctx.Param("id")
+	body.ID = id
+
+	errors, code := ValidatorTipePekerjaan(ctx, body, "delete")
+
+	if code > 0 {
+		helpers.ErrorResponse(ctx, errors)
+		return
+	}
+
+	res, error := h.tipePekerjaan.EntityDelete(&body)
+
+	if error.Type == "error_delete_01" {
+		helpers.APIResponse(ctx, fmt.Sprintf("Tipe Pekerjaan data not found for this id %s ", id), error.Code, nil)
+		return
+	}
+
+	if error.Type == "error_delete_02" {
+		helpers.APIResponse(ctx, fmt.Sprintf("Delete Tipe Pekerjaan data for this id %v failed", id), error.Code, nil)
+		return
+	}
+
+	helpers.APIResponse(ctx, fmt.Sprintf("Delete Tipe Pekerjaan data for this id %s success", id), http.StatusOK, res)
+}
+
+/**
+* =============================================
+* Handler Update Tipe Pekerjaan By ID Teritory
+*==============================================
+ */
+// GetUpdateTipePekerjaan godoc
+// @Summary		Get Update Tipe Pekerjaan
+// @Description	Get Update Tipe Pekerjaan
+// @Tags		Tipe Pekerjaan
+// @Accept		json
+// @Produce		json
+// @Param		id path string true "Update Tipe Pekerjaan"
+// @Param		TipePekerjaan body schemes.SchemeTipePekerjaanRequest true "Update Tipe Pekerjaan"
+// @Success 200 {object} schemes.SchemeResponses
+// @Failure 400 {object} schemes.SchemeResponses400Example
+// @Failure 401 {object} schemes.SchemeResponses401Example
+// @Failure 403 {object} schemes.SchemeResponses403Example
+// @Failure 404 {object} schemes.SchemeResponses404Example
+// @Failure 409 {object} schemes.SchemeResponses409Example
+// @Failure 500 {object} schemes.SchemeResponses500Example
+// @Security	ApiKeyAuth
+// @Router /api/v1/tipe-pekerjaan/update/{id} [put]
+func (h *handleTipePekerjaan) HandlerUpdate(ctx *gin.Context) {
+	var (
+		body      schemes.SchemeTipePekerjaan
+		activeGet = false
+	)
+	id := ctx.Param("id")
+	body.ID = id
+	body.Name = ctx.PostForm("name")
+	activeStr := ctx.PostForm("active")
+	if activeStr == "true" {
+		activeGet = true
+	}
+	body.Active = &activeGet
+
+	err := ctx.ShouldBindJSON(&body)
+
+	if err != nil {
+		helpers.APIResponse(ctx, "Parse json data from body failed", http.StatusBadRequest, nil)
+		return
+	}
+
+	errors, code := ValidatorTipePekerjaan(ctx, body, "update")
+
+	if code > 0 {
+		helpers.ErrorResponse(ctx, errors)
+		return
+	}
+
+	_, error := h.tipePekerjaan.EntityUpdate(&body)
+
+	if error.Type == "error_update_01" {
+		helpers.APIResponse(ctx, fmt.Sprintf("Tipe Pekerjaan data not found for this id %s ", id), error.Code, nil)
+		return
+	}
+
+	if error.Type == "error_update_02" {
+		helpers.APIResponse(ctx, fmt.Sprintf("Update Tipe Pekerjaan data failed for this id %s", id), error.Code, nil)
+		return
+	}
+
+	helpers.APIResponse(ctx, fmt.Sprintf("Update Tipe Pekerjaan data success for this id %s", id), http.StatusCreated, nil)
+}
+
+/**
+* =============================================
+*  All Validator User Input For Tipe Pekerjaan
+*==============================================
+ */
+
+func ValidatorTipePekerjaan(ctx *gin.Context, input schemes.SchemeTipePekerjaan, Type string) (interface{}, int) {
+	var schema gpc.ErrorConfig
+
+	if Type == "create" {
+		schema = gpc.ErrorConfig{
+			Options: []gpc.ErrorMetaConfig{
+				{
+					Tag:     "required",
+					Field:   "Name",
+					Message: "Name is required on body",
+				},
+				{
+					Tag:     "lowercase",
+					Field:   "Name",
+					Message: "Name must be lowercase",
+				},
+				{
+					Tag:     "max",
+					Field:   "Name",
+					Message: "Name maximal 100 character",
+				},
+			},
+		}
+	}
+
+	if Type == "result" || Type == "delete" {
+		schema = gpc.ErrorConfig{
+			Options: []gpc.ErrorMetaConfig{
+				{
+					Tag:     "required",
+					Field:   "ID",
+					Message: "ID is required on param",
+				},
+				{
+					Tag:     "uuid",
+					Field:   "ID",
+					Message: "ID must be uuid",
+				},
+			},
+		}
+	}
+
+	if Type == "update" {
+		schema = gpc.ErrorConfig{
+			Options: []gpc.ErrorMetaConfig{
+				{
+					Tag:     "required",
+					Field:   "ID",
+					Message: "ID is required on param",
+				},
+				{
+					Tag:     "uuid",
+					Field:   "ID",
+					Message: "ID must be uuid",
+				},
+				{
+					Tag:     "required",
+					Field:   "Name",
+					Message: "Name is required on body",
+				},
+				{
+					Tag:     "lowercase",
+					Field:   "Name",
+					Message: "Name must be lowercase",
+				},
+				{
+					Tag:     "max",
+					Field:   "Name",
+					Message: "Name maximal 100 character",
+				},
+			},
+		}
+	}
+
+	err, code := pkg.GoValidator(&input, schema.Options)
+	return err, code
+}

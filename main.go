@@ -12,7 +12,26 @@ import (
 	"github.com/nutwreck/admin-loker-service/models"
 	"github.com/nutwreck/admin-loker-service/pkg"
 	"github.com/nutwreck/admin-loker-service/routes"
+
+	_ "github.com/nutwreck/admin-loker-service/docs"
+	swaggerFiles "github.com/swaggo/files"
+	ginSwagger "github.com/swaggo/gin-swagger"
 )
+
+//	@title			Admin Loker API
+//	@version		1.0
+//	@description	Dokumentasi untuk Service API Admin Loker
+
+//	@host		localhost:7778
+
+//  @Schemes http https
+
+//	@securityDefinitions.basic	BasicAuth
+
+//	@securityDefinitions.apikey	ApiKeyAuth
+//	@in							header
+//	@name						Authorization
+//	@description				User JWT Bearer - Format Input Value : Bearer[ space ][ JWTToken ]
 
 func main() {
 
@@ -32,6 +51,13 @@ func main() {
 	 */
 
 	routes.NewRouteUser(db, app)
+	routes.NewRoutePendidikan(db, app)
+	routes.NewRouteLevelPekerjaan(db, app)
+	routes.NewRouteTipePekerjaan(db, app)
+	routes.NewRouteTahunPengalaman(db, app)
+	routes.NewRouteKategoriPekerjaan(db, app)
+	routes.NewRouteKeahlian(db, app)
+	routes.NewRouteJenisPerusahaan(db, app)
 
 	/**
 	* ========================
@@ -54,7 +80,12 @@ func main() {
  */
 
 func setupDatabase() *gorm.DB {
-	dsn := "host=" + pkg.GodotEnv("POSTGRES_HOST") + " user=" + pkg.GodotEnv("POSTGRES_USER") + " password=" + pkg.GodotEnv("POSTGRES_PASSWORD") + " dbname=" + pkg.GodotEnv("POSTGRES_DB") + " port=" + pkg.GodotEnv("POSTGRES_PORT") + " sslmode=" + pkg.GodotEnv("POSTGRES_SSL")
+	var dsn string
+	if pkg.GodotEnv("GO_ENV") == "release" {
+		dsn = "host=" + pkg.GodotEnv("POSTGRES_HOST_PROD") + " user=" + pkg.GodotEnv("POSTGRES_USER_PROD") + " password=" + pkg.GodotEnv("POSTGRES_PASSWORD_PROD") + " dbname=" + pkg.GodotEnv("POSTGRES_DB_PROD") + " port=" + pkg.GodotEnv("POSTGRES_PORT_PROD") + " sslmode=" + pkg.GodotEnv("POSTGRES_SSL_PROD")
+	} else {
+		dsn = "host=" + pkg.GodotEnv("POSTGRES_HOST") + " user=" + pkg.GodotEnv("POSTGRES_USER") + " password=" + pkg.GodotEnv("POSTGRES_PASSWORD") + " dbname=" + pkg.GodotEnv("POSTGRES_DB") + " port=" + pkg.GodotEnv("POSTGRES_PORT") + " sslmode=" + pkg.GodotEnv("POSTGRES_SSL")
+	}
 	db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
 
 	if err != nil {
@@ -66,6 +97,13 @@ func setupDatabase() *gorm.DB {
 	//  Initialize all model for auto migration here
 	err = db.AutoMigrate(
 		&models.ModelUser{},
+		&models.ModelJenisPerusahaan{},
+		&models.ModelKategoriPekerjaan{},
+		&models.ModelKeahlian{},
+		&models.ModelLevelPekerjaan{},
+		&models.ModelPendidikan{},
+		&models.ModelTahunPengalaman{},
+		&models.ModelTipePekerjaan{},
 	)
 
 	if err != nil {
@@ -101,6 +139,9 @@ func setupApp() *gin.Engine {
 		AllowMethods:    []string{"GET", "POST", "DELETE", "PATCH", "PUT", "OPTIONS"},
 		AllowHeaders:    []string{"Content-Type", "Authorization", "Accept-Encoding"},
 	}))
+
+	//Docs Swagger Without Model Section
+	app.GET("/d29ya2Vyc3VjaA/docs/*any", ginSwagger.WrapHandler(swaggerFiles.Handler, ginSwagger.DefaultModelsExpandDepth(-1))) //index.html
 
 	return app
 }

@@ -1,0 +1,2003 @@
+definitions:
+  schemes.SchemeAddUser:
+    properties:
+      active:
+        example: true
+        type: boolean
+      email:
+        description: Email is Unique
+        example: loker.superadmin@digy.com
+        format: email
+        type: string
+      first_name:
+        description: Input with Lowercase
+        example: super
+        type: string
+      last_name:
+        description: Input with Lowercase
+        example: admin
+        type: string
+      password:
+        example: "12345678"
+        minLength: 8
+        type: string
+      role:
+        description: Input superadmin or admin with lowercase
+        example: superadmin
+        type: string
+    required:
+    - active
+    - email
+    - first_name
+    - last_name
+    - password
+    - role
+    type: object
+  schemes.SchemeJenisPerusahaanRequest:
+    properties:
+      active:
+        example: true
+        type: boolean
+      name:
+        description: Input with Lowercase
+        example: jasa
+        maxLength: 200
+        type: string
+    required:
+    - name
+    type: object
+  schemes.SchemeKategoriPekerjaanRequest:
+    properties:
+      active:
+        example: true
+        type: boolean
+      name:
+        description: Input with Lowercase
+        example: Media dan Komunikasi
+        maxLength: 200
+        type: string
+    required:
+    - name
+    type: object
+  schemes.SchemeKeahlianRequest:
+    properties:
+      active:
+        example: true
+        type: boolean
+      name:
+        description: Input with Lowercase
+        example: Excel
+        maxLength: 200
+        type: string
+    required:
+    - name
+    type: object
+  schemes.SchemeLevelPekerjaanRequest:
+    properties:
+      active:
+        example: true
+        type: boolean
+      name:
+        description: Input with Lowercase
+        example: Staff
+        maxLength: 100
+        type: string
+    required:
+    - name
+    type: object
+  schemes.SchemeLoginUser:
+    properties:
+      email:
+        example: loker.superadmin@digy.com
+        format: email
+        type: string
+      password:
+        example: "12345678"
+        minLength: 8
+        type: string
+    required:
+    - email
+    - password
+    type: object
+  schemes.SchemePendidikanRequest:
+    properties:
+      active:
+        example: true
+        type: boolean
+      name:
+        description: Input with Lowercase
+        example: SMA
+        maxLength: 75
+        type: string
+    required:
+    - name
+    type: object
+  schemes.SchemeResponses:
+    properties:
+      code:
+        example: 200
+        type: integer
+      data: {}
+      message:
+        example: status OK
+        type: string
+    type: object
+  schemes.SchemeResponses201Example:
+    properties:
+      code:
+        example: 201
+        type: integer
+      data: {}
+      message:
+        example: Create Successfully
+        type: string
+    type: object
+  schemes.SchemeResponses400Example:
+    properties:
+      code:
+        example: 400
+        type: integer
+      data: {}
+      message:
+        example: status bad request
+        type: string
+    type: object
+  schemes.SchemeResponses401Example:
+    properties:
+      code:
+        example: 401
+        type: integer
+      message:
+        example: Authorization header is required
+        type: string
+    type: object
+  schemes.SchemeResponses403Example:
+    properties:
+      code:
+        example: 403
+        type: integer
+      data: {}
+      message:
+        example: status forbidden
+        type: string
+    type: object
+  schemes.SchemeResponses404Example:
+    properties:
+      code:
+        example: 404
+        type: integer
+      data: {}
+      message:
+        example: status not found
+        type: string
+    type: object
+  schemes.SchemeResponses409Example:
+    properties:
+      code:
+        example: 409
+        type: integer
+      data: {}
+      message:
+        example: status conflict data
+        type: string
+    type: object
+  schemes.SchemeResponses500Example:
+    properties:
+      code:
+        example: 500
+        type: integer
+      data: {}
+      message:
+        example: status internal error
+        type: string
+    type: object
+  schemes.SchemeTahunPengalamanRequest:
+    properties:
+      active:
+        example: true
+        type: boolean
+      name:
+        description: Input with Lowercase
+        example: 1-2 tahun
+        maxLength: 100
+        type: string
+    required:
+    - name
+    type: object
+  schemes.SchemeTipePekerjaanRequest:
+    properties:
+      active:
+        example: true
+        type: boolean
+      name:
+        description: Input with Lowercase
+        example: Freelance
+        maxLength: 100
+        type: string
+    required:
+    - name
+    type: object
+host: localhost:7778
+info:
+  contact: {}
+  description: Dokumentasi untuk Service API Admin Loker
+  title: Admin Loker API
+  version: "1.0"
+paths:
+  /api/v1/auth/login:
+    post:
+      consumes:
+      - application/json
+      description: login user
+      parameters:
+      - description: Login User
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/schemes.SchemeLoginUser'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses400Example'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses403Example'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses404Example'
+        "409":
+          description: Conflict
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses409Example'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses500Example'
+      summary: Login User
+      tags:
+      - User
+  /api/v1/auth/register:
+    post:
+      consumes:
+      - application/json
+      description: add by json user
+      parameters:
+      - description: Add User
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/schemes.SchemeAddUser'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses400Example'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses403Example'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses404Example'
+        "409":
+          description: Conflict
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses409Example'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses500Example'
+      summary: Register User
+      tags:
+      - User
+  /api/v1/jenis-perusahaan/create:
+    post:
+      consumes:
+      - application/json
+      description: Create Jenis Perusahaan
+      parameters:
+      - description: Create Jenis Perusahaan
+        in: body
+        name: jenisperusahaan
+        required: true
+        schema:
+          $ref: '#/definitions/schemes.SchemeJenisPerusahaanRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses'
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses201Example'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses400Example'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses401Example'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses403Example'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses404Example'
+        "409":
+          description: Conflict
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses409Example'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses500Example'
+      security:
+      - ApiKeyAuth: []
+      summary: Create Jenis Perusahaan
+      tags:
+      - Jenis Perusahaan
+  /api/v1/jenis-perusahaan/delete/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Get Delete Jenis Perusahaan
+      parameters:
+      - description: Delete Jenis Perusahaan
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses400Example'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses401Example'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses403Example'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses404Example'
+        "409":
+          description: Conflict
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses409Example'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses500Example'
+      security:
+      - ApiKeyAuth: []
+      summary: Get Delete Jenis Perusahaan
+      tags:
+      - Jenis Perusahaan
+  /api/v1/jenis-perusahaan/result/{id}:
+    get:
+      consumes:
+      - application/json
+      description: Get By ID Jenis Perusahaan
+      parameters:
+      - description: Get By ID Jenis Perusahaan
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses400Example'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses401Example'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses403Example'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses404Example'
+        "409":
+          description: Conflict
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses409Example'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses500Example'
+      security:
+      - ApiKeyAuth: []
+      summary: Get By ID Jenis Perusahaan
+      tags:
+      - Jenis Perusahaan
+  /api/v1/jenis-perusahaan/results:
+    get:
+      consumes:
+      - application/json
+      description: Get List Jenis Perusahaan
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses400Example'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses401Example'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses403Example'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses404Example'
+        "409":
+          description: Conflict
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses409Example'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses500Example'
+      security:
+      - ApiKeyAuth: []
+      summary: Get List Jenis Perusahaan
+      tags:
+      - Jenis Perusahaan
+  /api/v1/jenis-perusahaan/update/{id}:
+    put:
+      consumes:
+      - application/json
+      description: Get Update Jenis Perusahaan
+      parameters:
+      - description: Update Jenis Perusahaan
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Update Jenis Perusahaan
+        in: body
+        name: jenisperusahaan
+        required: true
+        schema:
+          $ref: '#/definitions/schemes.SchemeJenisPerusahaanRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses400Example'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses401Example'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses403Example'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses404Example'
+        "409":
+          description: Conflict
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses409Example'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses500Example'
+      security:
+      - ApiKeyAuth: []
+      summary: Get Update Jenis Perusahaan
+      tags:
+      - Jenis Perusahaan
+  /api/v1/kategori-pekerjaan/create:
+    post:
+      consumes:
+      - application/json
+      description: Create Kategori Pekerjaan
+      parameters:
+      - description: Create Kategori Pekerjaan
+        in: body
+        name: KategoriPekerjaan
+        required: true
+        schema:
+          $ref: '#/definitions/schemes.SchemeKategoriPekerjaanRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses'
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses201Example'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses400Example'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses401Example'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses403Example'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses404Example'
+        "409":
+          description: Conflict
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses409Example'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses500Example'
+      security:
+      - ApiKeyAuth: []
+      summary: Create Kategori Pekerjaan
+      tags:
+      - Kategori Pekerjaan
+  /api/v1/kategori-pekerjaan/delete/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Get Delete Kategori Pekerjaan
+      parameters:
+      - description: Delete Kategori Pekerjaan
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses400Example'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses401Example'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses403Example'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses404Example'
+        "409":
+          description: Conflict
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses409Example'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses500Example'
+      security:
+      - ApiKeyAuth: []
+      summary: Get Delete Kategori Pekerjaan
+      tags:
+      - Kategori Pekerjaan
+  /api/v1/kategori-pekerjaan/result/{id}:
+    get:
+      consumes:
+      - application/json
+      description: Get By ID Kategori Pekerjaan
+      parameters:
+      - description: Get By ID Kategori Pekerjaan
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses400Example'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses401Example'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses403Example'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses404Example'
+        "409":
+          description: Conflict
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses409Example'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses500Example'
+      security:
+      - ApiKeyAuth: []
+      summary: Get By ID Kategori Pekerjaan
+      tags:
+      - Kategori Pekerjaan
+  /api/v1/kategori-pekerjaan/results:
+    get:
+      consumes:
+      - application/json
+      description: Get List Kategori Pekerjaan
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses400Example'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses401Example'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses403Example'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses404Example'
+        "409":
+          description: Conflict
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses409Example'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses500Example'
+      security:
+      - ApiKeyAuth: []
+      summary: Get List Kategori Pekerjaan
+      tags:
+      - Kategori Pekerjaan
+  /api/v1/kategori-pekerjaan/update/{id}:
+    put:
+      consumes:
+      - application/json
+      description: Get Update Kategori Pekerjaan
+      parameters:
+      - description: Update Kategori Pekerjaan
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Update Kategori Pekerjaan
+        in: body
+        name: KategoriPekerjaan
+        required: true
+        schema:
+          $ref: '#/definitions/schemes.SchemeKategoriPekerjaanRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses400Example'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses401Example'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses403Example'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses404Example'
+        "409":
+          description: Conflict
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses409Example'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses500Example'
+      security:
+      - ApiKeyAuth: []
+      summary: Get Update Kategori Pekerjaan
+      tags:
+      - Kategori Pekerjaan
+  /api/v1/keahlian/create:
+    post:
+      consumes:
+      - application/json
+      description: Create Keahlian
+      parameters:
+      - description: Create Keahlian
+        in: body
+        name: Keahlian
+        required: true
+        schema:
+          $ref: '#/definitions/schemes.SchemeKeahlianRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses'
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses201Example'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses400Example'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses401Example'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses403Example'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses404Example'
+        "409":
+          description: Conflict
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses409Example'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses500Example'
+      security:
+      - ApiKeyAuth: []
+      summary: Create Keahlian
+      tags:
+      - Keahlian
+  /api/v1/keahlian/delete/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Get Delete Keahlian
+      parameters:
+      - description: Delete Keahlian
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses400Example'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses401Example'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses403Example'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses404Example'
+        "409":
+          description: Conflict
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses409Example'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses500Example'
+      security:
+      - ApiKeyAuth: []
+      summary: Get Delete Keahlian
+      tags:
+      - Keahlian
+  /api/v1/keahlian/result/{id}:
+    get:
+      consumes:
+      - application/json
+      description: Get By ID Keahlian
+      parameters:
+      - description: Get By ID Keahlian
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses400Example'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses401Example'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses403Example'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses404Example'
+        "409":
+          description: Conflict
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses409Example'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses500Example'
+      security:
+      - ApiKeyAuth: []
+      summary: Get By ID Keahlian
+      tags:
+      - Keahlian
+  /api/v1/keahlian/results:
+    get:
+      consumes:
+      - application/json
+      description: Get List Keahlian
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses400Example'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses401Example'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses403Example'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses404Example'
+        "409":
+          description: Conflict
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses409Example'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses500Example'
+      security:
+      - ApiKeyAuth: []
+      summary: Get List Keahlian
+      tags:
+      - Keahlian
+  /api/v1/keahlian/update/{id}:
+    put:
+      consumes:
+      - application/json
+      description: Get Update Keahlian
+      parameters:
+      - description: Update Keahlian
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Update Keahlian
+        in: body
+        name: Keahlian
+        required: true
+        schema:
+          $ref: '#/definitions/schemes.SchemeKeahlianRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses400Example'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses401Example'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses403Example'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses404Example'
+        "409":
+          description: Conflict
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses409Example'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses500Example'
+      security:
+      - ApiKeyAuth: []
+      summary: Get Update Keahlian
+      tags:
+      - Keahlian
+  /api/v1/level-pekerjaan/create:
+    post:
+      consumes:
+      - application/json
+      description: Create Level Pekerjaan
+      parameters:
+      - description: Create Level Pekerjaan
+        in: body
+        name: LevelPekerjaan
+        required: true
+        schema:
+          $ref: '#/definitions/schemes.SchemeLevelPekerjaanRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses'
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses201Example'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses400Example'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses401Example'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses403Example'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses404Example'
+        "409":
+          description: Conflict
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses409Example'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses500Example'
+      security:
+      - ApiKeyAuth: []
+      summary: Create Level Pekerjaan
+      tags:
+      - Level Pekerjaan
+  /api/v1/level-pekerjaan/delete/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Get Delete Level Pekerjaan
+      parameters:
+      - description: Delete Level Pekerjaan
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses400Example'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses401Example'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses403Example'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses404Example'
+        "409":
+          description: Conflict
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses409Example'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses500Example'
+      security:
+      - ApiKeyAuth: []
+      summary: Get Delete Level Pekerjaan
+      tags:
+      - Level Pekerjaan
+  /api/v1/level-pekerjaan/result/{id}:
+    get:
+      consumes:
+      - application/json
+      description: Get By ID Level Pekerjaan
+      parameters:
+      - description: Get By ID Level Pekerjaan
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses400Example'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses401Example'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses403Example'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses404Example'
+        "409":
+          description: Conflict
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses409Example'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses500Example'
+      security:
+      - ApiKeyAuth: []
+      summary: Get By ID Level Pekerjaan
+      tags:
+      - Level Pekerjaan
+  /api/v1/level-pekerjaan/results:
+    get:
+      consumes:
+      - application/json
+      description: Get List Level Pekerjaan
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses400Example'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses401Example'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses403Example'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses404Example'
+        "409":
+          description: Conflict
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses409Example'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses500Example'
+      security:
+      - ApiKeyAuth: []
+      summary: Get List Level Pekerjaan
+      tags:
+      - Level Pekerjaan
+  /api/v1/level-pekerjaan/update/{id}:
+    put:
+      consumes:
+      - application/json
+      description: Get Update Level Pekerjaan
+      parameters:
+      - description: Update Level Pekerjaan
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Update Level Pekerjaan
+        in: body
+        name: LevelPekerjaan
+        required: true
+        schema:
+          $ref: '#/definitions/schemes.SchemeLevelPekerjaanRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses400Example'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses401Example'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses403Example'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses404Example'
+        "409":
+          description: Conflict
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses409Example'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses500Example'
+      security:
+      - ApiKeyAuth: []
+      summary: Get Update Level Pekerjaan
+      tags:
+      - Level Pekerjaan
+  /api/v1/pendidikan/create:
+    post:
+      consumes:
+      - application/json
+      description: Create Pendidikan
+      parameters:
+      - description: Create Pendidikan
+        in: body
+        name: Pendidikan
+        required: true
+        schema:
+          $ref: '#/definitions/schemes.SchemePendidikanRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses'
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses201Example'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses400Example'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses401Example'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses403Example'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses404Example'
+        "409":
+          description: Conflict
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses409Example'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses500Example'
+      security:
+      - ApiKeyAuth: []
+      summary: Create Pendidikan
+      tags:
+      - Pendidikan
+  /api/v1/pendidikan/delete/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Get Delete Pendidikan
+      parameters:
+      - description: Delete Pendidikan
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses400Example'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses401Example'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses403Example'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses404Example'
+        "409":
+          description: Conflict
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses409Example'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses500Example'
+      security:
+      - ApiKeyAuth: []
+      summary: Get Delete Pendidikan
+      tags:
+      - Pendidikan
+  /api/v1/pendidikan/result/{id}:
+    get:
+      consumes:
+      - application/json
+      description: Get By ID Pendidikan
+      parameters:
+      - description: Get By ID Pendidikan
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses400Example'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses401Example'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses403Example'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses404Example'
+        "409":
+          description: Conflict
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses409Example'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses500Example'
+      security:
+      - ApiKeyAuth: []
+      summary: Get By ID Pendidikan
+      tags:
+      - Pendidikan
+  /api/v1/pendidikan/results:
+    get:
+      consumes:
+      - application/json
+      description: Get List Pendidikan
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses400Example'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses401Example'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses403Example'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses404Example'
+        "409":
+          description: Conflict
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses409Example'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses500Example'
+      security:
+      - ApiKeyAuth: []
+      summary: Get List Pendidikan
+      tags:
+      - Pendidikan
+  /api/v1/pendidikan/update/{id}:
+    put:
+      consumes:
+      - application/json
+      description: Get Update Pendidikan
+      parameters:
+      - description: Update Pendidikan
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Update Pendidikan
+        in: body
+        name: Pendidikan
+        required: true
+        schema:
+          $ref: '#/definitions/schemes.SchemePendidikanRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses400Example'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses401Example'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses403Example'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses404Example'
+        "409":
+          description: Conflict
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses409Example'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses500Example'
+      security:
+      - ApiKeyAuth: []
+      summary: Get Update Pendidikan
+      tags:
+      - Pendidikan
+  /api/v1/tahun-pengalaman/create:
+    post:
+      consumes:
+      - application/json
+      description: Create Tahun Pengalaman
+      parameters:
+      - description: Create Tahun Pengalaman
+        in: body
+        name: TahunPengalaman
+        required: true
+        schema:
+          $ref: '#/definitions/schemes.SchemeTahunPengalamanRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses'
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses201Example'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses400Example'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses401Example'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses403Example'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses404Example'
+        "409":
+          description: Conflict
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses409Example'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses500Example'
+      security:
+      - ApiKeyAuth: []
+      summary: Create Tahun Pengalaman
+      tags:
+      - Tahun Pengalaman
+  /api/v1/tahun-pengalaman/delete/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Get Delete Tahun Pengalaman
+      parameters:
+      - description: Delete Tahun Pengalaman
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses400Example'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses401Example'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses403Example'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses404Example'
+        "409":
+          description: Conflict
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses409Example'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses500Example'
+      security:
+      - ApiKeyAuth: []
+      summary: Get Delete Tahun Pengalaman
+      tags:
+      - Tahun Pengalaman
+  /api/v1/tahun-pengalaman/result/{id}:
+    get:
+      consumes:
+      - application/json
+      description: Get By ID Tahun Pengalaman
+      parameters:
+      - description: Get By ID Tahun Pengalaman
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses400Example'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses401Example'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses403Example'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses404Example'
+        "409":
+          description: Conflict
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses409Example'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses500Example'
+      security:
+      - ApiKeyAuth: []
+      summary: Get By ID Tahun Pengalaman
+      tags:
+      - Tahun Pengalaman
+  /api/v1/tahun-pengalaman/results:
+    get:
+      consumes:
+      - application/json
+      description: Get List Tahun Pengalaman
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses400Example'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses401Example'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses403Example'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses404Example'
+        "409":
+          description: Conflict
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses409Example'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses500Example'
+      security:
+      - ApiKeyAuth: []
+      summary: Get List Tahun Pengalaman
+      tags:
+      - Tahun Pengalaman
+  /api/v1/tahun-pengalaman/update/{id}:
+    put:
+      consumes:
+      - application/json
+      description: Get Update Tahun Pengalaman
+      parameters:
+      - description: Update Tahun Pengalaman
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Update Tahun Pengalaman
+        in: body
+        name: TahunPengalaman
+        required: true
+        schema:
+          $ref: '#/definitions/schemes.SchemeTahunPengalamanRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses400Example'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses401Example'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses403Example'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses404Example'
+        "409":
+          description: Conflict
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses409Example'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses500Example'
+      security:
+      - ApiKeyAuth: []
+      summary: Get Update Tahun Pengalaman
+      tags:
+      - Tahun Pengalaman
+  /api/v1/tipe-pekerjaan/create:
+    post:
+      consumes:
+      - application/json
+      description: Create Tipe Pekerjaan
+      parameters:
+      - description: Create Tipe Pekerjaan
+        in: body
+        name: TipePekerjaan
+        required: true
+        schema:
+          $ref: '#/definitions/schemes.SchemeTipePekerjaanRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses'
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses201Example'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses400Example'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses401Example'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses403Example'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses404Example'
+        "409":
+          description: Conflict
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses409Example'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses500Example'
+      security:
+      - ApiKeyAuth: []
+      summary: Create Tipe Pekerjaan
+      tags:
+      - Tipe Pekerjaan
+  /api/v1/tipe-pekerjaan/delete/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Get Delete Tipe Pekerjaan
+      parameters:
+      - description: Delete Tipe Pekerjaan
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses400Example'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses401Example'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses403Example'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses404Example'
+        "409":
+          description: Conflict
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses409Example'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses500Example'
+      security:
+      - ApiKeyAuth: []
+      summary: Get Delete Tipe Pekerjaan
+      tags:
+      - Tipe Pekerjaan
+  /api/v1/tipe-pekerjaan/result/{id}:
+    get:
+      consumes:
+      - application/json
+      description: Get By ID Tipe Pekerjaan
+      parameters:
+      - description: Get By ID Tipe Pekerjaan
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses400Example'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses401Example'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses403Example'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses404Example'
+        "409":
+          description: Conflict
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses409Example'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses500Example'
+      security:
+      - ApiKeyAuth: []
+      summary: Get By ID Tipe Pekerjaan
+      tags:
+      - Tipe Pekerjaan
+  /api/v1/tipe-pekerjaan/results:
+    get:
+      consumes:
+      - application/json
+      description: Get List Tipe Pekerjaan
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses400Example'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses401Example'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses403Example'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses404Example'
+        "409":
+          description: Conflict
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses409Example'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses500Example'
+      security:
+      - ApiKeyAuth: []
+      summary: Get List Tipe Pekerjaan
+      tags:
+      - Tipe Pekerjaan
+  /api/v1/tipe-pekerjaan/update/{id}:
+    put:
+      consumes:
+      - application/json
+      description: Get Update Tipe Pekerjaan
+      parameters:
+      - description: Update Tipe Pekerjaan
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Update Tipe Pekerjaan
+        in: body
+        name: TipePekerjaan
+        required: true
+        schema:
+          $ref: '#/definitions/schemes.SchemeTipePekerjaanRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses400Example'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses401Example'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses403Example'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses404Example'
+        "409":
+          description: Conflict
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses409Example'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses500Example'
+      security:
+      - ApiKeyAuth: []
+      summary: Get Update Tipe Pekerjaan
+      tags:
+      - Tipe Pekerjaan
+schemes:
+- http
+- https
+securityDefinitions:
+  ApiKeyAuth:
+    description: 'User JWT Bearer - Format Input Value : Bearer[ space ][ JWTToken
+      ]'
+    in: header
+    name: Authorization
+    type: apiKey
+  BasicAuth:
+    type: basic
+swagger: "2.0"

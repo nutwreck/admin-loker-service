@@ -2,6 +2,7 @@ package handlers
 
 import (
 	"net/http"
+	"strings"
 	"time"
 
 	"github.com/gin-gonic/gin"
@@ -23,7 +24,7 @@ func NewHandlerUser(user entities.EntityUser) *handlerUser {
 
 /**
 * ==================================
-* Handler Ping User Status Teritory
+* Handler Ping User Status
 *==================================
  */
 
@@ -33,10 +34,24 @@ func (h *handlerUser) HandlerPing(ctx *gin.Context) {
 
 /**
 * ======================================
-* Handler Register New Account Teritory
+* Handler Register New Account
 *======================================-
  */
 
+// RegisterUser godoc
+// @Summary		Register User
+// @Description	add by json user
+// @Tags		User
+// @Accept		json
+// @Produce		json
+// @Param		user body schemes.SchemeAddUser true "Add User"
+// @Success 200 {object} schemes.SchemeResponses
+// @Failure 400 {object} schemes.SchemeResponses400Example
+// @Failure 403 {object} schemes.SchemeResponses403Example
+// @Failure 404 {object} schemes.SchemeResponses404Example
+// @Failure 409 {object} schemes.SchemeResponses409Example
+// @Failure 500 {object} schemes.SchemeResponses500Example
+// @Router /api/v1/auth/register [post]
 func (h *handlerUser) HandlerRegister(ctx *gin.Context) {
 	var body schemes.SchemeUser
 	err := ctx.ShouldBindJSON(&body)
@@ -70,10 +85,24 @@ func (h *handlerUser) HandlerRegister(ctx *gin.Context) {
 
 /**
 * =================================
-* Handler Login Auth Account Teritory
+* Handler Login Auth Account
 *==================================
  */
 
+// LoginUser godoc
+// @Summary		Login User
+// @Description	login user
+// @Tags		User
+// @Accept		json
+// @Produce		json
+// @Param		user body schemes.SchemeLoginUser true "Login User"
+// @Success 200 {object} schemes.SchemeResponses
+// @Failure 400 {object} schemes.SchemeResponses400Example
+// @Failure 403 {object} schemes.SchemeResponses403Example
+// @Failure 404 {object} schemes.SchemeResponses404Example
+// @Failure 409 {object} schemes.SchemeResponses409Example
+// @Failure 500 {object} schemes.SchemeResponses500Example
+// @Router /api/v1/auth/login [post]
 func (h *handlerUser) HandlerLogin(ctx *gin.Context) {
 	var body schemes.SchemeUser
 	err := ctx.ShouldBindJSON(&body)
@@ -118,9 +147,25 @@ func (h *handlerUser) HandlerLogin(ctx *gin.Context) {
 	helpers.APIResponse(ctx, "Login successfully", http.StatusOK, gin.H{"accessToken": accessToken, "expiredAt": expiredAt})
 }
 
+func (h *handlerUser) HandlerRefreshToken(ctx *gin.Context) {
+	bearer := ctx.GetHeader("Authorization")
+	token := strings.Split(bearer, " ")
+	existingToken := strings.TrimSpace(token[1])
+	secretKey := pkg.GodotEnv("JWT_SECRET_KEY")
+
+	refreshedToken, err := pkg.RefreshToken(existingToken, secretKey)
+	if err != nil {
+		helpers.APIResponse(ctx, "Error refreshing token", 500, nil)
+		return
+	}
+	expiredAt := time.Now().Add(time.Duration(time.Minute) * (24 * 60) * 1).Local()
+
+	helpers.APIResponse(ctx, "Refresh Token successfully", http.StatusOK, gin.H{"accessToken": refreshedToken, "expiredAt": expiredAt})
+}
+
 /**
 * ======================================
-*  All Validator User Input For Merchant
+*  All Validator User Input For User
 *=======================================
  */
 
@@ -130,52 +175,52 @@ func ValidatorUser(ctx *gin.Context, input schemes.SchemeUser, Type string) (int
 	if Type == "register" {
 		schema = gpc.ErrorConfig{
 			Options: []gpc.ErrorMetaConfig{
-				gpc.ErrorMetaConfig{
+				{
 					Tag:     "required",
 					Field:   "FirstName",
 					Message: "FirstName is required on body",
 				},
-				gpc.ErrorMetaConfig{
+				{
 					Tag:     "lowercase",
 					Field:   "FirstName",
 					Message: "FirstName must be lowercase",
 				},
-				gpc.ErrorMetaConfig{
+				{
 					Tag:     "required",
 					Field:   "LastName",
 					Message: "LastName is required on body",
 				},
-				gpc.ErrorMetaConfig{
+				{
 					Tag:     "lowercase",
 					Field:   "LastName",
 					Message: "LastName must be lowercase",
 				},
-				gpc.ErrorMetaConfig{
+				{
 					Tag:     "required",
 					Field:   "Email",
 					Message: "Email is required on body",
 				},
-				gpc.ErrorMetaConfig{
+				{
 					Tag:     "email",
 					Field:   "Email",
 					Message: "Email format is not valid",
 				},
-				gpc.ErrorMetaConfig{
+				{
 					Tag:     "password",
 					Field:   "Password",
 					Message: "Password is required on body",
 				},
-				gpc.ErrorMetaConfig{
+				{
 					Tag:     "gte",
 					Field:   "Password",
 					Message: "Password must be greater than equal 8 character",
 				},
-				gpc.ErrorMetaConfig{
+				{
 					Tag:     "required",
 					Field:   "Role",
 					Message: "Role is required on body",
 				},
-				gpc.ErrorMetaConfig{
+				{
 					Tag:     "lowercase",
 					Field:   "Role",
 					Message: "Role must be lowercase",
@@ -187,17 +232,17 @@ func ValidatorUser(ctx *gin.Context, input schemes.SchemeUser, Type string) (int
 	if Type == "login" {
 		schema = gpc.ErrorConfig{
 			Options: []gpc.ErrorMetaConfig{
-				gpc.ErrorMetaConfig{
+				{
 					Tag:     "required",
 					Field:   "Email",
 					Message: "Email is required on body",
 				},
-				gpc.ErrorMetaConfig{
+				{
 					Tag:     "email",
 					Field:   "Email",
 					Message: "Email format is not valid",
 				},
-				gpc.ErrorMetaConfig{
+				{
 					Tag:     "required",
 					Field:   "Password",
 					Message: "Password is required on body",

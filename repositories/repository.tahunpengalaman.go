@@ -1,0 +1,189 @@
+package repositories
+
+import (
+	"net/http"
+
+	"github.com/nutwreck/admin-loker-service/models"
+	"github.com/nutwreck/admin-loker-service/schemes"
+	"gorm.io/gorm"
+)
+
+type repositoryTahunPengalaman struct {
+	db *gorm.DB
+}
+
+func NewRepositoryTahunPengalaman(db *gorm.DB) *repositoryTahunPengalaman {
+	return &repositoryTahunPengalaman{db: db}
+}
+
+/**
+* ===============================================
+* Repository Create New Tahun Pengalaman Teritory
+*================================================
+ */
+
+func (r *repositoryTahunPengalaman) EntityCreate(input *schemes.SchemeTahunPengalaman) (*models.ModelTahunPengalaman, schemes.SchemeDatabaseError) {
+	var tahunPengalaman models.ModelTahunPengalaman
+	tahunPengalaman.Name = input.Name
+
+	err := make(chan schemes.SchemeDatabaseError, 1)
+
+	db := r.db.Model(&tahunPengalaman)
+
+	checkTahunPengalamanName := db.Debug().First(&tahunPengalaman, "name = ?", tahunPengalaman.Name)
+
+	if checkTahunPengalamanName.RowsAffected > 0 {
+		err <- schemes.SchemeDatabaseError{
+			Code: http.StatusConflict,
+			Type: "error_create_01",
+		}
+		return &tahunPengalaman, <-err
+	}
+
+	addTahunPengalaman := db.Debug().Create(&tahunPengalaman).Commit()
+
+	if addTahunPengalaman.RowsAffected < 1 {
+		err <- schemes.SchemeDatabaseError{
+			Code: http.StatusForbidden,
+			Type: "error_create_02",
+		}
+		return &tahunPengalaman, <-err
+	}
+
+	err <- schemes.SchemeDatabaseError{}
+	return &tahunPengalaman, <-err
+}
+
+/**
+* ================================================
+* Repository Results All Tahun Pengalaman Teritory
+*=================================================
+ */
+
+func (r *repositoryTahunPengalaman) EntityResults() (*[]models.ModelTahunPengalaman, schemes.SchemeDatabaseError) {
+	var tahunPengalaman []models.ModelTahunPengalaman
+
+	err := make(chan schemes.SchemeDatabaseError, 1)
+
+	db := r.db.Model(&tahunPengalaman)
+
+	checkTahunPengalaman := db.Debug().Order("created_at DESC").Find(&tahunPengalaman)
+
+	if checkTahunPengalaman.RowsAffected < 1 {
+		err <- schemes.SchemeDatabaseError{
+			Code: http.StatusNotFound,
+			Type: "error_results_01",
+		}
+		return &tahunPengalaman, <-err
+	}
+
+	err <- schemes.SchemeDatabaseError{}
+	return &tahunPengalaman, <-err
+}
+
+/**
+* =================================================
+* Repository Result Tahun Pengalaman By ID Teritory
+*==================================================
+ */
+
+func (r *repositoryTahunPengalaman) EntityResult(input *schemes.SchemeTahunPengalaman) (*models.ModelTahunPengalaman, schemes.SchemeDatabaseError) {
+	var tahunPengalaman models.ModelTahunPengalaman
+	tahunPengalaman.ID = input.ID
+
+	err := make(chan schemes.SchemeDatabaseError, 1)
+
+	db := r.db.Model(&tahunPengalaman)
+
+	checkTahunPengalamanId := db.Debug().First(&tahunPengalaman)
+
+	if checkTahunPengalamanId.RowsAffected < 1 {
+		err <- schemes.SchemeDatabaseError{
+			Code: http.StatusNotFound,
+			Type: "error_result_01",
+		}
+		return &tahunPengalaman, <-err
+	}
+
+	err <- schemes.SchemeDatabaseError{}
+	return &tahunPengalaman, <-err
+}
+
+/**
+* =================================================
+* Repository Delete Tahun Pengalaman By ID Teritory
+*==================================================
+ */
+
+func (r *repositoryTahunPengalaman) EntityDelete(input *schemes.SchemeTahunPengalaman) (*models.ModelTahunPengalaman, schemes.SchemeDatabaseError) {
+	var tahunPengalaman models.ModelTahunPengalaman
+	tahunPengalaman.ID = input.ID
+
+	err := make(chan schemes.SchemeDatabaseError, 1)
+
+	db := r.db.Model(&tahunPengalaman)
+
+	checkTahunPengalamanId := db.Debug().First(&tahunPengalaman)
+
+	if checkTahunPengalamanId.RowsAffected < 1 {
+		err <- schemes.SchemeDatabaseError{
+			Code: http.StatusNotFound,
+			Type: "error_delete_01",
+		}
+		return &tahunPengalaman, <-err
+	}
+
+	deleteTahunPengalaman := db.Debug().Delete(&tahunPengalaman)
+
+	if deleteTahunPengalaman.RowsAffected < 1 {
+		err <- schemes.SchemeDatabaseError{
+			Code: http.StatusForbidden,
+			Type: "error_delete_02",
+		}
+		return &tahunPengalaman, <-err
+	}
+
+	err <- schemes.SchemeDatabaseError{}
+	return &tahunPengalaman, <-err
+}
+
+/**
+* =================================================
+* Repository Update Tahun Pengalaman By ID Teritory
+*==================================================
+ */
+
+func (r *repositoryTahunPengalaman) EntityUpdate(input *schemes.SchemeTahunPengalaman) (*models.ModelTahunPengalaman, schemes.SchemeDatabaseError) {
+	var tahunPengalaman models.ModelTahunPengalaman
+	tahunPengalaman.ID = input.ID
+
+	err := make(chan schemes.SchemeDatabaseError, 1)
+
+	db := r.db.Model(&tahunPengalaman)
+
+	checkTahunPengalamanId := db.Debug().First(&tahunPengalaman)
+
+	if checkTahunPengalamanId.RowsAffected < 1 {
+		err <- schemes.SchemeDatabaseError{
+			Code: http.StatusNotFound,
+			Type: "error_update_01",
+		}
+		return &tahunPengalaman, <-err
+	}
+
+	tahunPengalaman.Name = input.Name
+	tahunPengalaman.Active = input.Active
+
+	updateTahunPengalaman := db.Debug().Updates(&tahunPengalaman)
+
+	if updateTahunPengalaman.RowsAffected < 1 {
+		err <- schemes.SchemeDatabaseError{
+			Code: http.StatusForbidden,
+			Type: "error_update_02",
+		}
+		return &tahunPengalaman, <-err
+	}
+
+	err <- schemes.SchemeDatabaseError{}
+	return &tahunPengalaman, <-err
+}

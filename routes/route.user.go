@@ -19,4 +19,5 @@ func NewRouteUser(db *gorm.DB, router *gin.Engine) {
 	route.GET("/ping", handlerUser.HandlerPing)
 	route.POST("/register", handlerUser.HandlerRegister)
 	route.POST("/login", handlerUser.HandlerLogin)
+	route.POST("/refresh-token", handlerUser.HandlerRefreshToken)
 }
