@@ -217,7 +217,7 @@ definitions:
     required:
     - name
     type: object
-host: localhost:7778
+host: 103.175.221.43:7778
 info:
   contact: {}
   description: Dokumentasi untuk Service API Admin Loker

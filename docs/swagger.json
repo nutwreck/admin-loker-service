@@ -10,7 +10,7 @@
         "contact": {},
         "version": "1.0"
     },
-    "host": "localhost:7778",
+    "host": "103.175.221.43:7778",
     "paths": {
         "/api/v1/auth/login": {
             "post": {

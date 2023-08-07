@@ -3073,7 +3073,7 @@ const docTemplate = `{
 // SwaggerInfo holds exported Swagger Info so clients can modify it
 var SwaggerInfo = &swag.Spec{
 	Version:          "1.0",
-	Host:             "localhost:7778",
+	Host:             "103.175.221.43:7778",
 	BasePath:         "",
 	Schemes:          []string{"http", "https"},
 	Title:            "Admin Loker API",
