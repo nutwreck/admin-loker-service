@@ -12,8 +12,8 @@ services:
       - 3000:3000
     networks:
       - digylabs-admin-loker-service
-    depends_on:
-      - db
+    # depends_on:
+    #   - db
   ### ===================
   ### DB SERVICE
   ### ===================
