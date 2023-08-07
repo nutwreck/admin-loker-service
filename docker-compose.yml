@@ -4,6 +4,7 @@ services:
   ### APP SERVICE
   ### ===================
   app:
+    container_name: admin-loker-service-go
     build: .
     env_file:
       - .env
@@ -30,8 +31,8 @@ services:
   ### ========================
   ### VOLUMES PERSISTENT DATA
   ### ========================
-volumes:
-  pg-data:
+# volumes:
+#   pg-data:
   ### ===================================
   ### NETWORKS GROUP FOR ONE SAME SERVICE
   ### ===================================
