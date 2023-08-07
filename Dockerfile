@@ -22,5 +22,5 @@ RUN apt-get update \
   make
 COPY --from=builder . ./app
 RUN make gobuild
-EXPOSE 3000
+EXPOSE 7778
 CMD ["./main"]
