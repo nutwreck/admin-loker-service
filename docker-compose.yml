@@ -10,23 +10,23 @@ services:
     ports:
       - 3000:3000
     networks:
-      - pos_network
+      - digylabs-admin-loker-service
     depends_on:
       - db
   ### ===================
   ### DB SERVICE
   ### ===================
-  database:
-    image: postgres:latest
-    restart: always
-    env_file:
-      - .env
-    ports:
-      - 5435:5432
-    volumes:
-      - pg-data:/var/lib/postgresql/data
-    networks:
-      - pos_network
+  # database:
+  #   image: postgres:latest
+  #   restart: always
+  #   env_file:
+  #     - .env
+  #   ports:
+  #     - 5435:5432
+  #   volumes:
+  #     - pg-data:/var/lib/postgresql/data
+  #   networks:
+  #     - digylabs-admin-loker-service
   ### ========================
   ### VOLUMES PERSISTENT DATA
   ### ========================
@@ -36,4 +36,4 @@ volumes:
   ### NETWORKS GROUP FOR ONE SAME SERVICE
   ### ===================================
 networks:
-  pos_network:
+  digylabs-admin-loker-service:
