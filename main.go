@@ -22,8 +22,6 @@ import (
 //	@version		1.0
 //	@description	Dokumentasi untuk Service API Admin Loker
 
-//	@host		103.175.221.43:7778
-
 //  @Schemes http https
 
 //	@securityDefinitions.basic	BasicAuth
