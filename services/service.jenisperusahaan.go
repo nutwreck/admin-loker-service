@@ -34,9 +34,14 @@ func (s *serviceJenisPerusahaan) EntityCreate(input *schemes.SchemeJenisPerusaha
 *==============================================
  */
 
-func (s *serviceJenisPerusahaan) EntityResults() (*[]models.ModelJenisPerusahaan, schemes.SchemeDatabaseError) {
-	res, err := s.jenisPerusahaan.EntityResults()
-	return res, err
+func (s *serviceJenisPerusahaan) EntityResults(input *schemes.SchemeJenisPerusahaan) (*[]models.ModelJenisPerusahaan, int64, schemes.SchemeDatabaseError) {
+	var jenisPerusahaan schemes.SchemeJenisPerusahaan
+	jenisPerusahaan.Page = input.Page
+	jenisPerusahaan.PerPage = input.PerPage
+	jenisPerusahaan.Name = input.Name
+
+	res, totalData, err := s.jenisPerusahaan.EntityResults(&jenisPerusahaan)
+	return res, totalData, err
 }
 
 /**

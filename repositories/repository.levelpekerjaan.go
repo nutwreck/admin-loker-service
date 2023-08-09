@@ -60,25 +60,37 @@ func (r *repositoryLevelPekerjaan) EntityCreate(input *schemes.SchemeLevelPekerj
 *================================================
  */
 
-func (r *repositoryLevelPekerjaan) EntityResults() (*[]models.ModelLevelPekerjaan, schemes.SchemeDatabaseError) {
-	var levelPekerjaan []models.ModelLevelPekerjaan
+func (r *repositoryLevelPekerjaan) EntityResults(input *schemes.SchemeLevelPekerjaan) (*[]models.ModelLevelPekerjaan, int64, schemes.SchemeDatabaseError) {
+	var (
+		levelPekerjaan []models.ModelLevelPekerjaan
+		totalData      int64
+	)
 
 	err := make(chan schemes.SchemeDatabaseError, 1)
 
 	db := r.db.Model(&levelPekerjaan)
 
-	checkLevelPekerjaan := db.Debug().Order("created_at DESC").Find(&levelPekerjaan)
+	if input.Name != "" {
+		db = db.Where("name LIKE ?", "%"+input.Name+"%")
+	}
+
+	offset := int((input.Page - 1) * input.PerPage)
+
+	checkLevelPekerjaan := db.Debug().Order("created_at DESC").Offset(offset).Limit(int(input.PerPage)).Find(&levelPekerjaan)
 
 	if checkLevelPekerjaan.RowsAffected < 1 {
 		err <- schemes.SchemeDatabaseError{
 			Code: http.StatusNotFound,
 			Type: "error_results_01",
 		}
-		return &levelPekerjaan, <-err
+		return &levelPekerjaan, totalData, <-err
 	}
 
+	// Menghitung total data yang diambil
+	db.Model(&models.ModelLevelPekerjaan{}).Count(&totalData)
+
 	err <- schemes.SchemeDatabaseError{}
-	return &levelPekerjaan, <-err
+	return &levelPekerjaan, totalData, <-err
 }
 
 /**

@@ -6,6 +6,16 @@ type SchemeResponses struct {
 	Data       interface{} `json:"data"`
 }
 
+type SchemeResponsesPagination struct {
+	StatusCode int         `json:"code" example:"200"`
+	Message    string      `json:"message" example:"status OK"`
+	Page       int         `json:"page" example:"1"`
+	PerPage    int         `json:"per_page" example:"10"`
+	TotalPage  int         `json:"total_page" example:"5"`
+	TotalData  int         `json:"total_data" example:"50"`
+	Data       interface{} `json:"data"`
+}
+
 type SchemeResponses201Example struct {
 	StatusCode int         `json:"code" example:"201"`
 	Message    string      `json:"message" example:"Create Successfully"`

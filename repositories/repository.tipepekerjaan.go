@@ -60,25 +60,37 @@ func (r *repositoryTipePekerjaan) EntityCreate(input *schemes.SchemeTipePekerjaa
 *================================================
  */
 
-func (r *repositoryTipePekerjaan) EntityResults() (*[]models.ModelTipePekerjaan, schemes.SchemeDatabaseError) {
-	var tipePekerjaan []models.ModelTipePekerjaan
+func (r *repositoryTipePekerjaan) EntityResults(input *schemes.SchemeTipePekerjaan) (*[]models.ModelTipePekerjaan, int64, schemes.SchemeDatabaseError) {
+	var (
+		tipePekerjaan []models.ModelTipePekerjaan
+		totalData     int64
+	)
 
 	err := make(chan schemes.SchemeDatabaseError, 1)
 
 	db := r.db.Model(&tipePekerjaan)
 
-	checkTipePekerjaan := db.Debug().Order("created_at DESC").Find(&tipePekerjaan)
+	if input.Name != "" {
+		db = db.Where("name LIKE ?", "%"+input.Name+"%")
+	}
+
+	offset := int((input.Page - 1) * input.PerPage)
+
+	checkTipePekerjaan := db.Debug().Order("created_at DESC").Offset(offset).Limit(int(input.PerPage)).Find(&tipePekerjaan)
 
 	if checkTipePekerjaan.RowsAffected < 1 {
 		err <- schemes.SchemeDatabaseError{
 			Code: http.StatusNotFound,
 			Type: "error_results_01",
 		}
-		return &tipePekerjaan, <-err
+		return &tipePekerjaan, totalData, <-err
 	}
 
+	// Menghitung total data yang diambil
+	db.Model(&models.ModelTipePekerjaan{}).Count(&totalData)
+
 	err <- schemes.SchemeDatabaseError{}
-	return &tipePekerjaan, <-err
+	return &tipePekerjaan, totalData, <-err
 }
 
 /**

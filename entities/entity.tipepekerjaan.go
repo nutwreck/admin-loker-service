@@ -8,7 +8,7 @@ import (
 type EntityTipePekerjaan interface {
 	EntityCreate(input *schemes.SchemeTipePekerjaan) (*models.ModelTipePekerjaan, schemes.SchemeDatabaseError)
 	EntityResult(input *schemes.SchemeTipePekerjaan) (*models.ModelTipePekerjaan, schemes.SchemeDatabaseError)
-	EntityResults() (*[]models.ModelTipePekerjaan, schemes.SchemeDatabaseError)
+	EntityResults(input *schemes.SchemeTipePekerjaan) (*[]models.ModelTipePekerjaan, int64, schemes.SchemeDatabaseError)
 	EntityDelete(input *schemes.SchemeTipePekerjaan) (*models.ModelTipePekerjaan, schemes.SchemeDatabaseError)
 	EntityUpdate(input *schemes.SchemeTipePekerjaan) (*models.ModelTipePekerjaan, schemes.SchemeDatabaseError)
 }

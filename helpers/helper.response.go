@@ -23,6 +23,24 @@ func APIResponse(ctx *gin.Context, Message string, StatusCode int, Data interfac
 	}
 }
 
+func APIResponsePagination(ctx *gin.Context, Message string, StatusCode int, Data interface{}, Page int, PerPage int, TotalPage int, TotalData int) {
+	jsonResponse := schemes.SchemeResponsesPagination{
+		StatusCode: StatusCode,
+		Message:    Message,
+		Page:       Page,
+		PerPage:    PerPage,
+		TotalPage:  TotalPage,
+		TotalData:  TotalData,
+		Data:       Data,
+	}
+
+	if StatusCode >= 400 {
+		ctx.AbortWithStatusJSON(StatusCode, jsonResponse)
+	} else {
+		ctx.JSON(StatusCode, jsonResponse)
+	}
+}
+
 func ErrorResponse(ctx *gin.Context, Error interface{}) {
 	err := schemes.SchemeErrorResponse{
 		StatusCode: http.StatusBadRequest,

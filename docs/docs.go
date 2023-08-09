@@ -389,11 +389,31 @@ const docTemplate = `{
                     "Jenis Perusahaan"
                 ],
                 "summary": "Get List Jenis Perusahaan",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Page number for pagination, default is 1",
+                        "name": "page",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "Items per page for pagination, default is 10",
+                        "name": "perpage",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Search by name using LIKE pattern",
+                        "name": "name",
+                        "in": "query"
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/schemes.SchemeResponses"
+                            "$ref": "#/definitions/schemes.SchemeResponsesPagination"
                         }
                     },
                     "400": {
@@ -762,11 +782,31 @@ const docTemplate = `{
                     "Kategori Pekerjaan"
                 ],
                 "summary": "Get List Kategori Pekerjaan",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Page number for pagination, default is 1",
+                        "name": "page",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "Items per page for pagination, default is 10",
+                        "name": "perpage",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Search by name using LIKE pattern",
+                        "name": "name",
+                        "in": "query"
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/schemes.SchemeResponses"
+                            "$ref": "#/definitions/schemes.SchemeResponsesPagination"
                         }
                     },
                     "400": {
@@ -1135,11 +1175,31 @@ const docTemplate = `{
                     "Keahlian"
                 ],
                 "summary": "Get List Keahlian",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Page number for pagination, default is 1",
+                        "name": "page",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "Items per page for pagination, default is 10",
+                        "name": "perpage",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Search by name using LIKE pattern",
+                        "name": "name",
+                        "in": "query"
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/schemes.SchemeResponses"
+                            "$ref": "#/definitions/schemes.SchemeResponsesPagination"
                         }
                     },
                     "400": {
@@ -1508,11 +1568,31 @@ const docTemplate = `{
                     "Level Pekerjaan"
                 ],
                 "summary": "Get List Level Pekerjaan",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Page number for pagination, default is 1",
+                        "name": "page",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "Items per page for pagination, default is 10",
+                        "name": "perpage",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Search by name using LIKE pattern",
+                        "name": "name",
+                        "in": "query"
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/schemes.SchemeResponses"
+                            "$ref": "#/definitions/schemes.SchemeResponsesPagination"
                         }
                     },
                     "400": {
@@ -1881,11 +1961,31 @@ const docTemplate = `{
                     "Pendidikan"
                 ],
                 "summary": "Get List Pendidikan",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Page number for pagination, default is 1",
+                        "name": "page",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "Items per page for pagination, default is 10",
+                        "name": "perpage",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Search by name using LIKE pattern",
+                        "name": "name",
+                        "in": "query"
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/schemes.SchemeResponses"
+                            "$ref": "#/definitions/schemes.SchemeResponsesPagination"
                         }
                     },
                     "400": {
@@ -2254,11 +2354,31 @@ const docTemplate = `{
                     "Tahun Pengalaman"
                 ],
                 "summary": "Get List Tahun Pengalaman",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Page number for pagination, default is 1",
+                        "name": "page",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "Items per page for pagination, default is 10",
+                        "name": "perpage",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Search by name using LIKE pattern",
+                        "name": "name",
+                        "in": "query"
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/schemes.SchemeResponses"
+                            "$ref": "#/definitions/schemes.SchemeResponsesPagination"
                         }
                     },
                     "400": {
@@ -2627,11 +2747,31 @@ const docTemplate = `{
                     "Tipe Pekerjaan"
                 ],
                 "summary": "Get List Tipe Pekerjaan",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Page number for pagination, default is 1",
+                        "name": "page",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "Items per page for pagination, default is 10",
+                        "name": "perpage",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Search by name using LIKE pattern",
+                        "name": "name",
+                        "in": "query"
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/schemes.SchemeResponses"
+                            "$ref": "#/definitions/schemes.SchemeResponsesPagination"
                         }
                     },
                     "400": {
@@ -3017,6 +3157,36 @@ const docTemplate = `{
                 "message": {
                     "type": "string",
                     "example": "status internal error"
+                }
+            }
+        },
+        "schemes.SchemeResponsesPagination": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "type": "integer",
+                    "example": 200
+                },
+                "data": {},
+                "message": {
+                    "type": "string",
+                    "example": "status OK"
+                },
+                "page": {
+                    "type": "integer",
+                    "example": 1
+                },
+                "per_page": {
+                    "type": "integer",
+                    "example": 10
+                },
+                "total_data": {
+                    "type": "integer",
+                    "example": 50
+                },
+                "total_page": {
+                    "type": "integer",
+                    "example": 5
                 }
             }
         },

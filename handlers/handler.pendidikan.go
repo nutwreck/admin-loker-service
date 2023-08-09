@@ -2,9 +2,13 @@ package handlers
 
 import (
 	"fmt"
+	"math"
 	"net/http"
+	"strconv"
 
 	"github.com/gin-gonic/gin"
+	"github.com/nutwreck/admin-loker-service/configs"
+	"github.com/nutwreck/admin-loker-service/constants"
 	"github.com/nutwreck/admin-loker-service/entities"
 	"github.com/nutwreck/admin-loker-service/helpers"
 	"github.com/nutwreck/admin-loker-service/pkg"
@@ -94,7 +98,10 @@ func (h *handlePendidikan) HandlerCreate(ctx *gin.Context) {
 // @Tags		Pendidikan
 // @Accept		json
 // @Produce		json
-// @Success 200 {object} schemes.SchemeResponses
+// @Param page query int false "Page number for pagination, default is 1"
+// @Param perpage query int false "Items per page for pagination, default is 10"
+// @Param name query string false "Search by name using LIKE pattern"
+// @Success 200 {object} schemes.SchemeResponsesPagination
 // @Failure 400 {object} schemes.SchemeResponses400Example
 // @Failure 401 {object} schemes.SchemeResponses401Example
 // @Failure 403 {object} schemes.SchemeResponses403Example
@@ -104,14 +111,56 @@ func (h *handlePendidikan) HandlerCreate(ctx *gin.Context) {
 // @Security	ApiKeyAuth
 // @Router /api/v1/pendidikan/results [get]
 func (h *handlePendidikan) HandlerResults(ctx *gin.Context) {
-	res, error := h.pendidikan.EntityResults()
+	var (
+		body       schemes.SchemePendidikan
+		reqPage    = configs.FirstPage
+		reqPerPage = configs.TotalPerPage
+		pages      int
+		perPages   int
+		totalPages int
+		totalDatas int
+	)
+	pageParam := ctx.DefaultQuery("page", "")
+	body.Page = reqPage
+	if pageParam != constants.EMPTY_VALUE {
+		page, err := strconv.Atoi(pageParam)
+		if err != nil {
+			helpers.APIResponsePagination(ctx, "Convert Params Failed", http.StatusInternalServerError, nil, pages, perPages, totalPages, totalDatas)
+			return
+		}
+		reqPage = page
+		body.Page = page
+	}
+	perPageParam := ctx.DefaultQuery("perpage", "")
+	body.PerPage = reqPerPage
+	if perPageParam != constants.EMPTY_VALUE {
+		perPage, err := strconv.Atoi(perPageParam)
+		if err != nil {
+			helpers.APIResponsePagination(ctx, "Convert Params Failed", http.StatusInternalServerError, nil, pages, perPages, totalPages, totalDatas)
+			return
+		}
+		reqPerPage = perPage
+		body.PerPage = perPage
+	}
+	nameParam := ctx.DefaultQuery("name", "")
+	if nameParam != constants.EMPTY_VALUE {
+		body.Name = nameParam
+	}
+
+	res, totalData, error := h.pendidikan.EntityResults(&body)
 
 	if error.Type == "error_results_01" {
-		helpers.APIResponse(ctx, "Pendidikan data not found", error.Code, nil)
+		helpers.APIResponsePagination(ctx, "Pendidikan data not found", error.Code, nil, pages, perPages, totalPages, totalDatas)
 		return
 	}
 
-	helpers.APIResponse(ctx, "Pendidikan data already to use", http.StatusOK, res)
+	pages = reqPage
+	perPages = reqPerPage
+	totalPagesDiv := float64(totalData) / float64(reqPerPage)
+	totalPages = int(math.Ceil(totalPagesDiv))
+	totalDatas = int(totalData)
+
+	helpers.APIResponsePagination(ctx, "Pendidikan data already to use", http.StatusOK, res, pages, perPages, totalPages, totalDatas)
 }
 
 /**
