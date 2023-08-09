@@ -34,9 +34,14 @@ func (s *serviceLevelPekerjaan) EntityCreate(input *schemes.SchemeLevelPekerjaan
 *=============================================
  */
 
-func (s *serviceLevelPekerjaan) EntityResults() (*[]models.ModelLevelPekerjaan, schemes.SchemeDatabaseError) {
-	res, err := s.levelPekerjaan.EntityResults()
-	return res, err
+func (s *serviceLevelPekerjaan) EntityResults(input *schemes.SchemeLevelPekerjaan) (*[]models.ModelLevelPekerjaan, int64, schemes.SchemeDatabaseError) {
+	var levelPekerjaan schemes.SchemeLevelPekerjaan
+	levelPekerjaan.Page = input.Page
+	levelPekerjaan.PerPage = input.PerPage
+	levelPekerjaan.Name = input.Name
+
+	res, totalData, err := s.levelPekerjaan.EntityResults(&levelPekerjaan)
+	return res, totalData, err
 }
 
 /**

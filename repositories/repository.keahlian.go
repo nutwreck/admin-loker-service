@@ -60,25 +60,37 @@ func (r *repositoryKeahlian) EntityCreate(input *schemes.SchemeKeahlian) (*model
 *=========================================
  */
 
-func (r *repositoryKeahlian) EntityResults() (*[]models.ModelKeahlian, schemes.SchemeDatabaseError) {
-	var keahlian []models.ModelKeahlian
+func (r *repositoryKeahlian) EntityResults(input *schemes.SchemeKeahlian) (*[]models.ModelKeahlian, int64, schemes.SchemeDatabaseError) {
+	var (
+		keahlian  []models.ModelKeahlian
+		totalData int64
+	)
 
 	err := make(chan schemes.SchemeDatabaseError, 1)
 
 	db := r.db.Model(&keahlian)
 
-	checkKeahlian := db.Debug().Order("created_at DESC").Find(&keahlian)
+	if input.Name != "" {
+		db = db.Where("name LIKE ?", "%"+input.Name+"%")
+	}
+
+	offset := int((input.Page - 1) * input.PerPage)
+
+	checkKeahlian := db.Debug().Order("created_at DESC").Offset(offset).Limit(int(input.PerPage)).Find(&keahlian)
 
 	if checkKeahlian.RowsAffected < 1 {
 		err <- schemes.SchemeDatabaseError{
 			Code: http.StatusNotFound,
 			Type: "error_results_01",
 		}
-		return &keahlian, <-err
+		return &keahlian, totalData, <-err
 	}
 
+	// Menghitung total data yang diambil
+	db.Model(&models.ModelKeahlian{}).Count(&totalData)
+
 	err <- schemes.SchemeDatabaseError{}
-	return &keahlian, <-err
+	return &keahlian, totalData, <-err
 }
 
 /**

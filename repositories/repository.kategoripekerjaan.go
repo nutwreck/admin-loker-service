@@ -60,25 +60,37 @@ func (r *repositoryKategoriPekerjaan) EntityCreate(input *schemes.SchemeKategori
 *===================================================
  */
 
-func (r *repositoryKategoriPekerjaan) EntityResults() (*[]models.ModelKategoriPekerjaan, schemes.SchemeDatabaseError) {
-	var kategoriPekerjaan []models.ModelKategoriPekerjaan
+func (r *repositoryKategoriPekerjaan) EntityResults(input *schemes.SchemeKategoriPekerjaan) (*[]models.ModelKategoriPekerjaan, int64, schemes.SchemeDatabaseError) {
+	var (
+		kategoriPekerjaan []models.ModelKategoriPekerjaan
+		totalData         int64
+	)
 
 	err := make(chan schemes.SchemeDatabaseError, 1)
 
 	db := r.db.Model(&kategoriPekerjaan)
 
-	checkKategoriPekerjaan := db.Debug().Order("created_at DESC").Find(&kategoriPekerjaan)
+	if input.Name != "" {
+		db = db.Where("name LIKE ?", "%"+input.Name+"%")
+	}
 
-	if checkKategoriPekerjaan.RowsAffected < 1 {
+	offset := int((input.Page - 1) * input.PerPage)
+
+	checkKategoriPerusahaan := db.Debug().Order("created_at DESC").Offset(offset).Limit(int(input.PerPage)).Find(&kategoriPekerjaan)
+
+	if checkKategoriPerusahaan.RowsAffected < 1 {
 		err <- schemes.SchemeDatabaseError{
 			Code: http.StatusNotFound,
 			Type: "error_results_01",
 		}
-		return &kategoriPekerjaan, <-err
+		return &kategoriPekerjaan, totalData, <-err
 	}
 
+	// Menghitung total data yang diambil
+	db.Model(&models.ModelKategoriPekerjaan{}).Count(&totalData)
+
 	err <- schemes.SchemeDatabaseError{}
-	return &kategoriPekerjaan, <-err
+	return &kategoriPekerjaan, totalData, <-err
 }
 
 /**

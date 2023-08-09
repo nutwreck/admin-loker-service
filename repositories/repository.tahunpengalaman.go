@@ -60,25 +60,37 @@ func (r *repositoryTahunPengalaman) EntityCreate(input *schemes.SchemeTahunPenga
 *=================================================
  */
 
-func (r *repositoryTahunPengalaman) EntityResults() (*[]models.ModelTahunPengalaman, schemes.SchemeDatabaseError) {
-	var tahunPengalaman []models.ModelTahunPengalaman
+func (r *repositoryTahunPengalaman) EntityResults(input *schemes.SchemeTahunPengalaman) (*[]models.ModelTahunPengalaman, int64, schemes.SchemeDatabaseError) {
+	var (
+		tahunPengalaman []models.ModelTahunPengalaman
+		totalData       int64
+	)
 
 	err := make(chan schemes.SchemeDatabaseError, 1)
 
 	db := r.db.Model(&tahunPengalaman)
 
-	checkTahunPengalaman := db.Debug().Order("created_at DESC").Find(&tahunPengalaman)
+	if input.Name != "" {
+		db = db.Where("name LIKE ?", "%"+input.Name+"%")
+	}
+
+	offset := int((input.Page - 1) * input.PerPage)
+
+	checkTahunPengalaman := db.Debug().Order("created_at DESC").Offset(offset).Limit(int(input.PerPage)).Find(&tahunPengalaman)
 
 	if checkTahunPengalaman.RowsAffected < 1 {
 		err <- schemes.SchemeDatabaseError{
 			Code: http.StatusNotFound,
 			Type: "error_results_01",
 		}
-		return &tahunPengalaman, <-err
+		return &tahunPengalaman, totalData, <-err
 	}
 
+	// Menghitung total data yang diambil
+	db.Model(&models.ModelTahunPengalaman{}).Count(&totalData)
+
 	err <- schemes.SchemeDatabaseError{}
-	return &tahunPengalaman, <-err
+	return &tahunPengalaman, totalData, <-err
 }
 
 /**

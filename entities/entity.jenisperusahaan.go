@@ -8,7 +8,7 @@ import (
 type EntityJenisPerusahaan interface {
 	EntityCreate(input *schemes.SchemeJenisPerusahaan) (*models.ModelJenisPerusahaan, schemes.SchemeDatabaseError)
 	EntityResult(input *schemes.SchemeJenisPerusahaan) (*models.ModelJenisPerusahaan, schemes.SchemeDatabaseError)
-	EntityResults() (*[]models.ModelJenisPerusahaan, schemes.SchemeDatabaseError)
+	EntityResults(input *schemes.SchemeJenisPerusahaan) (*[]models.ModelJenisPerusahaan, int64, schemes.SchemeDatabaseError)
 	EntityDelete(input *schemes.SchemeJenisPerusahaan) (*models.ModelJenisPerusahaan, schemes.SchemeDatabaseError)
 	EntityUpdate(input *schemes.SchemeJenisPerusahaan) (*models.ModelJenisPerusahaan, schemes.SchemeDatabaseError)
 }

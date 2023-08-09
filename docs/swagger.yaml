@@ -191,6 +191,28 @@ definitions:
         example: status internal error
         type: string
     type: object
+  schemes.SchemeResponsesPagination:
+    properties:
+      code:
+        example: 200
+        type: integer
+      data: {}
+      message:
+        example: status OK
+        type: string
+      page:
+        example: 1
+        type: integer
+      per_page:
+        example: 10
+        type: integer
+      total_data:
+        example: 50
+        type: integer
+      total_page:
+        example: 5
+        type: integer
+    type: object
   schemes.SchemeTahunPengalamanRequest:
     properties:
       active:
@@ -458,13 +480,26 @@ paths:
       consumes:
       - application/json
       description: Get List Jenis Perusahaan
+      parameters:
+      - description: Page number for pagination, default is 1
+        in: query
+        name: page
+        type: integer
+      - description: Items per page for pagination, default is 10
+        in: query
+        name: perpage
+        type: integer
+      - description: Search by name using LIKE pattern
+        in: query
+        name: name
+        type: string
       produces:
       - application/json
       responses:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/schemes.SchemeResponses'
+            $ref: '#/definitions/schemes.SchemeResponsesPagination'
         "400":
           description: Bad Request
           schema:
@@ -698,13 +733,26 @@ paths:
       consumes:
       - application/json
       description: Get List Kategori Pekerjaan
+      parameters:
+      - description: Page number for pagination, default is 1
+        in: query
+        name: page
+        type: integer
+      - description: Items per page for pagination, default is 10
+        in: query
+        name: perpage
+        type: integer
+      - description: Search by name using LIKE pattern
+        in: query
+        name: name
+        type: string
       produces:
       - application/json
       responses:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/schemes.SchemeResponses'
+            $ref: '#/definitions/schemes.SchemeResponsesPagination'
         "400":
           description: Bad Request
           schema:
@@ -938,13 +986,26 @@ paths:
       consumes:
       - application/json
       description: Get List Keahlian
+      parameters:
+      - description: Page number for pagination, default is 1
+        in: query
+        name: page
+        type: integer
+      - description: Items per page for pagination, default is 10
+        in: query
+        name: perpage
+        type: integer
+      - description: Search by name using LIKE pattern
+        in: query
+        name: name
+        type: string
       produces:
       - application/json
       responses:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/schemes.SchemeResponses'
+            $ref: '#/definitions/schemes.SchemeResponsesPagination'
         "400":
           description: Bad Request
           schema:
@@ -1178,13 +1239,26 @@ paths:
       consumes:
       - application/json
       description: Get List Level Pekerjaan
+      parameters:
+      - description: Page number for pagination, default is 1
+        in: query
+        name: page
+        type: integer
+      - description: Items per page for pagination, default is 10
+        in: query
+        name: perpage
+        type: integer
+      - description: Search by name using LIKE pattern
+        in: query
+        name: name
+        type: string
       produces:
       - application/json
       responses:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/schemes.SchemeResponses'
+            $ref: '#/definitions/schemes.SchemeResponsesPagination'
         "400":
           description: Bad Request
           schema:
@@ -1418,13 +1492,26 @@ paths:
       consumes:
       - application/json
       description: Get List Pendidikan
+      parameters:
+      - description: Page number for pagination, default is 1
+        in: query
+        name: page
+        type: integer
+      - description: Items per page for pagination, default is 10
+        in: query
+        name: perpage
+        type: integer
+      - description: Search by name using LIKE pattern
+        in: query
+        name: name
+        type: string
       produces:
       - application/json
       responses:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/schemes.SchemeResponses'
+            $ref: '#/definitions/schemes.SchemeResponsesPagination'
         "400":
           description: Bad Request
           schema:
@@ -1658,13 +1745,26 @@ paths:
       consumes:
       - application/json
       description: Get List Tahun Pengalaman
+      parameters:
+      - description: Page number for pagination, default is 1
+        in: query
+        name: page
+        type: integer
+      - description: Items per page for pagination, default is 10
+        in: query
+        name: perpage
+        type: integer
+      - description: Search by name using LIKE pattern
+        in: query
+        name: name
+        type: string
       produces:
       - application/json
       responses:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/schemes.SchemeResponses'
+            $ref: '#/definitions/schemes.SchemeResponsesPagination'
         "400":
           description: Bad Request
           schema:
@@ -1898,13 +1998,26 @@ paths:
       consumes:
       - application/json
       description: Get List Tipe Pekerjaan
+      parameters:
+      - description: Page number for pagination, default is 1
+        in: query
+        name: page
+        type: integer
+      - description: Items per page for pagination, default is 10
+        in: query
+        name: perpage
+        type: integer
+      - description: Search by name using LIKE pattern
+        in: query
+        name: name
+        type: string
       produces:
       - application/json
       responses:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/schemes.SchemeResponses'
+            $ref: '#/definitions/schemes.SchemeResponsesPagination'
         "400":
           description: Bad Request
           schema:

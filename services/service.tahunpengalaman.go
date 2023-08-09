@@ -34,9 +34,14 @@ func (s *serviceTahunPengalaman) EntityCreate(input *schemes.SchemeTahunPengalam
 *==============================================
  */
 
-func (s *serviceTahunPengalaman) EntityResults() (*[]models.ModelTahunPengalaman, schemes.SchemeDatabaseError) {
-	res, err := s.tahunPengalaman.EntityResults()
-	return res, err
+func (s *serviceTahunPengalaman) EntityResults(input *schemes.SchemeTahunPengalaman) (*[]models.ModelTahunPengalaman, int64, schemes.SchemeDatabaseError) {
+	var tahunPengalaman schemes.SchemeTahunPengalaman
+	tahunPengalaman.Page = input.Page
+	tahunPengalaman.PerPage = input.PerPage
+	tahunPengalaman.Name = input.Name
+
+	res, totalData, err := s.tahunPengalaman.EntityResults(&tahunPengalaman)
+	return res, totalData, err
 }
 
 /**
