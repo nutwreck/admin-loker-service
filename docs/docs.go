@@ -159,7 +159,7 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "Jenis Kelamin"
+                    "Constant"
                 ],
                 "summary": "Get List Jenis Kelamin",
                 "responses": {
@@ -223,7 +223,7 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "Status Pernikahan"
+                    "Constant"
                 ],
                 "summary": "Get List Status Pernikahan",
                 "responses": {
