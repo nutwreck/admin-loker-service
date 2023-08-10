@@ -329,6 +329,88 @@ paths:
       summary: Register User
       tags:
       - User
+  /api/v1/constant/jenis-kelamin:
+    get:
+      consumes:
+      - application/json
+      description: Get List Jenis Kelamin
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses400Example'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses401Example'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses403Example'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses404Example'
+        "409":
+          description: Conflict
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses409Example'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses500Example'
+      security:
+      - ApiKeyAuth: []
+      summary: Get List Jenis Kelamin
+      tags:
+      - Jenis Kelamin
+  /api/v1/constant/status-pernikahan:
+    get:
+      consumes:
+      - application/json
+      description: Get List Status Pernikahan
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses400Example'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses401Example'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses403Example'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses404Example'
+        "409":
+          description: Conflict
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses409Example'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses500Example'
+      security:
+      - ApiKeyAuth: []
+      summary: Get List Status Pernikahan
+      tags:
+      - Status Pernikahan
   /api/v1/jenis-perusahaan/create:
     post:
       consumes:

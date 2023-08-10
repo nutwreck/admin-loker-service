@@ -56,6 +56,7 @@ func main() {
 	routes.NewRouteKategoriPekerjaan(db, app)
 	routes.NewRouteKeahlian(db, app)
 	routes.NewRouteJenisPerusahaan(db, app)
+	routes.NewRouteConstant(app)
 
 	/**
 	* ========================
