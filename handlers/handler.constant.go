@@ -13,10 +13,10 @@ import (
 * Handler Results All Jenis Kelamin Teritory
 *==============================================
  */
-// GetListJenisKelamin godoc
+// GetConstants godoc
 // @Summary		Get List Jenis Kelamin
 // @Description	Get List Jenis Kelamin
-// @Tags		Jenis Kelamin
+// @Tags		Constant
 // @Accept		json
 // @Produce		json
 // @Success 200 {object} schemes.SchemeResponses
@@ -41,10 +41,10 @@ func HandlerJenisKelamin(ctx *gin.Context) {
 * Handler Results All Status Pernikahan Teritory
 *==============================================
  */
-// GetListJenisKelamin godoc
+// GetConstants godoc
 // @Summary		Get List Status Pernikahan
 // @Description	Get List Status Pernikahan
-// @Tags		Status Pernikahan
+// @Tags		Constant
 // @Accept		json
 // @Produce		json
 // @Success 200 {object} schemes.SchemeResponses

@@ -369,7 +369,7 @@ paths:
       - ApiKeyAuth: []
       summary: Get List Jenis Kelamin
       tags:
-      - Jenis Kelamin
+      - Constant
   /api/v1/constant/status-pernikahan:
     get:
       consumes:
@@ -410,7 +410,7 @@ paths:
       - ApiKeyAuth: []
       summary: Get List Status Pernikahan
       tags:
-      - Status Pernikahan
+      - Constant
   /api/v1/jenis-perusahaan/create:
     post:
       consumes:
