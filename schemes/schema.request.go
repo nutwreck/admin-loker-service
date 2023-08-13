@@ -18,9 +18,9 @@ type JWtMetaRequest struct {
 }
 
 type JwtCustomClaims struct {
-	Jwt           string `json:"jwt"`
-	Expiration    int64  `json:"exp"`
-	Audience      string `json:"audience"`
-	Authorization bool   `json:"authorization"`
+	Jwt           string        `json:"jwt"`
+	Expiration    time.Duration `json:"exp"`
+	Audience      string        `json:"audience"`
+	Authorization bool          `json:"authorization"`
 	jwt.StandardClaims
 }

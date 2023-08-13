@@ -1,38 +1,4 @@
 definitions:
-  schemes.SchemeAddUser:
-    properties:
-      active:
-        example: true
-        type: boolean
-      email:
-        description: Email is Unique
-        example: loker.superadmin@digy.com
-        format: email
-        type: string
-      first_name:
-        description: Input with Lowercase
-        example: super
-        type: string
-      last_name:
-        description: Input with Lowercase
-        example: admin
-        type: string
-      password:
-        example: "12345678"
-        minLength: 8
-        type: string
-      role:
-        description: Input superadmin or admin with lowercase
-        example: superadmin
-        type: string
-    required:
-    - active
-    - email
-    - first_name
-    - last_name
-    - password
-    - role
-    type: object
   schemes.SchemeJenisPerusahaanRequest:
     properties:
       active:
@@ -239,12 +205,118 @@ definitions:
     required:
     - name
     type: object
+  schemes.SchemeUpdateUserExample:
+    properties:
+      active:
+        example: true
+        type: boolean
+      first_name:
+        description: Input with Lowercase
+        example: super
+        type: string
+      last_name:
+        description: Input with Lowercase
+        example: admin
+        type: string
+      new_password:
+        example: "12345679"
+        minLength: 8
+        type: string
+      old_password:
+        example: "12345678"
+        minLength: 8
+        type: string
+      role:
+        description: Input superadmin or admin with lowercase
+        example: superadmin
+        type: string
+    required:
+    - active
+    - first_name
+    - last_name
+    - role
+    type: object
+  schemes.SchemeUserRequest:
+    properties:
+      active:
+        example: true
+        type: boolean
+      email:
+        description: Email is Unique
+        example: loker.superadmin@digy.com
+        format: email
+        type: string
+      first_name:
+        description: Input with Lowercase
+        example: super
+        type: string
+      last_name:
+        description: Input with Lowercase
+        example: admin
+        type: string
+      password:
+        example: "12345678"
+        minLength: 8
+        type: string
+      role:
+        description: Input superadmin or admin with lowercase
+        example: superadmin
+        type: string
+    required:
+    - active
+    - email
+    - first_name
+    - last_name
+    - password
+    - role
+    type: object
 info:
   contact: {}
   description: Dokumentasi untuk Service API Admin Loker
   title: Admin Loker API
   version: "1.0"
 paths:
+  /api/v1/auth/data-user:
+    get:
+      consumes:
+      - application/json
+      description: Get Data User
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses400Example'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses401Example'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses403Example'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses404Example'
+        "409":
+          description: Conflict
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses409Example'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses500Example'
+      security:
+      - ApiKeyAuth: []
+      summary: Get Data User
+      tags:
+      - User
   /api/v1/auth/login:
     post:
       consumes:
@@ -287,6 +359,43 @@ paths:
       summary: Login User
       tags:
       - User
+  /api/v1/auth/refresh-token:
+    get:
+      consumes:
+      - application/json
+      description: Refresh Token user by Header Bearer Token
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses400Example'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses403Example'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses404Example'
+        "409":
+          description: Conflict
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses409Example'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses500Example'
+      security:
+      - ApiKeyAuth: []
+      summary: Refresh Token User
+      tags:
+      - User
   /api/v1/auth/register:
     post:
       consumes:
@@ -298,7 +407,7 @@ paths:
         name: user
         required: true
         schema:
-          $ref: '#/definitions/schemes.SchemeAddUser'
+          $ref: '#/definitions/schemes.SchemeUserRequest'
       produces:
       - application/json
       responses:
@@ -327,6 +436,55 @@ paths:
           schema:
             $ref: '#/definitions/schemes.SchemeResponses500Example'
       summary: Register User
+      tags:
+      - User
+  /api/v1/auth/update:
+    put:
+      consumes:
+      - application/json
+      description: Update User. If the user wants to change the password then it is
+        mandatory to input the old and new passwords, If not then leave it blank.
+      parameters:
+      - description: Update User
+        in: body
+        name: User
+        required: true
+        schema:
+          $ref: '#/definitions/schemes.SchemeUpdateUserExample'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses400Example'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses401Example'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses403Example'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses404Example'
+        "409":
+          description: Conflict
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses409Example'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses500Example'
+      security:
+      - ApiKeyAuth: []
+      summary: Update User
       tags:
       - User
   /api/v1/constant/jenis-kelamin:
@@ -365,9 +523,46 @@ paths:
           description: Internal Server Error
           schema:
             $ref: '#/definitions/schemes.SchemeResponses500Example'
-      security:
-      - ApiKeyAuth: []
       summary: Get List Jenis Kelamin
+      tags:
+      - Constant
+  /api/v1/constant/role-user:
+    get:
+      consumes:
+      - application/json
+      description: Get List Role User
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses400Example'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses401Example'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses403Example'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses404Example'
+        "409":
+          description: Conflict
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses409Example'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses500Example'
+      summary: Get List Role User
       tags:
       - Constant
   /api/v1/constant/status-pernikahan:
@@ -406,8 +601,6 @@ paths:
           description: Internal Server Error
           schema:
             $ref: '#/definitions/schemes.SchemeResponses500Example'
-      security:
-      - ApiKeyAuth: []
       summary: Get List Status Pernikahan
       tags:
       - Constant

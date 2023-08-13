@@ -6,6 +6,7 @@ import (
 	"github.com/google/uuid"
 	"gorm.io/gorm"
 
+	"github.com/nutwreck/admin-loker-service/constants"
 	"github.com/nutwreck/admin-loker-service/pkg"
 )
 
@@ -16,7 +17,7 @@ type ModelUser struct {
 	Email     string    `json:"email" gorm:"type:varchar; unique; not null"`
 	Password  string    `json:"password" gorm:"type:varchar; not null"`
 	Role      string    `json:"role" gorm:"type:varchar; not null"`
-	Active    bool      `json:"active" gorm:"type:boolean; not null"`
+	Active    *bool     `json:"active" gorm:"type:boolean; not null"`
 	CreatedAt time.Time `json:"created_at"`
 	UpdatedAt time.Time `json:"updated_at"`
 }
@@ -24,6 +25,7 @@ type ModelUser struct {
 func (m *ModelUser) BeforeCreate(db *gorm.DB) error {
 	m.ID = uuid.NewString()
 	m.Password = pkg.HashPassword(m.Password)
+	m.Active = &constants.TRUE_VALUE
 	m.CreatedAt = time.Now()
 	return nil
 }
