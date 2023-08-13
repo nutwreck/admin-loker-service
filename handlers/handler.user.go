@@ -488,8 +488,7 @@ func ValidatorUser(ctx *gin.Context, input schemes.SchemeUser, Type string) (int
 	return err, code
 }
 func ValidatorUpdateUser(ctx *gin.Context, input schemes.SchemeUpdateUser) (interface{}, int) {
-	var schema gpc.ErrorConfig
-	schema = gpc.ErrorConfig{
+	schema := gpc.ErrorConfig{
 		Options: []gpc.ErrorMetaConfig{
 			{
 				Tag:     "required",
