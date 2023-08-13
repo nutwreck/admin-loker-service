@@ -16,6 +16,70 @@ const docTemplate = `{
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
     "paths": {
+        "/api/v1/auth/data-user": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Get Data User",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "User"
+                ],
+                "summary": "Get Data User",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/schemes.SchemeResponses"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/schemes.SchemeResponses400Example"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/schemes.SchemeResponses401Example"
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "schema": {
+                            "$ref": "#/definitions/schemes.SchemeResponses403Example"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/schemes.SchemeResponses404Example"
+                        }
+                    },
+                    "409": {
+                        "description": "Conflict",
+                        "schema": {
+                            "$ref": "#/definitions/schemes.SchemeResponses409Example"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/schemes.SchemeResponses500Example"
+                        }
+                    }
+                }
+            }
+        },
         "/api/v1/auth/login": {
             "post": {
                 "description": "login user",
@@ -80,6 +144,64 @@ const docTemplate = `{
                 }
             }
         },
+        "/api/v1/auth/refresh-token": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Refresh Token user by Header Bearer Token",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "User"
+                ],
+                "summary": "Refresh Token User",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/schemes.SchemeResponses"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/schemes.SchemeResponses400Example"
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "schema": {
+                            "$ref": "#/definitions/schemes.SchemeResponses403Example"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/schemes.SchemeResponses404Example"
+                        }
+                    },
+                    "409": {
+                        "description": "Conflict",
+                        "schema": {
+                            "$ref": "#/definitions/schemes.SchemeResponses409Example"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/schemes.SchemeResponses500Example"
+                        }
+                    }
+                }
+            }
+        },
         "/api/v1/auth/register": {
             "post": {
                 "description": "add by json user",
@@ -100,7 +222,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/schemes.SchemeAddUser"
+                            "$ref": "#/definitions/schemes.SchemeUserRequest"
                         }
                     }
                 ],
@@ -144,13 +266,83 @@ const docTemplate = `{
                 }
             }
         },
-        "/api/v1/constant/jenis-kelamin": {
-            "get": {
+        "/api/v1/auth/update": {
+            "put": {
                 "security": [
                     {
                         "ApiKeyAuth": []
                     }
                 ],
+                "description": "Update User. If the user wants to change the password then it is mandatory to input the old and new passwords, If not then leave it blank.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "User"
+                ],
+                "summary": "Update User",
+                "parameters": [
+                    {
+                        "description": "Update User",
+                        "name": "User",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/schemes.SchemeUpdateUserExample"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/schemes.SchemeResponses"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/schemes.SchemeResponses400Example"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/schemes.SchemeResponses401Example"
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "schema": {
+                            "$ref": "#/definitions/schemes.SchemeResponses403Example"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/schemes.SchemeResponses404Example"
+                        }
+                    },
+                    "409": {
+                        "description": "Conflict",
+                        "schema": {
+                            "$ref": "#/definitions/schemes.SchemeResponses409Example"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/schemes.SchemeResponses500Example"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/constant/jenis-kelamin": {
+            "get": {
                 "description": "Get List Jenis Kelamin",
                 "consumes": [
                     "application/json"
@@ -208,13 +400,67 @@ const docTemplate = `{
                 }
             }
         },
+        "/api/v1/constant/role-user": {
+            "get": {
+                "description": "Get List Role User",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Constant"
+                ],
+                "summary": "Get List Role User",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/schemes.SchemeResponses"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/schemes.SchemeResponses400Example"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/schemes.SchemeResponses401Example"
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "schema": {
+                            "$ref": "#/definitions/schemes.SchemeResponses403Example"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/schemes.SchemeResponses404Example"
+                        }
+                    },
+                    "409": {
+                        "description": "Conflict",
+                        "schema": {
+                            "$ref": "#/definitions/schemes.SchemeResponses409Example"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/schemes.SchemeResponses500Example"
+                        }
+                    }
+                }
+            }
+        },
         "/api/v1/constant/status-pernikahan": {
             "get": {
-                "security": [
-                    {
-                        "ApiKeyAuth": []
-                    }
-                ],
                 "description": "Get List Status Pernikahan",
                 "consumes": [
                     "application/json"
@@ -3025,49 +3271,6 @@ const docTemplate = `{
         }
     },
     "definitions": {
-        "schemes.SchemeAddUser": {
-            "type": "object",
-            "required": [
-                "active",
-                "email",
-                "first_name",
-                "last_name",
-                "password",
-                "role"
-            ],
-            "properties": {
-                "active": {
-                    "type": "boolean",
-                    "example": true
-                },
-                "email": {
-                    "description": "Email is Unique",
-                    "type": "string",
-                    "format": "email",
-                    "example": "loker.superadmin@digy.com"
-                },
-                "first_name": {
-                    "description": "Input with Lowercase",
-                    "type": "string",
-                    "example": "super"
-                },
-                "last_name": {
-                    "description": "Input with Lowercase",
-                    "type": "string",
-                    "example": "admin"
-                },
-                "password": {
-                    "type": "string",
-                    "minLength": 8,
-                    "example": "12345678"
-                },
-                "role": {
-                    "description": "Input superadmin or admin with lowercase",
-                    "type": "string",
-                    "example": "superadmin"
-                }
-            }
-        },
         "schemes.SchemeJenisPerusahaanRequest": {
             "type": "object",
             "required": [
@@ -3351,6 +3554,89 @@ const docTemplate = `{
                     "type": "string",
                     "maxLength": 100,
                     "example": "Freelance"
+                }
+            }
+        },
+        "schemes.SchemeUpdateUserExample": {
+            "type": "object",
+            "required": [
+                "active",
+                "first_name",
+                "last_name",
+                "role"
+            ],
+            "properties": {
+                "active": {
+                    "type": "boolean",
+                    "example": true
+                },
+                "first_name": {
+                    "description": "Input with Lowercase",
+                    "type": "string",
+                    "example": "super"
+                },
+                "last_name": {
+                    "description": "Input with Lowercase",
+                    "type": "string",
+                    "example": "admin"
+                },
+                "new_password": {
+                    "type": "string",
+                    "minLength": 8,
+                    "example": "12345679"
+                },
+                "old_password": {
+                    "type": "string",
+                    "minLength": 8,
+                    "example": "12345678"
+                },
+                "role": {
+                    "description": "Input superadmin or admin with lowercase",
+                    "type": "string",
+                    "example": "superadmin"
+                }
+            }
+        },
+        "schemes.SchemeUserRequest": {
+            "type": "object",
+            "required": [
+                "active",
+                "email",
+                "first_name",
+                "last_name",
+                "password",
+                "role"
+            ],
+            "properties": {
+                "active": {
+                    "type": "boolean",
+                    "example": true
+                },
+                "email": {
+                    "description": "Email is Unique",
+                    "type": "string",
+                    "format": "email",
+                    "example": "loker.superadmin@digy.com"
+                },
+                "first_name": {
+                    "description": "Input with Lowercase",
+                    "type": "string",
+                    "example": "super"
+                },
+                "last_name": {
+                    "description": "Input with Lowercase",
+                    "type": "string",
+                    "example": "admin"
+                },
+                "password": {
+                    "type": "string",
+                    "minLength": 8,
+                    "example": "12345678"
+                },
+                "role": {
+                    "description": "Input superadmin or admin with lowercase",
+                    "type": "string",
+                    "example": "superadmin"
                 }
             }
         }

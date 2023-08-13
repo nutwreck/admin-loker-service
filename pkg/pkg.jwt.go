@@ -1,7 +1,8 @@
 package pkg
 
 import (
-	"fmt"
+	"errors"
+	"log"
 	"time"
 
 	"github.com/golang-jwt/jwt"
@@ -43,41 +44,62 @@ func VerifyToken(accessToken, SecretPublicKey string) (*jwt.Token, error) {
 	return token, nil
 }
 
-func RefreshToken(existingToken string, secretKey string) (string, error) {
-	token, err := jwt.ParseWithClaims(existingToken, &schemes.JwtCustomClaims{}, func(token *jwt.Token) (interface{}, error) {
-		return []byte(secretKey), nil
-	})
+func GenerateRefreshTokenFromClaims(claims jwt.MapClaims, jwtSecretKey []byte) (string, error) {
+	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
+
+	tokenString, err := token.SignedString(jwtSecretKey)
 	if err != nil {
-		return "", fmt.Errorf("error parsing token: %v", err)
+		return "", err
 	}
 
-	if claims, ok := token.Claims.(*schemes.JwtCustomClaims); ok && token.Valid {
-		now := time.Now().Unix()
+	return tokenString, nil
+}
 
-		if now >= claims.Expiration {
-			newExpiryTime := now + (24 * 60 * 60) // New expiration time (e.g., 24 hours from now)
+func ConvertToken(tokenString string) (*schemes.SchemeJWTConvert, error) {
+	var (
+		jwtSecretKey = []byte(GodotEnv("JWT_SECRET_KEY"))
+		result       schemes.SchemeJWTConvert
+	)
 
-			newClaims := schemes.JwtCustomClaims{
-				Jwt:           claims.Jwt,
-				Expiration:    newExpiryTime,
-				Audience:      claims.Audience,
-				Authorization: claims.Authorization,
-				StandardClaims: jwt.StandardClaims{
-					ExpiresAt: newExpiryTime,
-				},
-			}
+	// Parse token
+	token, err := jwt.Parse(tokenString, func(token *jwt.Token) (interface{}, error) {
+		return jwtSecretKey, nil
+	})
 
-			newToken := jwt.NewWithClaims(jwt.SigningMethodHS256, newClaims)
-			refreshedToken, err := newToken.SignedString([]byte(secretKey))
-			if err != nil {
-				return "", fmt.Errorf("error signing new token: %v", err)
-			}
+	if err != nil {
+		log.Println("Error:", err)
+		return nil, err
+	}
 
-			return refreshedToken, nil
+	if claims, ok := token.Claims.(jwt.MapClaims); ok && token.Valid {
+		audience := claims["audience"].(string)
+		authorization := claims["authorization"].(bool)
+		//expiration := claims["exp"].(float64)
+		jwtData := claims["jwt"].(map[string]interface{})
+		email := jwtData["email"].(string)
+		id := jwtData["id"].(string)
+		role := jwtData["role"].(string)
+
+		// Format Unix timestamp to time.Time
+		// expirationTime := time.Unix(int64(expiration), 0)
+
+		if audience != GodotEnv("JWT_AUD") {
+			log.Println("Error:", "Invalid token claims - AUD")
+			return nil, errors.New("invalid token claims - AUD")
 		}
 
-		return existingToken, nil
-	}
+		if !authorization {
+			log.Println("Error:", "Invalid token claims - Authorization False")
+			return nil, errors.New("invalid token claims - Authorization False")
+		}
 
-	return "", fmt.Errorf("invalid token")
+		result.ID = id
+		result.Email = email
+		result.Role = role
+
+		return &result, nil
+	} else {
+		log.Println("Error:", "Invalid token claims")
+		return nil, errors.New("invalid token claims")
+	}
 }
