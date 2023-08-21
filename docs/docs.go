@@ -766,13 +766,13 @@ const docTemplate = `{
                 "parameters": [
                     {
                         "type": "integer",
-                        "description": "Page number for pagination, default is 1",
+                        "description": "Page number for pagination, default is 1 | if you want to disable pagination, fill it with the number 0",
                         "name": "page",
                         "in": "query"
                     },
                     {
                         "type": "integer",
-                        "description": "Items per page for pagination, default is 10",
+                        "description": "Items per page for pagination, default is 10 | if you want to disable pagination, fill it with the number 0",
                         "name": "perpage",
                         "in": "query"
                     },
@@ -1159,13 +1159,13 @@ const docTemplate = `{
                 "parameters": [
                     {
                         "type": "integer",
-                        "description": "Page number for pagination, default is 1",
+                        "description": "Page number for pagination, default is 1 | if you want to disable pagination, fill it with the number 0",
                         "name": "page",
                         "in": "query"
                     },
                     {
                         "type": "integer",
-                        "description": "Items per page for pagination, default is 10",
+                        "description": "Items per page for pagination, default is 10 | if you want to disable pagination, fill it with the number 0",
                         "name": "perpage",
                         "in": "query"
                     },
@@ -1552,13 +1552,13 @@ const docTemplate = `{
                 "parameters": [
                     {
                         "type": "integer",
-                        "description": "Page number for pagination, default is 1",
+                        "description": "Page number for pagination, default is 1 | if you want to disable pagination, fill it with the number 0",
                         "name": "page",
                         "in": "query"
                     },
                     {
                         "type": "integer",
-                        "description": "Items per page for pagination, default is 10",
+                        "description": "Items per page for pagination, default is 10 | if you want to disable pagination, fill it with the number 0",
                         "name": "perpage",
                         "in": "query"
                     },
@@ -1945,13 +1945,13 @@ const docTemplate = `{
                 "parameters": [
                     {
                         "type": "integer",
-                        "description": "Page number for pagination, default is 1",
+                        "description": "Page number for pagination, default is 1 | if you want to disable pagination, fill it with the number 0",
                         "name": "page",
                         "in": "query"
                     },
                     {
                         "type": "integer",
-                        "description": "Items per page for pagination, default is 10",
+                        "description": "Items per page for pagination, default is 10 | if you want to disable pagination, fill it with the number 0",
                         "name": "perpage",
                         "in": "query"
                     },
@@ -2338,13 +2338,13 @@ const docTemplate = `{
                 "parameters": [
                     {
                         "type": "integer",
-                        "description": "Page number for pagination, default is 1",
+                        "description": "Page number for pagination, default is 1 | if you want to disable pagination, fill it with the number 0",
                         "name": "page",
                         "in": "query"
                     },
                     {
                         "type": "integer",
-                        "description": "Items per page for pagination, default is 10",
+                        "description": "Items per page for pagination, default is 10 | if you want to disable pagination, fill it with the number 0",
                         "name": "perpage",
                         "in": "query"
                     },
@@ -2731,13 +2731,13 @@ const docTemplate = `{
                 "parameters": [
                     {
                         "type": "integer",
-                        "description": "Page number for pagination, default is 1",
+                        "description": "Page number for pagination, default is 1 | if you want to disable pagination, fill it with the number 0",
                         "name": "page",
                         "in": "query"
                     },
                     {
                         "type": "integer",
-                        "description": "Items per page for pagination, default is 10",
+                        "description": "Items per page for pagination, default is 10 | if you want to disable pagination, fill it with the number 0",
                         "name": "perpage",
                         "in": "query"
                     },
@@ -3124,13 +3124,13 @@ const docTemplate = `{
                 "parameters": [
                     {
                         "type": "integer",
-                        "description": "Page number for pagination, default is 1",
+                        "description": "Page number for pagination, default is 1 | if you want to disable pagination, fill it with the number 0",
                         "name": "page",
                         "in": "query"
                     },
                     {
                         "type": "integer",
-                        "description": "Items per page for pagination, default is 10",
+                        "description": "Items per page for pagination, default is 10 | if you want to disable pagination, fill it with the number 0",
                         "name": "perpage",
                         "in": "query"
                     },
@@ -3268,6 +3268,1870 @@ const docTemplate = `{
                     }
                 }
             }
+        },
+        "/api/v1/wilayah/kabupaten/create": {
+            "post": {
+                "description": "Create Data Kabupaten",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Wilayah"
+                ],
+                "summary": "Create Data Kabupaten",
+                "parameters": [
+                    {
+                        "description": "Create Data Kabupaten",
+                        "name": "Kabupaten",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/schemes.SchemeKabupatenRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/schemes.SchemeResponses"
+                        }
+                    },
+                    "201": {
+                        "description": "Created",
+                        "schema": {
+                            "$ref": "#/definitions/schemes.SchemeResponses201Example"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/schemes.SchemeResponses400Example"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/schemes.SchemeResponses401Example"
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "schema": {
+                            "$ref": "#/definitions/schemes.SchemeResponses403Example"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/schemes.SchemeResponses404Example"
+                        }
+                    },
+                    "409": {
+                        "description": "Conflict",
+                        "schema": {
+                            "$ref": "#/definitions/schemes.SchemeResponses409Example"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/schemes.SchemeResponses500Example"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/wilayah/kabupaten/delete/{code_kabupaten}": {
+            "delete": {
+                "description": "Get Delete Kabupaten",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Wilayah"
+                ],
+                "summary": "Get Delete Kabupaten",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Delete Kabupaten",
+                        "name": "code_kabupaten",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/schemes.SchemeResponses"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/schemes.SchemeResponses400Example"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/schemes.SchemeResponses401Example"
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "schema": {
+                            "$ref": "#/definitions/schemes.SchemeResponses403Example"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/schemes.SchemeResponses404Example"
+                        }
+                    },
+                    "409": {
+                        "description": "Conflict",
+                        "schema": {
+                            "$ref": "#/definitions/schemes.SchemeResponses409Example"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/schemes.SchemeResponses500Example"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/wilayah/kabupaten/result/{code_kabupaten}": {
+            "get": {
+                "description": "Get By Code Kabupaten",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Wilayah"
+                ],
+                "summary": "Get By Code Kabupaten",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Get Code Code Kabupaten",
+                        "name": "code_kabupaten",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/schemes.SchemeResponses"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/schemes.SchemeResponses400Example"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/schemes.SchemeResponses401Example"
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "schema": {
+                            "$ref": "#/definitions/schemes.SchemeResponses403Example"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/schemes.SchemeResponses404Example"
+                        }
+                    },
+                    "409": {
+                        "description": "Conflict",
+                        "schema": {
+                            "$ref": "#/definitions/schemes.SchemeResponses409Example"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/schemes.SchemeResponses500Example"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/wilayah/kabupaten/results": {
+            "get": {
+                "description": "Get List Kabupaten",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Wilayah"
+                ],
+                "summary": "Get List Kabupaten",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Page number for pagination, default is 1 | if you want to disable pagination, fill it with the number 0",
+                        "name": "page",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "Items per page for pagination, default is 10 | if you want to disable pagination, fill it with the number 0",
+                        "name": "perpage",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Search by name using LIKE pattern",
+                        "name": "name",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Search by Code Provinsi",
+                        "name": "parent_code_provinsi",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/schemes.SchemeResponsesPagination"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/schemes.SchemeResponses400Example"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/schemes.SchemeResponses401Example"
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "schema": {
+                            "$ref": "#/definitions/schemes.SchemeResponses403Example"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/schemes.SchemeResponses404Example"
+                        }
+                    },
+                    "409": {
+                        "description": "Conflict",
+                        "schema": {
+                            "$ref": "#/definitions/schemes.SchemeResponses409Example"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/schemes.SchemeResponses500Example"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/wilayah/kabupaten/update/{code_kabupaten}": {
+            "put": {
+                "description": "Get Update Kabupaten",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Wilayah"
+                ],
+                "summary": "Get Update Kabupaten",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Update Kabupaten",
+                        "name": "code_kabupaten",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "Update Kabupaten",
+                        "name": "kabupaten",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/schemes.SchemeKabupatenRequestUpdate"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/schemes.SchemeResponses"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/schemes.SchemeResponses400Example"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/schemes.SchemeResponses401Example"
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "schema": {
+                            "$ref": "#/definitions/schemes.SchemeResponses403Example"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/schemes.SchemeResponses404Example"
+                        }
+                    },
+                    "409": {
+                        "description": "Conflict",
+                        "schema": {
+                            "$ref": "#/definitions/schemes.SchemeResponses409Example"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/schemes.SchemeResponses500Example"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/wilayah/kecamatan/create": {
+            "post": {
+                "description": "Create Data Kecamatan",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Wilayah"
+                ],
+                "summary": "Create Data Kecamatan",
+                "parameters": [
+                    {
+                        "description": "Create Data Kecamatan",
+                        "name": "Kecamatan",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/schemes.SchemeKecamatanRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/schemes.SchemeResponses"
+                        }
+                    },
+                    "201": {
+                        "description": "Created",
+                        "schema": {
+                            "$ref": "#/definitions/schemes.SchemeResponses201Example"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/schemes.SchemeResponses400Example"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/schemes.SchemeResponses401Example"
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "schema": {
+                            "$ref": "#/definitions/schemes.SchemeResponses403Example"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/schemes.SchemeResponses404Example"
+                        }
+                    },
+                    "409": {
+                        "description": "Conflict",
+                        "schema": {
+                            "$ref": "#/definitions/schemes.SchemeResponses409Example"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/schemes.SchemeResponses500Example"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/wilayah/kecamatan/delete/{code_kecamatan}": {
+            "delete": {
+                "description": "Get Delete Kecamatan",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Wilayah"
+                ],
+                "summary": "Get Delete Kecamatan",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Delete Kecamatan",
+                        "name": "code_kecamatan",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/schemes.SchemeResponses"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/schemes.SchemeResponses400Example"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/schemes.SchemeResponses401Example"
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "schema": {
+                            "$ref": "#/definitions/schemes.SchemeResponses403Example"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/schemes.SchemeResponses404Example"
+                        }
+                    },
+                    "409": {
+                        "description": "Conflict",
+                        "schema": {
+                            "$ref": "#/definitions/schemes.SchemeResponses409Example"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/schemes.SchemeResponses500Example"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/wilayah/kecamatan/result/{code_kecamatan}": {
+            "get": {
+                "description": "Get By Code Kecamatan",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Wilayah"
+                ],
+                "summary": "Get By Code Kecamatan",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Get Code Code Kecamatan",
+                        "name": "code_kecamatan",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/schemes.SchemeResponses"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/schemes.SchemeResponses400Example"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/schemes.SchemeResponses401Example"
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "schema": {
+                            "$ref": "#/definitions/schemes.SchemeResponses403Example"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/schemes.SchemeResponses404Example"
+                        }
+                    },
+                    "409": {
+                        "description": "Conflict",
+                        "schema": {
+                            "$ref": "#/definitions/schemes.SchemeResponses409Example"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/schemes.SchemeResponses500Example"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/wilayah/kecamatan/results": {
+            "get": {
+                "description": "Get List Kecamatan",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Wilayah"
+                ],
+                "summary": "Get List Kecamatan",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Page number for pagination, default is 1 | if you want to disable pagination, fill it with the number 0",
+                        "name": "page",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "Items per page for pagination, default is 10 | if you want to disable pagination, fill it with the number 0",
+                        "name": "perpage",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Search by name using LIKE pattern",
+                        "name": "name",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Search by Code Kabupaten",
+                        "name": "parent_code_kabupaten",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/schemes.SchemeResponsesPagination"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/schemes.SchemeResponses400Example"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/schemes.SchemeResponses401Example"
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "schema": {
+                            "$ref": "#/definitions/schemes.SchemeResponses403Example"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/schemes.SchemeResponses404Example"
+                        }
+                    },
+                    "409": {
+                        "description": "Conflict",
+                        "schema": {
+                            "$ref": "#/definitions/schemes.SchemeResponses409Example"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/schemes.SchemeResponses500Example"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/wilayah/kecamatan/update/{code_kecamatan}": {
+            "put": {
+                "description": "Get Update Kecamatan",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Wilayah"
+                ],
+                "summary": "Get Update Kecamatan",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Update Kecamatan",
+                        "name": "code_kecamatan",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "Update Kecamatan",
+                        "name": "Kecamatan",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/schemes.SchemeKecamatanRequestUpdate"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/schemes.SchemeResponses"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/schemes.SchemeResponses400Example"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/schemes.SchemeResponses401Example"
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "schema": {
+                            "$ref": "#/definitions/schemes.SchemeResponses403Example"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/schemes.SchemeResponses404Example"
+                        }
+                    },
+                    "409": {
+                        "description": "Conflict",
+                        "schema": {
+                            "$ref": "#/definitions/schemes.SchemeResponses409Example"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/schemes.SchemeResponses500Example"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/wilayah/kelurahan/create": {
+            "post": {
+                "description": "Create Data Kelurahan",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Wilayah"
+                ],
+                "summary": "Create Data Kelurahan",
+                "parameters": [
+                    {
+                        "description": "Create Data Kelurahan",
+                        "name": "Kelurahan",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/schemes.SchemeKelurahanRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/schemes.SchemeResponses"
+                        }
+                    },
+                    "201": {
+                        "description": "Created",
+                        "schema": {
+                            "$ref": "#/definitions/schemes.SchemeResponses201Example"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/schemes.SchemeResponses400Example"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/schemes.SchemeResponses401Example"
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "schema": {
+                            "$ref": "#/definitions/schemes.SchemeResponses403Example"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/schemes.SchemeResponses404Example"
+                        }
+                    },
+                    "409": {
+                        "description": "Conflict",
+                        "schema": {
+                            "$ref": "#/definitions/schemes.SchemeResponses409Example"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/schemes.SchemeResponses500Example"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/wilayah/kelurahan/delete/{code_kelurahan}": {
+            "delete": {
+                "description": "Get Delete Kelurahan",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Wilayah"
+                ],
+                "summary": "Get Delete Kelurahan",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Delete Kelurahan",
+                        "name": "code_kelurahan",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/schemes.SchemeResponses"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/schemes.SchemeResponses400Example"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/schemes.SchemeResponses401Example"
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "schema": {
+                            "$ref": "#/definitions/schemes.SchemeResponses403Example"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/schemes.SchemeResponses404Example"
+                        }
+                    },
+                    "409": {
+                        "description": "Conflict",
+                        "schema": {
+                            "$ref": "#/definitions/schemes.SchemeResponses409Example"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/schemes.SchemeResponses500Example"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/wilayah/kelurahan/result/{code_kelurahan}": {
+            "get": {
+                "description": "Get By Code Kelurahan",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Wilayah"
+                ],
+                "summary": "Get By Code Kelurahan",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Get Code Code Kelurahan",
+                        "name": "code_kelurahan",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/schemes.SchemeResponses"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/schemes.SchemeResponses400Example"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/schemes.SchemeResponses401Example"
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "schema": {
+                            "$ref": "#/definitions/schemes.SchemeResponses403Example"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/schemes.SchemeResponses404Example"
+                        }
+                    },
+                    "409": {
+                        "description": "Conflict",
+                        "schema": {
+                            "$ref": "#/definitions/schemes.SchemeResponses409Example"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/schemes.SchemeResponses500Example"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/wilayah/kelurahan/results": {
+            "get": {
+                "description": "Get List Kelurahan",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Wilayah"
+                ],
+                "summary": "Get List Kelurahan",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Page number for pagination, default is 1 | if you want to disable pagination, fill it with the number 0",
+                        "name": "page",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "Items per page for pagination, default is 10 | if you want to disable pagination, fill it with the number 0",
+                        "name": "perpage",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Search by name using LIKE pattern",
+                        "name": "name",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Search by Code Kecamatan",
+                        "name": "parent_code_kecamatan",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/schemes.SchemeResponsesPagination"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/schemes.SchemeResponses400Example"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/schemes.SchemeResponses401Example"
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "schema": {
+                            "$ref": "#/definitions/schemes.SchemeResponses403Example"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/schemes.SchemeResponses404Example"
+                        }
+                    },
+                    "409": {
+                        "description": "Conflict",
+                        "schema": {
+                            "$ref": "#/definitions/schemes.SchemeResponses409Example"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/schemes.SchemeResponses500Example"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/wilayah/kelurahan/update/{code_kelurahan}": {
+            "put": {
+                "description": "Get Update Kelurahan",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Wilayah"
+                ],
+                "summary": "Get Update Kelurahan",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Update Kelurahan",
+                        "name": "code_kelurahan",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "Update Kelurahan",
+                        "name": "Kelurahan",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/schemes.SchemeKelurahanRequestUpdate"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/schemes.SchemeResponses"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/schemes.SchemeResponses400Example"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/schemes.SchemeResponses401Example"
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "schema": {
+                            "$ref": "#/definitions/schemes.SchemeResponses403Example"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/schemes.SchemeResponses404Example"
+                        }
+                    },
+                    "409": {
+                        "description": "Conflict",
+                        "schema": {
+                            "$ref": "#/definitions/schemes.SchemeResponses409Example"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/schemes.SchemeResponses500Example"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/wilayah/negara/create": {
+            "post": {
+                "description": "Create Data Negara",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Wilayah"
+                ],
+                "summary": "Create Data Negara",
+                "parameters": [
+                    {
+                        "description": "Create Data Negara",
+                        "name": "negara",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/schemes.SchemeNegaraRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/schemes.SchemeResponses"
+                        }
+                    },
+                    "201": {
+                        "description": "Created",
+                        "schema": {
+                            "$ref": "#/definitions/schemes.SchemeResponses201Example"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/schemes.SchemeResponses400Example"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/schemes.SchemeResponses401Example"
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "schema": {
+                            "$ref": "#/definitions/schemes.SchemeResponses403Example"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/schemes.SchemeResponses404Example"
+                        }
+                    },
+                    "409": {
+                        "description": "Conflict",
+                        "schema": {
+                            "$ref": "#/definitions/schemes.SchemeResponses409Example"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/schemes.SchemeResponses500Example"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/wilayah/negara/delete/{code_negara}": {
+            "delete": {
+                "description": "Get Delete Negara",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Wilayah"
+                ],
+                "summary": "Get Delete Negara",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Delete Negara",
+                        "name": "code_negara",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/schemes.SchemeResponses"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/schemes.SchemeResponses400Example"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/schemes.SchemeResponses401Example"
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "schema": {
+                            "$ref": "#/definitions/schemes.SchemeResponses403Example"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/schemes.SchemeResponses404Example"
+                        }
+                    },
+                    "409": {
+                        "description": "Conflict",
+                        "schema": {
+                            "$ref": "#/definitions/schemes.SchemeResponses409Example"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/schemes.SchemeResponses500Example"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/wilayah/negara/result/{code_negara}": {
+            "get": {
+                "description": "Get By Code Negara",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Wilayah"
+                ],
+                "summary": "Get By Code Negara",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Get Code Code Negara",
+                        "name": "code_negara",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/schemes.SchemeResponses"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/schemes.SchemeResponses400Example"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/schemes.SchemeResponses401Example"
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "schema": {
+                            "$ref": "#/definitions/schemes.SchemeResponses403Example"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/schemes.SchemeResponses404Example"
+                        }
+                    },
+                    "409": {
+                        "description": "Conflict",
+                        "schema": {
+                            "$ref": "#/definitions/schemes.SchemeResponses409Example"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/schemes.SchemeResponses500Example"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/wilayah/negara/results": {
+            "get": {
+                "description": "Get List Negara",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Wilayah"
+                ],
+                "summary": "Get List Negara",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Page number for pagination, default is 1 | if you want to disable pagination, fill it with the number 0",
+                        "name": "page",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "Items per page for pagination, default is 10 | if you want to disable pagination, fill it with the number 0",
+                        "name": "perpage",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Search by name using LIKE pattern",
+                        "name": "name",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/schemes.SchemeResponsesPagination"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/schemes.SchemeResponses400Example"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/schemes.SchemeResponses401Example"
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "schema": {
+                            "$ref": "#/definitions/schemes.SchemeResponses403Example"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/schemes.SchemeResponses404Example"
+                        }
+                    },
+                    "409": {
+                        "description": "Conflict",
+                        "schema": {
+                            "$ref": "#/definitions/schemes.SchemeResponses409Example"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/schemes.SchemeResponses500Example"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/wilayah/negara/update/{code_negara}": {
+            "put": {
+                "description": "Get Update Negara",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Wilayah"
+                ],
+                "summary": "Get Update Negara",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Update Negara",
+                        "name": "code_negara",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "Update Negara",
+                        "name": "negara",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/schemes.SchemeNegaraRequestUpdate"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/schemes.SchemeResponses"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/schemes.SchemeResponses400Example"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/schemes.SchemeResponses401Example"
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "schema": {
+                            "$ref": "#/definitions/schemes.SchemeResponses403Example"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/schemes.SchemeResponses404Example"
+                        }
+                    },
+                    "409": {
+                        "description": "Conflict",
+                        "schema": {
+                            "$ref": "#/definitions/schemes.SchemeResponses409Example"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/schemes.SchemeResponses500Example"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/wilayah/provinsi/create": {
+            "post": {
+                "description": "Create Data Provinsi",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Wilayah"
+                ],
+                "summary": "Create Data Provinsi",
+                "parameters": [
+                    {
+                        "description": "Create Data Provinsi",
+                        "name": "Provinsi",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/schemes.SchemeProvinsiRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/schemes.SchemeResponses"
+                        }
+                    },
+                    "201": {
+                        "description": "Created",
+                        "schema": {
+                            "$ref": "#/definitions/schemes.SchemeResponses201Example"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/schemes.SchemeResponses400Example"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/schemes.SchemeResponses401Example"
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "schema": {
+                            "$ref": "#/definitions/schemes.SchemeResponses403Example"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/schemes.SchemeResponses404Example"
+                        }
+                    },
+                    "409": {
+                        "description": "Conflict",
+                        "schema": {
+                            "$ref": "#/definitions/schemes.SchemeResponses409Example"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/schemes.SchemeResponses500Example"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/wilayah/provinsi/delete/{code_provinsi}": {
+            "delete": {
+                "description": "Get Delete Provinsi",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Wilayah"
+                ],
+                "summary": "Get Delete Provinsi",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Delete Provinsi",
+                        "name": "code_provinsi",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/schemes.SchemeResponses"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/schemes.SchemeResponses400Example"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/schemes.SchemeResponses401Example"
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "schema": {
+                            "$ref": "#/definitions/schemes.SchemeResponses403Example"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/schemes.SchemeResponses404Example"
+                        }
+                    },
+                    "409": {
+                        "description": "Conflict",
+                        "schema": {
+                            "$ref": "#/definitions/schemes.SchemeResponses409Example"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/schemes.SchemeResponses500Example"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/wilayah/provinsi/result/{code_provinsi}": {
+            "get": {
+                "description": "Get By Code Provinsi",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Wilayah"
+                ],
+                "summary": "Get By Code Provinsi",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Get Code Code Provinsi",
+                        "name": "code_provinsi",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/schemes.SchemeResponses"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/schemes.SchemeResponses400Example"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/schemes.SchemeResponses401Example"
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "schema": {
+                            "$ref": "#/definitions/schemes.SchemeResponses403Example"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/schemes.SchemeResponses404Example"
+                        }
+                    },
+                    "409": {
+                        "description": "Conflict",
+                        "schema": {
+                            "$ref": "#/definitions/schemes.SchemeResponses409Example"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/schemes.SchemeResponses500Example"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/wilayah/provinsi/results": {
+            "get": {
+                "description": "Get List Provinsi",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Wilayah"
+                ],
+                "summary": "Get List Provinsi",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Page number for pagination, default is 1 | if you want to disable pagination, fill it with the number 0",
+                        "name": "page",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "Items per page for pagination, default is 10 | if you want to disable pagination, fill it with the number 0",
+                        "name": "perpage",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Search by name using LIKE pattern",
+                        "name": "name",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Search by Code Negara",
+                        "name": "parent_code_negara",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/schemes.SchemeResponsesPagination"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/schemes.SchemeResponses400Example"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/schemes.SchemeResponses401Example"
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "schema": {
+                            "$ref": "#/definitions/schemes.SchemeResponses403Example"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/schemes.SchemeResponses404Example"
+                        }
+                    },
+                    "409": {
+                        "description": "Conflict",
+                        "schema": {
+                            "$ref": "#/definitions/schemes.SchemeResponses409Example"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/schemes.SchemeResponses500Example"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/wilayah/provinsi/update/{code_provinsi}": {
+            "put": {
+                "description": "Get Update Provinsi",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Wilayah"
+                ],
+                "summary": "Get Update Provinsi",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Update Provinsi",
+                        "name": "code_provinsi",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "Update Provinsi",
+                        "name": "provinsi",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/schemes.SchemeProvinsiRequestUpdate"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/schemes.SchemeResponses"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/schemes.SchemeResponses400Example"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/schemes.SchemeResponses401Example"
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "schema": {
+                            "$ref": "#/definitions/schemes.SchemeResponses403Example"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/schemes.SchemeResponses404Example"
+                        }
+                    },
+                    "409": {
+                        "description": "Conflict",
+                        "schema": {
+                            "$ref": "#/definitions/schemes.SchemeResponses409Example"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/schemes.SchemeResponses500Example"
+                        }
+                    }
+                }
+            }
         }
     },
     "definitions": {
@@ -3286,6 +5150,47 @@ const docTemplate = `{
                     "type": "string",
                     "maxLength": 200,
                     "example": "jasa"
+                }
+            }
+        },
+        "schemes.SchemeKabupatenRequest": {
+            "type": "object",
+            "required": [
+                "code_kabupaten",
+                "name",
+                "parent_code_provinsi"
+            ],
+            "properties": {
+                "code_kabupaten": {
+                    "type": "string",
+                    "example": "00001"
+                },
+                "name": {
+                    "description": "Input with Uppercase",
+                    "type": "string",
+                    "example": "KAB. SEMARANG"
+                },
+                "parent_code_provinsi": {
+                    "type": "string",
+                    "example": "001"
+                }
+            }
+        },
+        "schemes.SchemeKabupatenRequestUpdate": {
+            "type": "object",
+            "required": [
+                "name",
+                "parent_code_provinsi"
+            ],
+            "properties": {
+                "name": {
+                    "description": "Input with Uppercase",
+                    "type": "string",
+                    "example": "KAB. SEMARANG"
+                },
+                "parent_code_provinsi": {
+                    "type": "string",
+                    "example": "001"
                 }
             }
         },
@@ -3322,6 +5227,88 @@ const docTemplate = `{
                     "type": "string",
                     "maxLength": 200,
                     "example": "Excel"
+                }
+            }
+        },
+        "schemes.SchemeKecamatanRequest": {
+            "type": "object",
+            "required": [
+                "code_kecamatan",
+                "name",
+                "parent_code_kabupaten"
+            ],
+            "properties": {
+                "code_kecamatan": {
+                    "type": "string",
+                    "example": "000001"
+                },
+                "name": {
+                    "description": "Input with Uppercase",
+                    "type": "string",
+                    "example": "AMBARAWA"
+                },
+                "parent_code_kabupaten": {
+                    "type": "string",
+                    "example": "00001"
+                }
+            }
+        },
+        "schemes.SchemeKecamatanRequestUpdate": {
+            "type": "object",
+            "required": [
+                "name",
+                "parent_code_kabupaten"
+            ],
+            "properties": {
+                "name": {
+                    "description": "Input with Uppercase",
+                    "type": "string",
+                    "example": "AMBARAWA"
+                },
+                "parent_code_kabupaten": {
+                    "type": "string",
+                    "example": "00001"
+                }
+            }
+        },
+        "schemes.SchemeKelurahanRequest": {
+            "type": "object",
+            "required": [
+                "code_kelurahan",
+                "name",
+                "parent_code_kecamatan"
+            ],
+            "properties": {
+                "code_kelurahan": {
+                    "type": "string",
+                    "example": "0000001"
+                },
+                "name": {
+                    "description": "Input with Uppercase",
+                    "type": "string",
+                    "example": "PANJANG"
+                },
+                "parent_code_kecamatan": {
+                    "type": "string",
+                    "example": "000001"
+                }
+            }
+        },
+        "schemes.SchemeKelurahanRequestUpdate": {
+            "type": "object",
+            "required": [
+                "name",
+                "parent_code_kecamatan"
+            ],
+            "properties": {
+                "name": {
+                    "description": "Input with Uppercase",
+                    "type": "string",
+                    "example": "PANJANG"
+                },
+                "parent_code_kecamatan": {
+                    "type": "string",
+                    "example": "000001"
                 }
             }
         },
@@ -3362,6 +5349,47 @@ const docTemplate = `{
                 }
             }
         },
+        "schemes.SchemeNegaraRequest": {
+            "type": "object",
+            "required": [
+                "code_negara",
+                "name",
+                "parent_code"
+            ],
+            "properties": {
+                "code_negara": {
+                    "type": "string",
+                    "example": "1"
+                },
+                "name": {
+                    "description": "Input with Uppercase",
+                    "type": "string",
+                    "example": "INDONESIA"
+                },
+                "parent_code": {
+                    "type": "string",
+                    "example": "0"
+                }
+            }
+        },
+        "schemes.SchemeNegaraRequestUpdate": {
+            "type": "object",
+            "required": [
+                "name",
+                "parent_code"
+            ],
+            "properties": {
+                "name": {
+                    "description": "Input with Uppercase",
+                    "type": "string",
+                    "example": "INDONESIA"
+                },
+                "parent_code": {
+                    "type": "string",
+                    "example": "0"
+                }
+            }
+        },
         "schemes.SchemePendidikanRequest": {
             "type": "object",
             "required": [
@@ -3377,6 +5405,47 @@ const docTemplate = `{
                     "type": "string",
                     "maxLength": 75,
                     "example": "SMA"
+                }
+            }
+        },
+        "schemes.SchemeProvinsiRequest": {
+            "type": "object",
+            "required": [
+                "code_provinsi",
+                "name",
+                "parent_code_negara"
+            ],
+            "properties": {
+                "code_provinsi": {
+                    "type": "string",
+                    "example": "001"
+                },
+                "name": {
+                    "description": "Input with Uppercase",
+                    "type": "string",
+                    "example": "JAWA TENGAH"
+                },
+                "parent_code_negara": {
+                    "type": "string",
+                    "example": "1"
+                }
+            }
+        },
+        "schemes.SchemeProvinsiRequestUpdate": {
+            "type": "object",
+            "required": [
+                "name",
+                "parent_code_negara"
+            ],
+            "properties": {
+                "name": {
+                    "description": "Input with Uppercase",
+                    "type": "string",
+                    "example": "JAWA TENGAH"
+                },
+                "parent_code_negara": {
+                    "type": "string",
+                    "example": "1"
                 }
             }
         },

@@ -28,7 +28,7 @@ import (
 // @Failure 500 {object} schemes.SchemeResponses500Example
 // @Router /api/v1/constant/jenis-kelamin [get]
 func HandlerJenisKelamin(ctx *gin.Context) {
-	if len(constants.JenisKelamins) == 0 {
+	if len(constants.JenisKelamins) == constants.EMPTY_NUMBER {
 		helpers.APIResponse(ctx, "Jenis Kelamin data not found", http.StatusInternalServerError, nil)
 		return
 	}
@@ -55,7 +55,7 @@ func HandlerJenisKelamin(ctx *gin.Context) {
 // @Failure 500 {object} schemes.SchemeResponses500Example
 // @Router /api/v1/constant/status-pernikahan [get]
 func HandlerStatusPernikahan(ctx *gin.Context) {
-	if len(constants.StatusPernikahans) == 0 {
+	if len(constants.StatusPernikahans) == constants.EMPTY_NUMBER {
 		helpers.APIResponse(ctx, "Status Pernikahan data not found", http.StatusInternalServerError, nil)
 		return
 	}
@@ -82,7 +82,7 @@ func HandlerStatusPernikahan(ctx *gin.Context) {
 // @Failure 500 {object} schemes.SchemeResponses500Example
 // @Router /api/v1/constant/role-user [get]
 func HandlerRoleUser(ctx *gin.Context) {
-	if len(constants.RoleUsers) == 0 {
+	if len(constants.RoleUsers) == constants.EMPTY_NUMBER {
 		helpers.APIResponse(ctx, "Role User data not found", http.StatusInternalServerError, nil)
 		return
 	}

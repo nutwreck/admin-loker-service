@@ -5,7 +5,8 @@ var (
 	TRUE_VALUE  = true
 	FALSE_VALUE = false
 
-	EMPTY_VALUE = ""
+	EMPTY_VALUE  = ""
+	EMPTY_NUMBER = 0
 )
 
 // ROLE USER

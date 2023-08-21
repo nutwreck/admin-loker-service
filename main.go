@@ -57,6 +57,7 @@ func main() {
 	routes.NewRouteKeahlian(db, app)
 	routes.NewRouteJenisPerusahaan(db, app)
 	routes.NewRouteConstant(app)
+	routes.NewRouteWilayah(db, app)
 
 	/**
 	* ========================
@@ -85,7 +86,9 @@ func setupDatabase() *gorm.DB {
 	} else {
 		dsn = "host=" + pkg.GodotEnv("POSTGRES_HOST") + " user=" + pkg.GodotEnv("POSTGRES_USER") + " password=" + pkg.GodotEnv("POSTGRES_PASSWORD") + " dbname=" + pkg.GodotEnv("POSTGRES_DB") + " port=" + pkg.GodotEnv("POSTGRES_PORT") + " sslmode=" + pkg.GodotEnv("POSTGRES_SSL")
 	}
-	db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
+	db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{
+		DisableForeignKeyConstraintWhenMigrating: false,
+	})
 
 	if err != nil {
 		defer logrus.Info("Database connection failed")
@@ -103,6 +106,11 @@ func setupDatabase() *gorm.DB {
 		&models.ModelPendidikan{},
 		&models.ModelTahunPengalaman{},
 		&models.ModelTipePekerjaan{},
+		&models.ModelKelurahan{},
+		&models.ModelKecamatan{},
+		&models.ModelKabupaten{},
+		&models.ModelProvinsi{},
+		&models.ModelNegara{},
 	)
 
 	if err != nil {
