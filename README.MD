@@ -42,3 +42,5 @@ hirego.id
 chmod +x run.sh
 
 ./run.sh
+
+https://www.kaggle.com/datasets/anggagewor/data-wilayah-republic-indonesia?resource=download

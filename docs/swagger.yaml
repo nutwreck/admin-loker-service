@@ -12,6 +12,36 @@ definitions:
     required:
     - name
     type: object
+  schemes.SchemeKabupatenRequest:
+    properties:
+      code_kabupaten:
+        example: "00001"
+        type: string
+      name:
+        description: Input with Uppercase
+        example: KAB. SEMARANG
+        type: string
+      parent_code_provinsi:
+        example: "001"
+        type: string
+    required:
+    - code_kabupaten
+    - name
+    - parent_code_provinsi
+    type: object
+  schemes.SchemeKabupatenRequestUpdate:
+    properties:
+      name:
+        description: Input with Uppercase
+        example: KAB. SEMARANG
+        type: string
+      parent_code_provinsi:
+        example: "001"
+        type: string
+    required:
+    - name
+    - parent_code_provinsi
+    type: object
   schemes.SchemeKategoriPekerjaanRequest:
     properties:
       active:
@@ -37,6 +67,66 @@ definitions:
         type: string
     required:
     - name
+    type: object
+  schemes.SchemeKecamatanRequest:
+    properties:
+      code_kecamatan:
+        example: "000001"
+        type: string
+      name:
+        description: Input with Uppercase
+        example: AMBARAWA
+        type: string
+      parent_code_kabupaten:
+        example: "00001"
+        type: string
+    required:
+    - code_kecamatan
+    - name
+    - parent_code_kabupaten
+    type: object
+  schemes.SchemeKecamatanRequestUpdate:
+    properties:
+      name:
+        description: Input with Uppercase
+        example: AMBARAWA
+        type: string
+      parent_code_kabupaten:
+        example: "00001"
+        type: string
+    required:
+    - name
+    - parent_code_kabupaten
+    type: object
+  schemes.SchemeKelurahanRequest:
+    properties:
+      code_kelurahan:
+        example: "0000001"
+        type: string
+      name:
+        description: Input with Uppercase
+        example: PANJANG
+        type: string
+      parent_code_kecamatan:
+        example: "000001"
+        type: string
+    required:
+    - code_kelurahan
+    - name
+    - parent_code_kecamatan
+    type: object
+  schemes.SchemeKelurahanRequestUpdate:
+    properties:
+      name:
+        description: Input with Uppercase
+        example: PANJANG
+        type: string
+      parent_code_kecamatan:
+        example: "000001"
+        type: string
+    required:
+    - name
+    - parent_code_kecamatan
     type: object
   schemes.SchemeLevelPekerjaanRequest:
     properties:
@@ -65,6 +155,36 @@ definitions:
     - email
     - password
     type: object
+  schemes.SchemeNegaraRequest:
+    properties:
+      code_negara:
+        example: "1"
+        type: string
+      name:
+        description: Input with Uppercase
+        example: INDONESIA
+        type: string
+      parent_code:
+        example: "0"
+        type: string
+    required:
+    - code_negara
+    - name
+    - parent_code
+    type: object
+  schemes.SchemeNegaraRequestUpdate:
+    properties:
+      name:
+        description: Input with Uppercase
+        example: INDONESIA
+        type: string
+      parent_code:
+        example: "0"
+        type: string
+    required:
+    - name
+    - parent_code
+    type: object
   schemes.SchemePendidikanRequest:
     properties:
       active:
@@ -77,6 +197,36 @@ definitions:
         type: string
     required:
     - name
+    type: object
+  schemes.SchemeProvinsiRequest:
+    properties:
+      code_provinsi:
+        example: "001"
+        type: string
+      name:
+        description: Input with Uppercase
+        example: JAWA TENGAH
+        type: string
+      parent_code_negara:
+        example: "1"
+        type: string
+    required:
+    - code_provinsi
+    - name
+    - parent_code_negara
+    type: object
+  schemes.SchemeProvinsiRequestUpdate:
+    properties:
+      name:
+        description: Input with Uppercase
+        example: JAWA TENGAH
+        type: string
+      parent_code_negara:
+        example: "1"
+        type: string
+    required:
+    - name
+    - parent_code_negara
     type: object
   schemes.SchemeResponses:
     properties:
@@ -756,11 +906,13 @@ paths:
       - application/json
       description: Get List Jenis Perusahaan
       parameters:
-      - description: Page number for pagination, default is 1
+      - description: Page number for pagination, default is 1 | if you want to disable
+          pagination, fill it with the number 0
         in: query
         name: page
         type: integer
-      - description: Items per page for pagination, default is 10
+      - description: Items per page for pagination, default is 10 | if you want to
+          disable pagination, fill it with the number 0
         in: query
         name: perpage
         type: integer
@@ -1009,11 +1161,13 @@ paths:
       - application/json
       description: Get List Kategori Pekerjaan
       parameters:
-      - description: Page number for pagination, default is 1
+      - description: Page number for pagination, default is 1 | if you want to disable
+          pagination, fill it with the number 0
         in: query
         name: page
         type: integer
-      - description: Items per page for pagination, default is 10
+      - description: Items per page for pagination, default is 10 | if you want to
+          disable pagination, fill it with the number 0
         in: query
         name: perpage
         type: integer
@@ -1262,11 +1416,13 @@ paths:
       - application/json
       description: Get List Keahlian
       parameters:
-      - description: Page number for pagination, default is 1
+      - description: Page number for pagination, default is 1 | if you want to disable
+          pagination, fill it with the number 0
         in: query
         name: page
         type: integer
-      - description: Items per page for pagination, default is 10
+      - description: Items per page for pagination, default is 10 | if you want to
+          disable pagination, fill it with the number 0
         in: query
         name: perpage
         type: integer
@@ -1515,11 +1671,13 @@ paths:
       - application/json
       description: Get List Level Pekerjaan
       parameters:
-      - description: Page number for pagination, default is 1
+      - description: Page number for pagination, default is 1 | if you want to disable
+          pagination, fill it with the number 0
         in: query
         name: page
         type: integer
-      - description: Items per page for pagination, default is 10
+      - description: Items per page for pagination, default is 10 | if you want to
+          disable pagination, fill it with the number 0
         in: query
         name: perpage
         type: integer
@@ -1768,11 +1926,13 @@ paths:
       - application/json
       description: Get List Pendidikan
       parameters:
-      - description: Page number for pagination, default is 1
+      - description: Page number for pagination, default is 1 | if you want to disable
+          pagination, fill it with the number 0
         in: query
         name: page
         type: integer
-      - description: Items per page for pagination, default is 10
+      - description: Items per page for pagination, default is 10 | if you want to
+          disable pagination, fill it with the number 0
         in: query
         name: perpage
         type: integer
@@ -2021,11 +2181,13 @@ paths:
       - application/json
       description: Get List Tahun Pengalaman
       parameters:
-      - description: Page number for pagination, default is 1
+      - description: Page number for pagination, default is 1 | if you want to disable
+          pagination, fill it with the number 0
         in: query
         name: page
         type: integer
-      - description: Items per page for pagination, default is 10
+      - description: Items per page for pagination, default is 10 | if you want to
+          disable pagination, fill it with the number 0
         in: query
         name: perpage
         type: integer
@@ -2274,11 +2436,13 @@ paths:
       - application/json
       description: Get List Tipe Pekerjaan
       parameters:
-      - description: Page number for pagination, default is 1
+      - description: Page number for pagination, default is 1 | if you want to disable
+          pagination, fill it with the number 0
         in: query
         name: page
         type: integer
-      - description: Items per page for pagination, default is 10
+      - description: Items per page for pagination, default is 10 | if you want to
+          disable pagination, fill it with the number 0
         in: query
         name: perpage
         type: integer
@@ -2375,6 +2539,1247 @@ paths:
       summary: Get Update Tipe Pekerjaan
       tags:
       - Tipe Pekerjaan
+  /api/v1/wilayah/kabupaten/create:
+    post:
+      consumes:
+      - application/json
+      description: Create Data Kabupaten
+      parameters:
+      - description: Create Data Kabupaten
+        in: body
+        name: Kabupaten
+        required: true
+        schema:
+          $ref: '#/definitions/schemes.SchemeKabupatenRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses'
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses201Example'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses400Example'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses401Example'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses403Example'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses404Example'
+        "409":
+          description: Conflict
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses409Example'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses500Example'
+      summary: Create Data Kabupaten
+      tags:
+      - Wilayah
+  /api/v1/wilayah/kabupaten/delete/{code_kabupaten}:
+    delete:
+      consumes:
+      - application/json
+      description: Get Delete Kabupaten
+      parameters:
+      - description: Delete Kabupaten
+        in: path
+        name: code_kabupaten
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses400Example'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses401Example'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses403Example'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses404Example'
+        "409":
+          description: Conflict
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses409Example'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses500Example'
+      summary: Get Delete Kabupaten
+      tags:
+      - Wilayah
+  /api/v1/wilayah/kabupaten/result/{code_kabupaten}:
+    get:
+      consumes:
+      - application/json
+      description: Get By Code Kabupaten
+      parameters:
+      - description: Get Code Code Kabupaten
+        in: path
+        name: code_kabupaten
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses400Example'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses401Example'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses403Example'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses404Example'
+        "409":
+          description: Conflict
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses409Example'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses500Example'
+      summary: Get By Code Kabupaten
+      tags:
+      - Wilayah
+  /api/v1/wilayah/kabupaten/results:
+    get:
+      consumes:
+      - application/json
+      description: Get List Kabupaten
+      parameters:
+      - description: Page number for pagination, default is 1 | if you want to disable
+          pagination, fill it with the number 0
+        in: query
+        name: page
+        type: integer
+      - description: Items per page for pagination, default is 10 | if you want to
+          disable pagination, fill it with the number 0
+        in: query
+        name: perpage
+        type: integer
+      - description: Search by name using LIKE pattern
+        in: query
+        name: name
+        type: string
+      - description: Search by Code Provinsi
+        in: query
+        name: parent_code_provinsi
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponsesPagination'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses400Example'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses401Example'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses403Example'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses404Example'
+        "409":
+          description: Conflict
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses409Example'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses500Example'
+      summary: Get List Kabupaten
+      tags:
+      - Wilayah
+  /api/v1/wilayah/kabupaten/update/{code_kabupaten}:
+    put:
+      consumes:
+      - application/json
+      description: Get Update Kabupaten
+      parameters:
+      - description: Update Kabupaten
+        in: path
+        name: code_kabupaten
+        required: true
+        type: string
+      - description: Update Kabupaten
+        in: body
+        name: kabupaten
+        required: true
+        schema:
+          $ref: '#/definitions/schemes.SchemeKabupatenRequestUpdate'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses400Example'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses401Example'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses403Example'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses404Example'
+        "409":
+          description: Conflict
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses409Example'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses500Example'
+      summary: Get Update Kabupaten
+      tags:
+      - Wilayah
+  /api/v1/wilayah/kecamatan/create:
+    post:
+      consumes:
+      - application/json
+      description: Create Data Kecamatan
+      parameters:
+      - description: Create Data Kecamatan
+        in: body
+        name: Kecamatan
+        required: true
+        schema:
+          $ref: '#/definitions/schemes.SchemeKecamatanRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses'
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses201Example'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses400Example'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses401Example'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses403Example'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses404Example'
+        "409":
+          description: Conflict
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses409Example'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses500Example'
+      summary: Create Data Kecamatan
+      tags:
+      - Wilayah
+  /api/v1/wilayah/kecamatan/delete/{code_kecamatan}:
+    delete:
+      consumes:
+      - application/json
+      description: Get Delete Kecamatan
+      parameters:
+      - description: Delete Kecamatan
+        in: path
+        name: code_kecamatan
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses400Example'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses401Example'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses403Example'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses404Example'
+        "409":
+          description: Conflict
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses409Example'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses500Example'
+      summary: Get Delete Kecamatan
+      tags:
+      - Wilayah
+  /api/v1/wilayah/kecamatan/result/{code_kecamatan}:
+    get:
+      consumes:
+      - application/json
+      description: Get By Code Kecamatan
+      parameters:
+      - description: Get Code Code Kecamatan
+        in: path
+        name: code_kecamatan
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses400Example'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses401Example'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses403Example'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses404Example'
+        "409":
+          description: Conflict
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses409Example'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses500Example'
+      summary: Get By Code Kecamatan
+      tags:
+      - Wilayah
+  /api/v1/wilayah/kecamatan/results:
+    get:
+      consumes:
+      - application/json
+      description: Get List Kecamatan
+      parameters:
+      - description: Page number for pagination, default is 1 | if you want to disable
+          pagination, fill it with the number 0
+        in: query
+        name: page
+        type: integer
+      - description: Items per page for pagination, default is 10 | if you want to
+          disable pagination, fill it with the number 0
+        in: query
+        name: perpage
+        type: integer
+      - description: Search by name using LIKE pattern
+        in: query
+        name: name
+        type: string
+      - description: Search by Code Kabupaten
+        in: query
+        name: parent_code_kabupaten
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponsesPagination'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses400Example'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses401Example'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses403Example'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses404Example'
+        "409":
+          description: Conflict
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses409Example'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses500Example'
+      summary: Get List Kecamatan
+      tags:
+      - Wilayah
+  /api/v1/wilayah/kecamatan/update/{code_kecamatan}:
+    put:
+      consumes:
+      - application/json
+      description: Get Update Kecamatan
+      parameters:
+      - description: Update Kecamatan
+        in: path
+        name: code_kecamatan
+        required: true
+        type: string
+      - description: Update Kecamatan
+        in: body
+        name: Kecamatan
+        required: true
+        schema:
+          $ref: '#/definitions/schemes.SchemeKecamatanRequestUpdate'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses400Example'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses401Example'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses403Example'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses404Example'
+        "409":
+          description: Conflict
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses409Example'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses500Example'
+      summary: Get Update Kecamatan
+      tags:
+      - Wilayah
+  /api/v1/wilayah/kelurahan/create:
+    post:
+      consumes:
+      - application/json
+      description: Create Data Kelurahan
+      parameters:
+      - description: Create Data Kelurahan
+        in: body
+        name: Kelurahan
+        required: true
+        schema:
+          $ref: '#/definitions/schemes.SchemeKelurahanRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses'
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses201Example'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses400Example'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses401Example'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses403Example'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses404Example'
+        "409":
+          description: Conflict
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses409Example'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses500Example'
+      summary: Create Data Kelurahan
+      tags:
+      - Wilayah
+  /api/v1/wilayah/kelurahan/delete/{code_kelurahan}:
+    delete:
+      consumes:
+      - application/json
+      description: Get Delete Kelurahan
+      parameters:
+      - description: Delete Kelurahan
+        in: path
+        name: code_kelurahan
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses400Example'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses401Example'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses403Example'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses404Example'
+        "409":
+          description: Conflict
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses409Example'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses500Example'
+      summary: Get Delete Kelurahan
+      tags:
+      - Wilayah
+  /api/v1/wilayah/kelurahan/result/{code_kelurahan}:
+    get:
+      consumes:
+      - application/json
+      description: Get By Code Kelurahan
+      parameters:
+      - description: Get Code Code Kelurahan
+        in: path
+        name: code_kelurahan
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses400Example'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses401Example'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses403Example'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses404Example'
+        "409":
+          description: Conflict
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses409Example'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses500Example'
+      summary: Get By Code Kelurahan
+      tags:
+      - Wilayah
+  /api/v1/wilayah/kelurahan/results:
+    get:
+      consumes:
+      - application/json
+      description: Get List Kelurahan
+      parameters:
+      - description: Page number for pagination, default is 1 | if you want to disable
+          pagination, fill it with the number 0
+        in: query
+        name: page
+        type: integer
+      - description: Items per page for pagination, default is 10 | if you want to
+          disable pagination, fill it with the number 0
+        in: query
+        name: perpage
+        type: integer
+      - description: Search by name using LIKE pattern
+        in: query
+        name: name
+        type: string
+      - description: Search by Code Kecamatan
+        in: query
+        name: parent_code_kecamatan
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponsesPagination'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses400Example'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses401Example'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses403Example'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses404Example'
+        "409":
+          description: Conflict
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses409Example'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses500Example'
+      summary: Get List Kelurahan
+      tags:
+      - Wilayah
+  /api/v1/wilayah/kelurahan/update/{code_kelurahan}:
+    put:
+      consumes:
+      - application/json
+      description: Get Update Kelurahan
+      parameters:
+      - description: Update Kelurahan
+        in: path
+        name: code_kelurahan
+        required: true
+        type: string
+      - description: Update Kelurahan
+        in: body
+        name: Kelurahan
+        required: true
+        schema:
+          $ref: '#/definitions/schemes.SchemeKelurahanRequestUpdate'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses400Example'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses401Example'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses403Example'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses404Example'
+        "409":
+          description: Conflict
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses409Example'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses500Example'
+      summary: Get Update Kelurahan
+      tags:
+      - Wilayah
+  /api/v1/wilayah/negara/create:
+    post:
+      consumes:
+      - application/json
+      description: Create Data Negara
+      parameters:
+      - description: Create Data Negara
+        in: body
+        name: negara
+        required: true
+        schema:
+          $ref: '#/definitions/schemes.SchemeNegaraRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses'
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses201Example'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses400Example'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses401Example'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses403Example'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses404Example'
+        "409":
+          description: Conflict
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses409Example'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses500Example'
+      summary: Create Data Negara
+      tags:
+      - Wilayah
+  /api/v1/wilayah/negara/delete/{code_negara}:
+    delete:
+      consumes:
+      - application/json
+      description: Get Delete Negara
+      parameters:
+      - description: Delete Negara
+        in: path
+        name: code_negara
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses400Example'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses401Example'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses403Example'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses404Example'
+        "409":
+          description: Conflict
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses409Example'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses500Example'
+      summary: Get Delete Negara
+      tags:
+      - Wilayah
+  /api/v1/wilayah/negara/result/{code_negara}:
+    get:
+      consumes:
+      - application/json
+      description: Get By Code Negara
+      parameters:
+      - description: Get Code Code Negara
+        in: path
+        name: code_negara
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses400Example'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses401Example'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses403Example'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses404Example'
+        "409":
+          description: Conflict
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses409Example'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses500Example'
+      summary: Get By Code Negara
+      tags:
+      - Wilayah
+  /api/v1/wilayah/negara/results:
+    get:
+      consumes:
+      - application/json
+      description: Get List Negara
+      parameters:
+      - description: Page number for pagination, default is 1 | if you want to disable
+          pagination, fill it with the number 0
+        in: query
+        name: page
+        type: integer
+      - description: Items per page for pagination, default is 10 | if you want to
+          disable pagination, fill it with the number 0
+        in: query
+        name: perpage
+        type: integer
+      - description: Search by name using LIKE pattern
+        in: query
+        name: name
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponsesPagination'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses400Example'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses401Example'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses403Example'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses404Example'
+        "409":
+          description: Conflict
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses409Example'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses500Example'
+      summary: Get List Negara
+      tags:
+      - Wilayah
+  /api/v1/wilayah/negara/update/{code_negara}:
+    put:
+      consumes:
+      - application/json
+      description: Get Update Negara
+      parameters:
+      - description: Update Negara
+        in: path
+        name: code_negara
+        required: true
+        type: string
+      - description: Update Negara
+        in: body
+        name: negara
+        required: true
+        schema:
+          $ref: '#/definitions/schemes.SchemeNegaraRequestUpdate'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses400Example'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses401Example'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses403Example'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses404Example'
+        "409":
+          description: Conflict
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses409Example'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses500Example'
+      summary: Get Update Negara
+      tags:
+      - Wilayah
+  /api/v1/wilayah/provinsi/create:
+    post:
+      consumes:
+      - application/json
+      description: Create Data Provinsi
+      parameters:
+      - description: Create Data Provinsi
+        in: body
+        name: Provinsi
+        required: true
+        schema:
+          $ref: '#/definitions/schemes.SchemeProvinsiRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses'
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses201Example'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses400Example'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses401Example'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses403Example'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses404Example'
+        "409":
+          description: Conflict
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses409Example'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses500Example'
+      summary: Create Data Provinsi
+      tags:
+      - Wilayah
+  /api/v1/wilayah/provinsi/delete/{code_provinsi}:
+    delete:
+      consumes:
+      - application/json
+      description: Get Delete Provinsi
+      parameters:
+      - description: Delete Provinsi
+        in: path
+        name: code_provinsi
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses400Example'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses401Example'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses403Example'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses404Example'
+        "409":
+          description: Conflict
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses409Example'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses500Example'
+      summary: Get Delete Provinsi
+      tags:
+      - Wilayah
+  /api/v1/wilayah/provinsi/result/{code_provinsi}:
+    get:
+      consumes:
+      - application/json
+      description: Get By Code Provinsi
+      parameters:
+      - description: Get Code Code Provinsi
+        in: path
+        name: code_provinsi
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses400Example'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses401Example'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses403Example'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses404Example'
+        "409":
+          description: Conflict
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses409Example'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses500Example'
+      summary: Get By Code Provinsi
+      tags:
+      - Wilayah
+  /api/v1/wilayah/provinsi/results:
+    get:
+      consumes:
+      - application/json
+      description: Get List Provinsi
+      parameters:
+      - description: Page number for pagination, default is 1 | if you want to disable
+          pagination, fill it with the number 0
+        in: query
+        name: page
+        type: integer
+      - description: Items per page for pagination, default is 10 | if you want to
+          disable pagination, fill it with the number 0
+        in: query
+        name: perpage
+        type: integer
+      - description: Search by name using LIKE pattern
+        in: query
+        name: name
+        type: string
+      - description: Search by Code Negara
+        in: query
+        name: parent_code_negara
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponsesPagination'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses400Example'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses401Example'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses403Example'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses404Example'
+        "409":
+          description: Conflict
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses409Example'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses500Example'
+      summary: Get List Provinsi
+      tags:
+      - Wilayah
+  /api/v1/wilayah/provinsi/update/{code_provinsi}:
+    put:
+      consumes:
+      - application/json
+      description: Get Update Provinsi
+      parameters:
+      - description: Update Provinsi
+        in: path
+        name: code_provinsi
+        required: true
+        type: string
+      - description: Update Provinsi
+        in: body
+        name: provinsi
+        required: true
+        schema:
+          $ref: '#/definitions/schemes.SchemeProvinsiRequestUpdate'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses400Example'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses401Example'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses403Example'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses404Example'
+        "409":
+          description: Conflict
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses409Example'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/schemes.SchemeResponses500Example'
+      summary: Get Update Provinsi
+      tags:
+      - Wilayah
 schemes:
 - http
 - https

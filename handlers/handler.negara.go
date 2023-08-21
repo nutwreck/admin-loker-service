@@ -16,36 +16,26 @@ import (
 	gpc "github.com/restuwahyu13/go-playground-converter"
 )
 
-type handleKeahlian struct {
-	keahlian entities.EntityKeahlian
+type handleNegara struct {
+	negara entities.EntityNegara
 }
 
-func NewHandlerKeahlian(keahlian entities.EntityKeahlian) *handleKeahlian {
-	return &handleKeahlian{keahlian: keahlian}
-}
-
-/**
-* =====================================
-* Handler Ping Status Keahlian Teritory
-*======================================
- */
-
-func (h *handleKeahlian) HandlerPing(ctx *gin.Context) {
-	helpers.APIResponse(ctx, "Ping Keahlian", http.StatusOK, nil)
+func NewHandlerNegara(negara entities.EntityNegara) *handleNegara {
+	return &handleNegara{negara: negara}
 }
 
 /**
-* ====================================
-* Handler Create New Keahlian Teritory
-*=====================================
+* ==================================
+* Handler Create New Negara Teritory
+*===================================
  */
-// CreateKeahlian godoc
-// @Summary		Create Keahlian
-// @Description	Create Keahlian
-// @Tags		Keahlian
+// CreateDataNegara godoc
+// @Summary		Create Data Negara
+// @Description	Create Data Negara
+// @Tags		Wilayah
 // @Accept		json
 // @Produce		json
-// @Param		Keahlian body schemes.SchemeKeahlianRequest true "Create Keahlian"
+// @Param		negara body schemes.SchemeNegaraRequest true "Create Data Negara"
 // @Success 200 {object} schemes.SchemeResponses
 // @Success 201 {object} schemes.SchemeResponses201Example
 // @Failure 400 {object} schemes.SchemeResponses400Example
@@ -54,10 +44,9 @@ func (h *handleKeahlian) HandlerPing(ctx *gin.Context) {
 // @Failure 404 {object} schemes.SchemeResponses404Example
 // @Failure 409 {object} schemes.SchemeResponses409Example
 // @Failure 500 {object} schemes.SchemeResponses500Example
-// @Security	ApiKeyAuth
-// @Router /api/v1/keahlian/create [post]
-func (h *handleKeahlian) HandlerCreate(ctx *gin.Context) {
-	var body schemes.SchemeKeahlian
+// @Router /api/v1/wilayah/negara/create [post]
+func (h *handleNegara) HandlerCreate(ctx *gin.Context) {
+	var body schemes.SchemeNegara
 	err := ctx.ShouldBindJSON(&body)
 
 	if err != nil {
@@ -65,37 +54,37 @@ func (h *handleKeahlian) HandlerCreate(ctx *gin.Context) {
 		return
 	}
 
-	errors, code := ValidatorKeahlian(ctx, body, "create")
+	errors, code := ValidatorNegara(ctx, body, "create")
 
 	if code > 0 {
 		helpers.ErrorResponse(ctx, errors)
 		return
 	}
 
-	_, error := h.keahlian.EntityCreate(&body)
+	_, error := h.negara.EntityCreate(&body)
 
 	if error.Type == "error_update_01" {
-		helpers.APIResponse(ctx, "Keahlian name already exist", error.Code, nil)
+		helpers.APIResponse(ctx, "Negara name already exist", error.Code, nil)
 		return
 	}
 
 	if error.Type == "error_create_02" {
-		helpers.APIResponse(ctx, "Create new Keahlian failed", error.Code, nil)
+		helpers.APIResponse(ctx, "Create new Negara failed", error.Code, nil)
 		return
 	}
 
-	helpers.APIResponse(ctx, "Create new Keahlian successfully", http.StatusCreated, nil)
+	helpers.APIResponse(ctx, "Create new Negara successfully", http.StatusCreated, nil)
 }
 
 /**
-* =====================================
-* Handler Results All Keahlian Teritory
-*======================================
+* ===================================
+* Handler Results All Negara Teritory
+*====================================
  */
-// GetListKeahlian godoc
-// @Summary		Get List Keahlian
-// @Description	Get List Keahlian
-// @Tags		Keahlian
+// GetListNegara godoc
+// @Summary		Get List Negara
+// @Description	Get List Negara
+// @Tags		Wilayah
 // @Accept		json
 // @Produce		json
 // @Param page query int false "Page number for pagination, default is 1 | if you want to disable pagination, fill it with the number 0"
@@ -108,11 +97,10 @@ func (h *handleKeahlian) HandlerCreate(ctx *gin.Context) {
 // @Failure 404 {object} schemes.SchemeResponses404Example
 // @Failure 409 {object} schemes.SchemeResponses409Example
 // @Failure 500 {object} schemes.SchemeResponses500Example
-// @Security	ApiKeyAuth
-// @Router /api/v1/keahlian/results [get]
-func (h *handleKeahlian) HandlerResults(ctx *gin.Context) {
+// @Router /api/v1/wilayah/negara/results [get]
+func (h *handleNegara) HandlerResults(ctx *gin.Context) {
 	var (
-		body          schemes.SchemeKeahlian
+		body          schemes.SchemeNegara
 		reqPage       = configs.FirstPage
 		reqPerPage    = configs.TotalPerPage
 		pages         int
@@ -148,10 +136,17 @@ func (h *handleKeahlian) HandlerResults(ctx *gin.Context) {
 		body.Name = nameParam
 	}
 
-	res, totalData, error := h.keahlian.EntityResults(&body)
+	if reqPage == constants.EMPTY_NUMBER || reqPerPage == constants.EMPTY_NUMBER { //Jika Off Pagination tapi kolom pencarian dikosongkan
+		if nameParam == constants.EMPTY_VALUE {
+			helpers.APIResponsePagination(ctx, "Kolom Name Tidak Boleh Kosong Jika Pagination Dimatikan!", http.StatusBadRequest, nil, pages, perPages, totalPages, totalDatas)
+			return
+		}
+	}
+
+	res, totalData, error := h.negara.EntityResults(&body)
 
 	if error.Type == "error_results_01" {
-		helpers.APIResponsePagination(ctx, "Keahlian data not found", error.Code, nil, pages, perPages, totalPages, totalDatas)
+		helpers.APIResponsePagination(ctx, "Negara data not found", error.Code, nil, pages, perPages, totalPages, totalDatas)
 		return
 	}
 
@@ -163,21 +158,21 @@ func (h *handleKeahlian) HandlerResults(ctx *gin.Context) {
 	totalPages = int(math.Ceil(totalPagesDiv))
 	totalDatas = int(totalData)
 
-	helpers.APIResponsePagination(ctx, "Keahlian data already to use", http.StatusOK, res, pages, perPages, totalPages, totalDatas)
+	helpers.APIResponsePagination(ctx, "Negara data already to use", http.StatusOK, res, pages, perPages, totalPages, totalDatas)
 }
 
 /**
 * ======================================
-* Handler Result Keahlian By ID Teritory
+* Handler Result Negara By Code Teritory
 *=======================================
  */
-// GetByIDKeahlian godoc
-// @Summary		Get By ID Keahlian
-// @Description	Get By ID Keahlian
-// @Tags		Keahlian
+// GetByCodeNegara godoc
+// @Summary		Get By Code Negara
+// @Description	Get By Code Negara
+// @Tags		Wilayah
 // @Accept		json
 // @Produce		json
-// @Param		id path string true "Get By ID Keahlian"
+// @Param		code_negara path string true "Get Code Code Negara"
 // @Success 200 {object} schemes.SchemeResponses
 // @Failure 400 {object} schemes.SchemeResponses400Example
 // @Failure 401 {object} schemes.SchemeResponses401Example
@@ -185,42 +180,41 @@ func (h *handleKeahlian) HandlerResults(ctx *gin.Context) {
 // @Failure 404 {object} schemes.SchemeResponses404Example
 // @Failure 409 {object} schemes.SchemeResponses409Example
 // @Failure 500 {object} schemes.SchemeResponses500Example
-// @Security	ApiKeyAuth
-// @Router /api/v1/keahlian/result/{id} [get]
-func (h *handleKeahlian) HandlerResult(ctx *gin.Context) {
-	var body schemes.SchemeKeahlian
-	id := ctx.Param("id")
-	body.ID = id
+// @Router /api/v1/wilayah/negara/result/{code_negara} [get]
+func (h *handleNegara) HandlerResult(ctx *gin.Context) {
+	var body schemes.SchemeNegara
+	codes := ctx.Param("code_negara")
+	body.CodeNegara = codes
 
-	errors, code := ValidatorKeahlian(ctx, body, "result")
+	errors, code := ValidatorNegara(ctx, body, "result")
 
 	if code > 0 {
 		helpers.ErrorResponse(ctx, errors)
 		return
 	}
 
-	res, error := h.keahlian.EntityResult(&body)
+	res, error := h.negara.EntityResult(&body)
 
 	if error.Type == "error_result_01" {
-		helpers.APIResponse(ctx, fmt.Sprintf("Keahlian data not found for this id %s ", id), error.Code, nil)
+		helpers.APIResponse(ctx, fmt.Sprintf("Negara data not found for this code %s ", codes), error.Code, nil)
 		return
 	}
 
-	helpers.APIResponse(ctx, "Keahlian data already to use", http.StatusOK, res)
+	helpers.APIResponse(ctx, "Negara data already to use", http.StatusOK, res)
 }
 
 /**
-* ======================================
-* Handler Delete Keahlian By ID Teritory
-*=======================================
+* ====================================
+* Handler Delete Negara By ID Teritory
+*=====================================
  */
-// GetDeleteKeahlian godoc
-// @Summary		Get Delete Keahlian
-// @Description	Get Delete Keahlian
-// @Tags		Keahlian
+// GetDeleteNegara godoc
+// @Summary		Get Delete Negara
+// @Description	Get Delete Negara
+// @Tags		Wilayah
 // @Accept		json
 // @Produce		json
-// @Param		id path string true "Delete Keahlian"
+// @Param		code_negara path string true "Delete Negara"
 // @Success 200 {object} schemes.SchemeResponses
 // @Failure 400 {object} schemes.SchemeResponses400Example
 // @Failure 401 {object} schemes.SchemeResponses401Example
@@ -228,48 +222,47 @@ func (h *handleKeahlian) HandlerResult(ctx *gin.Context) {
 // @Failure 404 {object} schemes.SchemeResponses404Example
 // @Failure 409 {object} schemes.SchemeResponses409Example
 // @Failure 500 {object} schemes.SchemeResponses500Example
-// @Security	ApiKeyAuth
-// @Router /api/v1/keahlian/delete/{id} [delete]
-func (h *handleKeahlian) HandlerDelete(ctx *gin.Context) {
-	var body schemes.SchemeKeahlian
-	id := ctx.Param("id")
-	body.ID = id
+// @Router /api/v1/wilayah/negara/delete/{code_negara} [delete]
+func (h *handleNegara) HandlerDelete(ctx *gin.Context) {
+	var body schemes.SchemeNegara
+	codes := ctx.Param("code_negara")
+	body.CodeNegara = codes
 
-	errors, code := ValidatorKeahlian(ctx, body, "delete")
+	errors, code := ValidatorNegara(ctx, body, "delete")
 
 	if code > 0 {
 		helpers.ErrorResponse(ctx, errors)
 		return
 	}
 
-	res, error := h.keahlian.EntityDelete(&body)
+	res, error := h.negara.EntityDelete(&body)
 
 	if error.Type == "error_delete_01" {
-		helpers.APIResponse(ctx, fmt.Sprintf("Keahlian data not found for this id %s ", id), error.Code, nil)
+		helpers.APIResponse(ctx, fmt.Sprintf("Negara data not found for this code %s ", codes), error.Code, nil)
 		return
 	}
 
 	if error.Type == "error_delete_02" {
-		helpers.APIResponse(ctx, fmt.Sprintf("Delete Keahlian data for this id %v failed", id), error.Code, nil)
+		helpers.APIResponse(ctx, fmt.Sprintf("Delete Negara data for this code %v failed", codes), error.Code, nil)
 		return
 	}
 
-	helpers.APIResponse(ctx, fmt.Sprintf("Delete Keahlian data for this id %s success", id), http.StatusOK, res)
+	helpers.APIResponse(ctx, fmt.Sprintf("Delete Negara data for this code %s success", codes), http.StatusOK, res)
 }
 
 /**
-* ======================================
-* Handler Update Keahlian By ID Teritory
-*=======================================
+* ====================================
+* Handler Update Negara By ID Teritory
+*=====================================
  */
-// GetUpdateKeahlian godoc
-// @Summary		Get Update Keahlian
-// @Description	Get Update Keahlian
-// @Tags		Keahlian
+// GetUpdateNegara godoc
+// @Summary		Get Update Negara
+// @Description	Get Update Negara
+// @Tags		Wilayah
 // @Accept		json
 // @Produce		json
-// @Param		id path string true "Update Keahlian"
-// @Param		Keahlian body schemes.SchemeKeahlianRequest true "Update Keahlian"
+// @Param		code_negara path string true "Update Negara"
+// @Param		negara body schemes.SchemeNegaraRequestUpdate true "Update Negara"
 // @Success 200 {object} schemes.SchemeResponses
 // @Failure 400 {object} schemes.SchemeResponses400Example
 // @Failure 401 {object} schemes.SchemeResponses401Example
@@ -277,21 +270,15 @@ func (h *handleKeahlian) HandlerDelete(ctx *gin.Context) {
 // @Failure 404 {object} schemes.SchemeResponses404Example
 // @Failure 409 {object} schemes.SchemeResponses409Example
 // @Failure 500 {object} schemes.SchemeResponses500Example
-// @Security	ApiKeyAuth
-// @Router /api/v1/keahlian/update/{id} [put]
-func (h *handleKeahlian) HandlerUpdate(ctx *gin.Context) {
+// @Router /api/v1/wilayah/negara/update/{code_negara} [put]
+func (h *handleNegara) HandlerUpdate(ctx *gin.Context) {
 	var (
-		body      schemes.SchemeKeahlian
-		activeGet = false
+		body schemes.SchemeNegara
 	)
-	id := ctx.Param("id")
-	body.ID = id
+	codes := ctx.Param("code_negara")
+	body.CodeNegara = codes
+	body.ParentCode = ctx.PostForm("parent_code")
 	body.Name = ctx.PostForm("name")
-	activeStr := ctx.PostForm("active")
-	if activeStr == "true" {
-		activeGet = true
-	}
-	body.Active = &activeGet
 
 	err := ctx.ShouldBindJSON(&body)
 
@@ -300,35 +287,35 @@ func (h *handleKeahlian) HandlerUpdate(ctx *gin.Context) {
 		return
 	}
 
-	errors, code := ValidatorKeahlian(ctx, body, "update")
+	errors, code := ValidatorNegara(ctx, body, "update")
 
 	if code > 0 {
 		helpers.ErrorResponse(ctx, errors)
 		return
 	}
 
-	_, error := h.keahlian.EntityUpdate(&body)
+	_, error := h.negara.EntityUpdate(&body)
 
 	if error.Type == "error_update_01" {
-		helpers.APIResponse(ctx, fmt.Sprintf("Keahlian data not found for this id %s ", id), error.Code, nil)
+		helpers.APIResponse(ctx, fmt.Sprintf("Negara data not found for this code %s ", codes), error.Code, nil)
 		return
 	}
 
 	if error.Type == "error_update_02" {
-		helpers.APIResponse(ctx, fmt.Sprintf("Update Keahlian data failed for this id %s", id), error.Code, nil)
+		helpers.APIResponse(ctx, fmt.Sprintf("Update Negara data failed for this code %s", codes), error.Code, nil)
 		return
 	}
 
-	helpers.APIResponse(ctx, fmt.Sprintf("Update Keahlian data success for this id %s", id), http.StatusCreated, nil)
+	helpers.APIResponse(ctx, fmt.Sprintf("Update Negara data success for this code %s", codes), http.StatusOK, nil)
 }
 
 /**
-* =============================================
-*  All Validator User Input For Keahlian
-*==============================================
+* ====================================
+*  All Validator User Input For Negara
+*=====================================
  */
 
-func ValidatorKeahlian(ctx *gin.Context, input schemes.SchemeKeahlian, Type string) (interface{}, int) {
+func ValidatorNegara(ctx *gin.Context, input schemes.SchemeNegara, Type string) (interface{}, int) {
 	var schema gpc.ErrorConfig
 
 	if Type == "create" {
@@ -336,18 +323,23 @@ func ValidatorKeahlian(ctx *gin.Context, input schemes.SchemeKeahlian, Type stri
 			Options: []gpc.ErrorMetaConfig{
 				{
 					Tag:     "required",
+					Field:   "CodeNegara",
+					Message: "CodeNegara is required on body",
+				},
+				{
+					Tag:     "required",
+					Field:   "ParentCode",
+					Message: "ParentCode is required on body",
+				},
+				{
+					Tag:     "required",
 					Field:   "Name",
 					Message: "Name is required on body",
 				},
 				{
-					Tag:     "lowercase",
+					Tag:     "uppercase",
 					Field:   "Name",
-					Message: "Name must be lowercase",
-				},
-				{
-					Tag:     "max",
-					Field:   "Name",
-					Message: "Name maximal 200 character",
+					Message: "Name must be uppercase",
 				},
 			},
 		}
@@ -358,13 +350,8 @@ func ValidatorKeahlian(ctx *gin.Context, input schemes.SchemeKeahlian, Type stri
 			Options: []gpc.ErrorMetaConfig{
 				{
 					Tag:     "required",
-					Field:   "ID",
-					Message: "ID is required on param",
-				},
-				{
-					Tag:     "uuid",
-					Field:   "ID",
-					Message: "ID must be uuid",
+					Field:   "CodeNegara",
+					Message: "CodeNegara is required on param",
 				},
 			},
 		}
@@ -375,13 +362,13 @@ func ValidatorKeahlian(ctx *gin.Context, input schemes.SchemeKeahlian, Type stri
 			Options: []gpc.ErrorMetaConfig{
 				{
 					Tag:     "required",
-					Field:   "ID",
-					Message: "ID is required on param",
+					Field:   "CodeNegara",
+					Message: "CodeNegara is required on body",
 				},
 				{
-					Tag:     "uuid",
-					Field:   "ID",
-					Message: "ID must be uuid",
+					Tag:     "required",
+					Field:   "ParentCode",
+					Message: "ParentCode is required on body",
 				},
 				{
 					Tag:     "required",
@@ -389,14 +376,9 @@ func ValidatorKeahlian(ctx *gin.Context, input schemes.SchemeKeahlian, Type stri
 					Message: "Name is required on body",
 				},
 				{
-					Tag:     "lowercase",
+					Tag:     "uppercase",
 					Field:   "Name",
-					Message: "Name must be lowercase",
-				},
-				{
-					Tag:     "max",
-					Field:   "Name",
-					Message: "Name maximal 200 character",
+					Message: "Name must be uppercase",
 				},
 			},
 		}

@@ -98,8 +98,8 @@ func (h *handleLevelPekerjaan) HandlerCreate(ctx *gin.Context) {
 // @Tags		Level Pekerjaan
 // @Accept		json
 // @Produce		json
-// @Param page query int false "Page number for pagination, default is 1"
-// @Param perpage query int false "Items per page for pagination, default is 10"
+// @Param page query int false "Page number for pagination, default is 1 | if you want to disable pagination, fill it with the number 0"
+// @Param perpage query int false "Items per page for pagination, default is 10 | if you want to disable pagination, fill it with the number 0"
 // @Param name query string false "Search by name using LIKE pattern"
 // @Success 200 {object} schemes.SchemeResponsesPagination
 // @Failure 400 {object} schemes.SchemeResponses400Example
@@ -112,13 +112,14 @@ func (h *handleLevelPekerjaan) HandlerCreate(ctx *gin.Context) {
 // @Router /api/v1/level-pekerjaan/results [get]
 func (h *handleLevelPekerjaan) HandlerResults(ctx *gin.Context) {
 	var (
-		body       schemes.SchemeLevelPekerjaan
-		reqPage    = configs.FirstPage
-		reqPerPage = configs.TotalPerPage
-		pages      int
-		perPages   int
-		totalPages int
-		totalDatas int
+		body          schemes.SchemeLevelPekerjaan
+		reqPage       = configs.FirstPage
+		reqPerPage    = configs.TotalPerPage
+		pages         int
+		perPages      int
+		totalPagesDiv float64
+		totalPages    int
+		totalDatas    int
 	)
 	pageParam := ctx.DefaultQuery("page", "")
 	body.Page = reqPage
@@ -156,7 +157,9 @@ func (h *handleLevelPekerjaan) HandlerResults(ctx *gin.Context) {
 
 	pages = reqPage
 	perPages = reqPerPage
-	totalPagesDiv := float64(totalData) / float64(reqPerPage)
+	if reqPerPage != 0 {
+		totalPagesDiv = float64(totalData) / float64(reqPerPage)
+	}
 	totalPages = int(math.Ceil(totalPagesDiv))
 	totalDatas = int(totalData)
 
