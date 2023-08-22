@@ -101,7 +101,7 @@ func (r *repositoryKecamatan) EntityResults(input *schemes.SchemeKecamatan) (*[]
 		db.Debug().
 			Preload("Kabupaten").
 			Preload("Kabupaten.Provinsi").
-			Preload("Provinsi.Negara").
+			Preload("Kabupaten.Provinsi.Negara").
 			Find(&kecamatan)
 	} else {
 		db.Debug().
@@ -109,7 +109,7 @@ func (r *repositoryKecamatan) EntityResults(input *schemes.SchemeKecamatan) (*[]
 			Limit(int(input.PerPage)).
 			Preload("Kabupaten").
 			Preload("Kabupaten.Provinsi").
-			Preload("Provinsi.Negara").
+			Preload("Kabupaten.Provinsi.Negara").
 			Find(&kecamatan)
 	}
 
