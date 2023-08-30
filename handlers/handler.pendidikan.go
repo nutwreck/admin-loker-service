@@ -101,6 +101,7 @@ func (h *handlePendidikan) HandlerCreate(ctx *gin.Context) {
 // @Param page query int false "Page number for pagination, default is 1 | if you want to disable pagination, fill it with the number 0"
 // @Param perpage query int false "Items per page for pagination, default is 10 | if you want to disable pagination, fill it with the number 0"
 // @Param name query string false "Search by name using LIKE pattern"
+// @Param id query string false "Search by ID"
 // @Success 200 {object} schemes.SchemeResponsesPagination
 // @Failure 400 {object} schemes.SchemeResponses400Example
 // @Failure 401 {object} schemes.SchemeResponses401Example
@@ -146,6 +147,10 @@ func (h *handlePendidikan) HandlerResults(ctx *gin.Context) {
 	nameParam := ctx.DefaultQuery("name", "")
 	if nameParam != constants.EMPTY_VALUE {
 		body.Name = nameParam
+	}
+	idParam := ctx.DefaultQuery("id", "")
+	if idParam != constants.EMPTY_VALUE {
+		body.ID = idParam
 	}
 
 	res, totalData, error := h.pendidikan.EntityResults(&body)

@@ -39,6 +39,7 @@ func (s *serviceTipePekerjaan) EntityResults(input *schemes.SchemeTipePekerjaan)
 	tipePekerjaan.Page = input.Page
 	tipePekerjaan.PerPage = input.PerPage
 	tipePekerjaan.Name = input.Name
+	tipePekerjaan.ID = input.ID
 
 	res, totalData, err := s.tipePekerjaan.EntityResults(&tipePekerjaan)
 	return res, totalData, err

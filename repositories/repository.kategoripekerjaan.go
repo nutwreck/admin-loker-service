@@ -74,6 +74,10 @@ func (r *repositoryKategoriPekerjaan) EntityResults(input *schemes.SchemeKategor
 		db = db.Where("name LIKE ?", "%"+input.Name+"%")
 	}
 
+	if input.ID != "" {
+		db = db.Where("id LIKE ?", "%"+input.ID+"%")
+	}
+
 	offset := int((input.Page - 1) * input.PerPage)
 
 	checkKategoriPerusahaan := db.Debug().Order("created_at DESC").Offset(offset).Limit(int(input.PerPage)).Find(&kategoriPekerjaan)

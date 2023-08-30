@@ -776,6 +776,12 @@
                         "description": "Search by name using LIKE pattern",
                         "name": "name",
                         "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Search by ID",
+                        "name": "id",
+                        "in": "query"
                     }
                 ],
                 "responses": {
@@ -1168,6 +1174,12 @@
                         "type": "string",
                         "description": "Search by name using LIKE pattern",
                         "name": "name",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Search by ID",
+                        "name": "id",
                         "in": "query"
                     }
                 ],
@@ -1562,6 +1574,12 @@
                         "description": "Search by name using LIKE pattern",
                         "name": "name",
                         "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Search by ID",
+                        "name": "id",
+                        "in": "query"
                     }
                 ],
                 "responses": {
@@ -1954,6 +1972,12 @@
                         "type": "string",
                         "description": "Search by name using LIKE pattern",
                         "name": "name",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Search by ID",
+                        "name": "id",
                         "in": "query"
                     }
                 ],
@@ -2348,6 +2372,12 @@
                         "description": "Search by name using LIKE pattern",
                         "name": "name",
                         "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Search by ID",
+                        "name": "id",
+                        "in": "query"
                     }
                 ],
                 "responses": {
@@ -2741,6 +2771,12 @@
                         "description": "Search by name using LIKE pattern",
                         "name": "name",
                         "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Search by ID",
+                        "name": "id",
+                        "in": "query"
                     }
                 ],
                 "responses": {
@@ -3133,6 +3169,12 @@
                         "type": "string",
                         "description": "Search by name using LIKE pattern",
                         "name": "name",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Search by ID",
+                        "name": "id",
                         "in": "query"
                     }
                 ],

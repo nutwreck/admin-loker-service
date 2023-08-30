@@ -39,6 +39,7 @@ func (s *serviceTahunPengalaman) EntityResults(input *schemes.SchemeTahunPengala
 	tahunPengalaman.Page = input.Page
 	tahunPengalaman.PerPage = input.PerPage
 	tahunPengalaman.Name = input.Name
+	tahunPengalaman.ID = input.ID
 
 	res, totalData, err := s.tahunPengalaman.EntityResults(&tahunPengalaman)
 	return res, totalData, err

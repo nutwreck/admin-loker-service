@@ -74,6 +74,10 @@ func (r *repositoryJenisPerusahaan) EntityResults(input *schemes.SchemeJenisPeru
 		db = db.Where("name LIKE ?", "%"+input.Name+"%")
 	}
 
+	if input.ID != "" {
+		db = db.Where("id LIKE ?", "%"+input.ID+"%")
+	}
+
 	offset := int((input.Page - 1) * input.PerPage)
 
 	checkJenisPerusahaan := db.Debug().Order("created_at DESC").Offset(offset).Limit(int(input.PerPage)).Find(&jenisPerusahaan)

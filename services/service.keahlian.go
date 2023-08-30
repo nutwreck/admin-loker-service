@@ -39,6 +39,7 @@ func (s *serviceKeahlian) EntityResults(input *schemes.SchemeKeahlian) (*[]model
 	keahlian.Page = input.Page
 	keahlian.PerPage = input.PerPage
 	keahlian.Name = input.Name
+	keahlian.ID = input.ID
 
 	res, totalData, err := s.keahlian.EntityResults(&keahlian)
 	return res, totalData, err

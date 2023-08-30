@@ -781,6 +781,12 @@ const docTemplate = `{
                         "description": "Search by name using LIKE pattern",
                         "name": "name",
                         "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Search by ID",
+                        "name": "id",
+                        "in": "query"
                     }
                 ],
                 "responses": {
@@ -1173,6 +1179,12 @@ const docTemplate = `{
                         "type": "string",
                         "description": "Search by name using LIKE pattern",
                         "name": "name",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Search by ID",
+                        "name": "id",
                         "in": "query"
                     }
                 ],
@@ -1567,6 +1579,12 @@ const docTemplate = `{
                         "description": "Search by name using LIKE pattern",
                         "name": "name",
                         "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Search by ID",
+                        "name": "id",
+                        "in": "query"
                     }
                 ],
                 "responses": {
@@ -1959,6 +1977,12 @@ const docTemplate = `{
                         "type": "string",
                         "description": "Search by name using LIKE pattern",
                         "name": "name",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Search by ID",
+                        "name": "id",
                         "in": "query"
                     }
                 ],
@@ -2353,6 +2377,12 @@ const docTemplate = `{
                         "description": "Search by name using LIKE pattern",
                         "name": "name",
                         "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Search by ID",
+                        "name": "id",
+                        "in": "query"
                     }
                 ],
                 "responses": {
@@ -2746,6 +2776,12 @@ const docTemplate = `{
                         "description": "Search by name using LIKE pattern",
                         "name": "name",
                         "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Search by ID",
+                        "name": "id",
+                        "in": "query"
                     }
                 ],
                 "responses": {
@@ -3138,6 +3174,12 @@ const docTemplate = `{
                         "type": "string",
                         "description": "Search by name using LIKE pattern",
                         "name": "name",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Search by ID",
+                        "name": "id",
                         "in": "query"
                     }
                 ],
