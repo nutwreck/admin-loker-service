@@ -39,6 +39,7 @@ func (s *serviceKategoriPekerjaan) EntityResults(input *schemes.SchemeKategoriPe
 	kategoriPekerjaan.Page = input.Page
 	kategoriPekerjaan.PerPage = input.PerPage
 	kategoriPekerjaan.Name = input.Name
+	kategoriPekerjaan.ID = input.ID
 
 	res, totalData, err := s.kategoriPekerjaan.EntityResults(&kategoriPekerjaan)
 	return res, totalData, err

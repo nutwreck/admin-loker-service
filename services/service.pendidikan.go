@@ -39,6 +39,7 @@ func (s *servicePendidikan) EntityResults(input *schemes.SchemePendidikan) (*[]m
 	pendidikan.Page = input.Page
 	pendidikan.PerPage = input.PerPage
 	pendidikan.Name = input.Name
+	pendidikan.ID = input.ID
 
 	res, totalData, err := s.pendidikan.EntityResults(&pendidikan)
 	return res, totalData, err

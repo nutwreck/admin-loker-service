@@ -74,6 +74,10 @@ func (r *repositoryPendidikan) EntityResults(input *schemes.SchemePendidikan) (*
 		db = db.Where("name LIKE ?", "%"+input.Name+"%")
 	}
 
+	if input.ID != "" {
+		db = db.Where("id LIKE ?", "%"+input.ID+"%")
+	}
+
 	offset := int((input.Page - 1) * input.PerPage)
 
 	checkPendidikan := db.Debug().Order("created_at DESC").Offset(offset).Limit(int(input.PerPage)).Find(&pendidikan)

@@ -920,6 +920,10 @@ paths:
         in: query
         name: name
         type: string
+      - description: Search by ID
+        in: query
+        name: id
+        type: string
       produces:
       - application/json
       responses:
@@ -1174,6 +1178,10 @@ paths:
       - description: Search by name using LIKE pattern
         in: query
         name: name
+        type: string
+      - description: Search by ID
+        in: query
+        name: id
         type: string
       produces:
       - application/json
@@ -1430,6 +1438,10 @@ paths:
         in: query
         name: name
         type: string
+      - description: Search by ID
+        in: query
+        name: id
+        type: string
       produces:
       - application/json
       responses:
@@ -1684,6 +1696,10 @@ paths:
       - description: Search by name using LIKE pattern
         in: query
         name: name
+        type: string
+      - description: Search by ID
+        in: query
+        name: id
         type: string
       produces:
       - application/json
@@ -1940,6 +1956,10 @@ paths:
         in: query
         name: name
         type: string
+      - description: Search by ID
+        in: query
+        name: id
+        type: string
       produces:
       - application/json
       responses:
@@ -2195,6 +2215,10 @@ paths:
         in: query
         name: name
         type: string
+      - description: Search by ID
+        in: query
+        name: id
+        type: string
       produces:
       - application/json
       responses:
@@ -2449,6 +2473,10 @@ paths:
       - description: Search by name using LIKE pattern
         in: query
         name: name
+        type: string
+      - description: Search by ID
+        in: query
+        name: id
         type: string
       produces:
       - application/json
