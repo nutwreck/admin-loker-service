@@ -2,7 +2,11 @@ package repositories
 
 import (
 	"net/http"
+	"net/url"
+	"strings"
 
+	"github.com/nutwreck/admin-loker-service/configs"
+	"github.com/nutwreck/admin-loker-service/constants"
 	"github.com/nutwreck/admin-loker-service/models"
 	"github.com/nutwreck/admin-loker-service/schemes"
 	"gorm.io/gorm"
@@ -64,23 +68,29 @@ func (r *repositoryKategoriPekerjaan) EntityResults(input *schemes.SchemeKategor
 	var (
 		kategoriPekerjaan []models.ModelKategoriPekerjaan
 		totalData         int64
+		sort              string = configs.SortByDefault + " " + configs.OrderByDefault
 	)
 
 	err := make(chan schemes.SchemeDatabaseError, 1)
 
 	db := r.db.Model(&kategoriPekerjaan)
 
-	if input.Name != "" {
+	if input.Sort != constants.EMPTY_VALUE {
+		unScape, _ := url.QueryUnescape(input.Sort)
+		sort = strings.Replace(unScape, "'", constants.EMPTY_VALUE, -1)
+	}
+
+	if input.Name != constants.EMPTY_VALUE {
 		db = db.Where("name LIKE ?", "%"+input.Name+"%")
 	}
 
-	if input.ID != "" {
+	if input.ID != constants.EMPTY_VALUE {
 		db = db.Where("id LIKE ?", "%"+input.ID+"%")
 	}
 
 	offset := int((input.Page - 1) * input.PerPage)
 
-	checkKategoriPerusahaan := db.Debug().Order("created_at DESC").Offset(offset).Limit(int(input.PerPage)).Find(&kategoriPekerjaan)
+	checkKategoriPerusahaan := db.Debug().Order(sort).Offset(offset).Limit(int(input.PerPage)).Find(&kategoriPekerjaan)
 
 	if checkKategoriPerusahaan.RowsAffected < 1 {
 		err <- schemes.SchemeDatabaseError{

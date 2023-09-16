@@ -36,8 +36,16 @@ func (s *serviceKecamatan) EntityCreate(input *schemes.SchemeKecamatan) (*models
 *=======================================
  */
 
-func (s *serviceKecamatan) EntityResults(input *schemes.SchemeKecamatan) (*[]models.ModelKecamatan, int64, schemes.SchemeDatabaseError) {
+func (s *serviceKecamatan) EntityResults(input *schemes.SchemeKecamatan) (*[]schemes.SchemeGetDataKecamatan, int64, schemes.SchemeDatabaseError) {
 	var kecamatan schemes.SchemeKecamatan
+	kecamatan.CodeKecamatan = input.CodeKecamatan
+	kecamatan.Sort = input.Sort
+	kecamatan.Search = input.Search
+	kecamatan.CodeNegara = input.CodeNegara
+	kecamatan.NameNegara = input.NameNegara
+	kecamatan.CodeProvinsi = input.CodeProvinsi
+	kecamatan.NameProvinsi = input.NameProvinsi
+	kecamatan.NameKabupaten = input.NameKabupaten
 	kecamatan.Page = input.Page
 	kecamatan.PerPage = input.PerPage
 	kecamatan.ParentCodeKabupaten = input.ParentCodeKabupaten

@@ -7,6 +7,7 @@ type SchemeLevelPekerjaan struct {
 	Active  *bool  `json:"active" validate:"boolean" example:"true"`
 	Page    int    `json:"page"`
 	PerPage int    `json:"perpage"`
+	Sort    string `json:"sort"`
 }
 
 type SchemeLevelPekerjaanRequest struct {

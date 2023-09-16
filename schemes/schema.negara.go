@@ -7,6 +7,8 @@ type SchemeNegara struct {
 	Name    string `json:"name" validate:"required,uppercase"`
 	Page    int    `json:"page"`
 	PerPage int    `json:"perpage"`
+	SortBy  string `json:"sortby"`
+	OrderBy string `json:"orderby"`
 }
 
 type SchemeNegaraRequest struct {

@@ -2,6 +2,7 @@ package repositories
 
 import (
 	"net/http"
+	"net/url"
 	"strings"
 
 	"github.com/nutwreck/admin-loker-service/constants"
@@ -64,59 +65,150 @@ func (r *repositoryKelurahan) EntityCreate(input *schemes.SchemeKelurahan) (*mod
 *==========================================
  */
 
-func (r *repositoryKelurahan) EntityResults(input *schemes.SchemeKelurahan) (*[]models.ModelKelurahan, int64, schemes.SchemeDatabaseError) {
+func (r *repositoryKelurahan) EntityResults(input *schemes.SchemeKelurahan) (*[]schemes.SchemeGetDataKelurahan, int64, schemes.SchemeDatabaseError) {
 	var (
-		kelurahan []models.ModelKelurahan
-		totalData int64
+		kelurahan       []models.ModelKelurahan
+		result          []schemes.SchemeGetDataKelurahan
+		countData       schemes.SchemeCountData
+		args            []interface{}
+		totalData       int64
+		sortData        string = "kelurahan.name ASC"
+		queryCountData  string = constants.EMPTY_VALUE
+		queryData       string = constants.EMPTY_VALUE
+		queryAdditional string = constants.EMPTY_VALUE
 	)
 
 	err := make(chan schemes.SchemeDatabaseError, 1)
 
 	db := r.db.Model(&kelurahan)
 
-	if input.Name != "" {
-		db = db.Where("model_kelurahans.name LIKE ?", "%"+strings.ToUpper(input.Name)+"%")
-	}
-
-	if input.ParentCodeKecamatan != "" {
-		db = db.Where("model_kelurahans.parent_code_kecamatan", input.ParentCodeKecamatan)
+	if input.Sort != constants.EMPTY_VALUE {
+		unScape, _ := url.QueryUnescape(input.Sort)
+		sortData = strings.Replace(unScape, "'", constants.EMPTY_VALUE, -1)
 	}
 
 	offset := int((input.Page - 1) * input.PerPage)
 
-	checkData := db.Debug().Order("model_kelurahans.name ASC").Offset(offset).Limit(int(input.PerPage)).Find(&kelurahan)
+	//Untuk mengambil jumlah data tanpa limit
+	queryCountData = `
+		SELECT
+			COUNT(kelurahan.*) AS count_data
+		FROM model_kelurahans AS kelurahan
+	`
 
-	if checkData.RowsAffected < 1 {
+	//Untuk mengambil detail data
+	queryData = `
+		SELECT
+			negara.code_negara AS code_negara,
+			negara.name AS name_negara,
+			provinsi.code_provinsi AS code_provinsi,
+			provinsi.name AS name_provinsi,
+			kabupaten.code_kabupaten AS code_kabupaten,
+			kabupaten.name AS name_kabupaten,
+			kecamatan.code_kecamatan AS code_kecamatan,
+			kecamatan.name AS name_kecamatan,
+			kelurahan.code_kelurahan AS code_kelurahan,
+			kelurahan.name AS name_kelurahan
+		FROM model_kelurahans AS kelurahan
+	`
+
+	queryAdditional = `
+		JOIN model_kecamatans AS kecamatan ON kelurahan.parent_code_kecamatan = kecamatan.code_kecamatan
+		JOIN model_kabupatens AS kabupaten ON kecamatan.parent_code_kabupaten = kabupaten.code_kabupaten
+		JOIN model_provinsis AS provinsi ON kabupaten.parent_code_provinsi = provinsi.code_provinsi
+		JOIN model_negaras AS negara ON provinsi.parent_code_negara = negara.code_negara
+	`
+
+	queryAdditional += ` WHERE TRUE`
+
+	if input.CodeKelurahan != constants.EMPTY_VALUE {
+		queryAdditional += ` AND kelurahan.code_kelurahan = ?`
+		args = append(args, input.CodeKelurahan)
+	}
+
+	if input.Name != constants.EMPTY_VALUE {
+		queryAdditional += ` AND kelurahan.name LIKE ?`
+		args = append(args, "%"+strings.ToUpper(input.Name)+"%")
+	}
+
+	if input.ParentCodeKecamatan != constants.EMPTY_VALUE {
+		queryAdditional += ` AND kelurahan.parent_code_kecamatan = ?`
+		args = append(args, input.ParentCodeKecamatan)
+	}
+
+	if input.NameKecamatan != constants.EMPTY_VALUE {
+		queryAdditional += ` AND kecamatan.name LIKE ?`
+		args = append(args, "%"+strings.ToUpper(input.NameKecamatan)+"%")
+	}
+
+	if input.CodeNegara != constants.EMPTY_VALUE {
+		queryAdditional += ` AND negara.code_negara = ?`
+		args = append(args, input.CodeNegara)
+	}
+
+	if input.NameNegara != constants.EMPTY_VALUE {
+		queryAdditional += ` AND negara.name LIKE ?`
+		args = append(args, "%"+strings.ToUpper(input.NameNegara)+"%")
+	}
+
+	if input.CodeProvinsi != constants.EMPTY_VALUE {
+		queryAdditional += ` AND provinsi.code_provinsi = ?`
+		args = append(args, input.CodeProvinsi)
+	}
+
+	if input.NameProvinsi != constants.EMPTY_VALUE {
+		queryAdditional += ` AND provinsi.name LIKE ?`
+		args = append(args, "%"+strings.ToUpper(input.NameProvinsi)+"%")
+	}
+
+	if input.CodeKabupaten != constants.EMPTY_VALUE {
+		queryAdditional += ` AND kabupaten.code_kabupaten = ?`
+		args = append(args, input.CodeKabupaten)
+	}
+
+	if input.NameKabupaten != constants.EMPTY_VALUE {
+		queryAdditional += ` AND kabupaten.name LIKE ?`
+		args = append(args, "%"+strings.ToUpper(input.NameKabupaten)+"%")
+	}
+
+	if input.Search != constants.EMPTY_VALUE {
+		queryAdditional += ` AND (negara.name LIKE ? OR provinsi.name LIKE ? OR kabupaten.name LIKE ? OR kecamatan.name LIKE ? OR kelurahan.name LIKE ?)`
+		args = append(args,
+			"%"+strings.ToUpper(input.Search)+"%",
+			"%"+strings.ToUpper(input.Search)+"%",
+			"%"+strings.ToUpper(input.Search)+"%",
+			"%"+strings.ToUpper(input.Search)+"%",
+			"%"+strings.ToUpper(input.Search)+"%")
+	}
+
+	//Eksekusi query ambil jumlah data tanpa limit
+	db.Raw(queryCountData+queryAdditional, args...).Scan(&countData)
+
+	queryAdditional += ` ORDER BY ` + sortData
+
+	if input.Page != constants.EMPTY_NUMBER || input.PerPage != constants.EMPTY_NUMBER {
+		queryAdditional += ` LIMIT ?`
+		args = append(args, int(input.PerPage))
+
+		queryAdditional += ` OFFSET ?`
+		args = append(args, offset)
+	}
+
+	getDatas := db.Raw(queryData+queryAdditional, args...).Scan(&result)
+
+	if getDatas.RowsAffected < 1 {
 		err <- schemes.SchemeDatabaseError{
 			Code: http.StatusNotFound,
 			Type: "error_results_01",
 		}
-		return &kelurahan, totalData, <-err
+		return &result, totalData, <-err
 	}
 
 	// Menghitung total data yang diambil
-	db.Model(&models.ModelKelurahan{}).Count(&totalData)
-
-	if input.Page == constants.EMPTY_NUMBER || input.PerPage == constants.EMPTY_NUMBER { //Off Pagination
-		db.Debug().
-			Preload("Kecamatan").
-			Preload("Kecamatan.Kabupaten").
-			Preload("Kecamatan.Kabupaten.Provinsi").
-			Preload("Kecamatan.Kabupaten.Provinsi.Negara").
-			Find(&kelurahan)
-	} else {
-		db.Debug().
-			Offset(offset).
-			Limit(int(input.PerPage)).
-			Preload("Kecamatan").
-			Preload("Kecamatan.Kabupaten").
-			Preload("Kecamatan.Kabupaten.Provinsi").
-			Preload("Kecamatan.Kabupaten.Provinsi.Negara").
-			Find(&kelurahan)
-	}
+	totalData = countData.CountData
 
 	err <- schemes.SchemeDatabaseError{}
-	return &kelurahan, totalData, <-err
+	return &result, totalData, <-err
 }
 
 /**

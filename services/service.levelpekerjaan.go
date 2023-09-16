@@ -36,6 +36,7 @@ func (s *serviceLevelPekerjaan) EntityCreate(input *schemes.SchemeLevelPekerjaan
 
 func (s *serviceLevelPekerjaan) EntityResults(input *schemes.SchemeLevelPekerjaan) (*[]models.ModelLevelPekerjaan, int64, schemes.SchemeDatabaseError) {
 	var levelPekerjaan schemes.SchemeLevelPekerjaan
+	levelPekerjaan.Sort = input.Sort
 	levelPekerjaan.Page = input.Page
 	levelPekerjaan.PerPage = input.PerPage
 	levelPekerjaan.Name = input.Name

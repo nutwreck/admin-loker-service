@@ -36,12 +36,18 @@ func (s *serviceKabupaten) EntityCreate(input *schemes.SchemeKabupaten) (*models
 *=======================================
  */
 
-func (s *serviceKabupaten) EntityResults(input *schemes.SchemeKabupaten) (*[]models.ModelKabupaten, int64, schemes.SchemeDatabaseError) {
+func (s *serviceKabupaten) EntityResults(input *schemes.SchemeKabupaten) (*[]schemes.SchemeGetDataKabupaten, int64, schemes.SchemeDatabaseError) {
 	var kabupaten schemes.SchemeKabupaten
+	kabupaten.Sort = input.Sort
+	kabupaten.Search = input.Search
+	kabupaten.CodeNegara = input.CodeNegara
+	kabupaten.NameNegara = input.NameNegara
+	kabupaten.NameProvinsi = input.NameProvinsi
 	kabupaten.Page = input.Page
 	kabupaten.PerPage = input.PerPage
 	kabupaten.ParentCodeProvinsi = input.ParentCodeProvinsi
 	kabupaten.Name = input.Name
+	kabupaten.CodeKabupaten = input.CodeKabupaten
 
 	res, totalData, err := s.kabupaten.EntityResults(&kabupaten)
 	return res, totalData, err

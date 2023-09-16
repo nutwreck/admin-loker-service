@@ -36,6 +36,7 @@ func (s *servicePendidikan) EntityCreate(input *schemes.SchemePendidikan) (*mode
 
 func (s *servicePendidikan) EntityResults(input *schemes.SchemePendidikan) (*[]models.ModelPendidikan, int64, schemes.SchemeDatabaseError) {
 	var pendidikan schemes.SchemePendidikan
+	pendidikan.Sort = input.Sort
 	pendidikan.Page = input.Page
 	pendidikan.PerPage = input.PerPage
 	pendidikan.Name = input.Name

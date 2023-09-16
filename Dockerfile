@@ -3,6 +3,7 @@
 # ======================
 
 FROM golang:latest as builder
+MAINTAINER DigyLabs Production <work.digy@gmail.com>
 USER ${USER}
 WORKDIR /app
 ENV GO111MODULE="on"

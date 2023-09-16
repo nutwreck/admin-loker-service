@@ -36,6 +36,7 @@ func (s *serviceKeahlian) EntityCreate(input *schemes.SchemeKeahlian) (*models.M
 
 func (s *serviceKeahlian) EntityResults(input *schemes.SchemeKeahlian) (*[]models.ModelKeahlian, int64, schemes.SchemeDatabaseError) {
 	var keahlian schemes.SchemeKeahlian
+	keahlian.Sort = input.Sort
 	keahlian.Page = input.Page
 	keahlian.PerPage = input.PerPage
 	keahlian.Name = input.Name

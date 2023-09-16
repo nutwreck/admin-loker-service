@@ -8,7 +8,7 @@ import (
 type EntityKecamatan interface {
 	EntityCreate(input *schemes.SchemeKecamatan) (*models.ModelKecamatan, schemes.SchemeDatabaseError)
 	EntityResult(input *schemes.SchemeKecamatan) (*models.ModelKecamatan, schemes.SchemeDatabaseError)
-	EntityResults(input *schemes.SchemeKecamatan) (*[]models.ModelKecamatan, int64, schemes.SchemeDatabaseError)
+	EntityResults(input *schemes.SchemeKecamatan) (*[]schemes.SchemeGetDataKecamatan, int64, schemes.SchemeDatabaseError)
 	EntityDelete(input *schemes.SchemeKecamatan) (*models.ModelKecamatan, schemes.SchemeDatabaseError)
 	EntityUpdate(input *schemes.SchemeKecamatan) (*models.ModelKecamatan, schemes.SchemeDatabaseError)
 }

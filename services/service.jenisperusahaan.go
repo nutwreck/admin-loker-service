@@ -36,6 +36,7 @@ func (s *serviceJenisPerusahaan) EntityCreate(input *schemes.SchemeJenisPerusaha
 
 func (s *serviceJenisPerusahaan) EntityResults(input *schemes.SchemeJenisPerusahaan) (*[]models.ModelJenisPerusahaan, int64, schemes.SchemeDatabaseError) {
 	var jenisPerusahaan schemes.SchemeJenisPerusahaan
+	jenisPerusahaan.Sort = input.Sort
 	jenisPerusahaan.Page = input.Page
 	jenisPerusahaan.PerPage = input.PerPage
 	jenisPerusahaan.Name = input.Name

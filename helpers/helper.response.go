@@ -1,6 +1,7 @@
 package helpers
 
 import (
+	"encoding/json"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -42,9 +43,25 @@ func APIResponsePagination(ctx *gin.Context, Message string, StatusCode int, Dat
 }
 
 func ErrorResponse(ctx *gin.Context, Error interface{}) {
+	var (
+		data              schemes.SchemeReadMsgErrorValidator
+		errorsWithoutKeys []schemes.SchemeResultMsgErrorValidator
+	)
+
+	if err := json.Unmarshal([]byte(Strigify(Error)), &data); err != nil {
+		ctx.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"code": "500", "message": "Check Validator Data Error"})
+		return
+	}
+
+	for _, err := range data.Results.Errors {
+		for _, value := range err {
+			errorsWithoutKeys = append(errorsWithoutKeys, value)
+		}
+	}
+
 	err := schemes.SchemeErrorResponse{
 		StatusCode: http.StatusBadRequest,
-		Error:      Error,
+		Error:      errorsWithoutKeys,
 	}
 
 	ctx.AbortWithStatusJSON(err.StatusCode, err)

@@ -74,7 +74,7 @@ func (h *handleKategoriPekerjaan) HandlerCreate(ctx *gin.Context) {
 
 	_, error := h.kategoriPekerjaan.EntityCreate(&body)
 
-	if error.Type == "error_update_01" {
+	if error.Type == "error_create_01" {
 		helpers.APIResponse(ctx, "Kategori Pekerjaan name already exist", error.Code, nil)
 		return
 	}
@@ -98,6 +98,7 @@ func (h *handleKategoriPekerjaan) HandlerCreate(ctx *gin.Context) {
 // @Tags		Kategori Pekerjaan
 // @Accept		json
 // @Produce		json
+// @Param sort query string false "Use ASC or DESC | Available column sort : id, name, active, created_at, updated_at, default is created_at DESC | If you don't want to use it, fill it blank"
 // @Param page query int false "Page number for pagination, default is 1 | if you want to disable pagination, fill it with the number 0"
 // @Param perpage query int false "Items per page for pagination, default is 10 | if you want to disable pagination, fill it with the number 0"
 // @Param name query string false "Search by name using LIKE pattern"
@@ -122,7 +123,12 @@ func (h *handleKategoriPekerjaan) HandlerResults(ctx *gin.Context) {
 		totalPages    int
 		totalDatas    int
 	)
-	pageParam := ctx.DefaultQuery("page", "")
+
+	sortParam := ctx.DefaultQuery("sort", constants.EMPTY_VALUE)
+	if sortParam != constants.EMPTY_VALUE {
+		body.Sort = sortParam
+	}
+	pageParam := ctx.DefaultQuery("page", constants.EMPTY_VALUE)
 	body.Page = reqPage
 	if pageParam != constants.EMPTY_VALUE {
 		page, err := strconv.Atoi(pageParam)
@@ -133,7 +139,7 @@ func (h *handleKategoriPekerjaan) HandlerResults(ctx *gin.Context) {
 		reqPage = page
 		body.Page = page
 	}
-	perPageParam := ctx.DefaultQuery("perpage", "")
+	perPageParam := ctx.DefaultQuery("perpage", constants.EMPTY_VALUE)
 	body.PerPage = reqPerPage
 	if perPageParam != constants.EMPTY_VALUE {
 		perPage, err := strconv.Atoi(perPageParam)
@@ -144,11 +150,11 @@ func (h *handleKategoriPekerjaan) HandlerResults(ctx *gin.Context) {
 		reqPerPage = perPage
 		body.PerPage = perPage
 	}
-	nameParam := ctx.DefaultQuery("name", "")
+	nameParam := ctx.DefaultQuery("name", constants.EMPTY_VALUE)
 	if nameParam != constants.EMPTY_VALUE {
 		body.Name = nameParam
 	}
-	idParam := ctx.DefaultQuery("id", "")
+	idParam := ctx.DefaultQuery("id", constants.EMPTY_VALUE)
 	if idParam != constants.EMPTY_VALUE {
 		body.ID = idParam
 	}
@@ -171,27 +177,6 @@ func (h *handleKategoriPekerjaan) HandlerResults(ctx *gin.Context) {
 	helpers.APIResponsePagination(ctx, "Kategori Pekerjaan data already to use", http.StatusOK, res, pages, perPages, totalPages, totalDatas)
 }
 
-/**
-* ================================================
-* Handler Result Kategori Pekerjaan By ID Teritory
-*=================================================
- */
-// GetByIDKategoriPekerjaan godoc
-// @Summary		Get By ID Kategori Pekerjaan
-// @Description	Get By ID Kategori Pekerjaan
-// @Tags		Kategori Pekerjaan
-// @Accept		json
-// @Produce		json
-// @Param		id path string true "Get By ID Kategori Pekerjaan"
-// @Success 200 {object} schemes.SchemeResponses
-// @Failure 400 {object} schemes.SchemeResponses400Example
-// @Failure 401 {object} schemes.SchemeResponses401Example
-// @Failure 403 {object} schemes.SchemeResponses403Example
-// @Failure 404 {object} schemes.SchemeResponses404Example
-// @Failure 409 {object} schemes.SchemeResponses409Example
-// @Failure 500 {object} schemes.SchemeResponses500Example
-// @Security	ApiKeyAuth
-// @Router /api/v1/kategori-pekerjaan/result/{id} [get]
 func (h *handleKategoriPekerjaan) HandlerResult(ctx *gin.Context) {
 	var body schemes.SchemeKategoriPekerjaan
 	id := ctx.Param("id")

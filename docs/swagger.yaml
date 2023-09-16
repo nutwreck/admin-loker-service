@@ -853,59 +853,18 @@ paths:
       summary: Get Delete Jenis Perusahaan
       tags:
       - Jenis Perusahaan
-  /api/v1/jenis-perusahaan/result/{id}:
-    get:
-      consumes:
-      - application/json
-      description: Get By ID Jenis Perusahaan
-      parameters:
-      - description: Get By ID Jenis Perusahaan
-        in: path
-        name: id
-        required: true
-        type: string
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/schemes.SchemeResponses'
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/schemes.SchemeResponses400Example'
-        "401":
-          description: Unauthorized
-          schema:
-            $ref: '#/definitions/schemes.SchemeResponses401Example'
-        "403":
-          description: Forbidden
-          schema:
-            $ref: '#/definitions/schemes.SchemeResponses403Example'
-        "404":
-          description: Not Found
-          schema:
-            $ref: '#/definitions/schemes.SchemeResponses404Example'
-        "409":
-          description: Conflict
-          schema:
-            $ref: '#/definitions/schemes.SchemeResponses409Example'
-        "500":
-          description: Internal Server Error
-          schema:
-            $ref: '#/definitions/schemes.SchemeResponses500Example'
-      security:
-      - ApiKeyAuth: []
-      summary: Get By ID Jenis Perusahaan
-      tags:
-      - Jenis Perusahaan
   /api/v1/jenis-perusahaan/results:
     get:
       consumes:
       - application/json
       description: Get List Jenis Perusahaan
       parameters:
+      - description: 'Use ASC or DESC | Available column sort : id, name, active,
+          created_at, updated_at, default is created_at DESC | If you don''t want
+          to use it, fill it blank'
+        in: query
+        name: sort
+        type: string
       - description: Page number for pagination, default is 1 | if you want to disable
           pagination, fill it with the number 0
         in: query
@@ -1112,59 +1071,18 @@ paths:
       summary: Get Delete Kategori Pekerjaan
       tags:
       - Kategori Pekerjaan
-  /api/v1/kategori-pekerjaan/result/{id}:
-    get:
-      consumes:
-      - application/json
-      description: Get By ID Kategori Pekerjaan
-      parameters:
-      - description: Get By ID Kategori Pekerjaan
-        in: path
-        name: id
-        required: true
-        type: string
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/schemes.SchemeResponses'
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/schemes.SchemeResponses400Example'
-        "401":
-          description: Unauthorized
-          schema:
-            $ref: '#/definitions/schemes.SchemeResponses401Example'
-        "403":
-          description: Forbidden
-          schema:
-            $ref: '#/definitions/schemes.SchemeResponses403Example'
-        "404":
-          description: Not Found
-          schema:
-            $ref: '#/definitions/schemes.SchemeResponses404Example'
-        "409":
-          description: Conflict
-          schema:
-            $ref: '#/definitions/schemes.SchemeResponses409Example'
-        "500":
-          description: Internal Server Error
-          schema:
-            $ref: '#/definitions/schemes.SchemeResponses500Example'
-      security:
-      - ApiKeyAuth: []
-      summary: Get By ID Kategori Pekerjaan
-      tags:
-      - Kategori Pekerjaan
   /api/v1/kategori-pekerjaan/results:
     get:
       consumes:
       - application/json
       description: Get List Kategori Pekerjaan
       parameters:
+      - description: 'Use ASC or DESC | Available column sort : id, name, active,
+          created_at, updated_at, default is created_at DESC | If you don''t want
+          to use it, fill it blank'
+        in: query
+        name: sort
+        type: string
       - description: Page number for pagination, default is 1 | if you want to disable
           pagination, fill it with the number 0
         in: query
@@ -1371,59 +1289,18 @@ paths:
       summary: Get Delete Keahlian
       tags:
       - Keahlian
-  /api/v1/keahlian/result/{id}:
-    get:
-      consumes:
-      - application/json
-      description: Get By ID Keahlian
-      parameters:
-      - description: Get By ID Keahlian
-        in: path
-        name: id
-        required: true
-        type: string
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/schemes.SchemeResponses'
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/schemes.SchemeResponses400Example'
-        "401":
-          description: Unauthorized
-          schema:
-            $ref: '#/definitions/schemes.SchemeResponses401Example'
-        "403":
-          description: Forbidden
-          schema:
-            $ref: '#/definitions/schemes.SchemeResponses403Example'
-        "404":
-          description: Not Found
-          schema:
-            $ref: '#/definitions/schemes.SchemeResponses404Example'
-        "409":
-          description: Conflict
-          schema:
-            $ref: '#/definitions/schemes.SchemeResponses409Example'
-        "500":
-          description: Internal Server Error
-          schema:
-            $ref: '#/definitions/schemes.SchemeResponses500Example'
-      security:
-      - ApiKeyAuth: []
-      summary: Get By ID Keahlian
-      tags:
-      - Keahlian
   /api/v1/keahlian/results:
     get:
       consumes:
       - application/json
       description: Get List Keahlian
       parameters:
+      - description: 'Use ASC or DESC | Available column sort : id, name, active,
+          created_at, updated_at, default is created_at DESC | If you don''t want
+          to use it, fill it blank'
+        in: query
+        name: sort
+        type: string
       - description: Page number for pagination, default is 1 | if you want to disable
           pagination, fill it with the number 0
         in: query
@@ -1630,59 +1507,18 @@ paths:
       summary: Get Delete Level Pekerjaan
       tags:
       - Level Pekerjaan
-  /api/v1/level-pekerjaan/result/{id}:
-    get:
-      consumes:
-      - application/json
-      description: Get By ID Level Pekerjaan
-      parameters:
-      - description: Get By ID Level Pekerjaan
-        in: path
-        name: id
-        required: true
-        type: string
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/schemes.SchemeResponses'
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/schemes.SchemeResponses400Example'
-        "401":
-          description: Unauthorized
-          schema:
-            $ref: '#/definitions/schemes.SchemeResponses401Example'
-        "403":
-          description: Forbidden
-          schema:
-            $ref: '#/definitions/schemes.SchemeResponses403Example'
-        "404":
-          description: Not Found
-          schema:
-            $ref: '#/definitions/schemes.SchemeResponses404Example'
-        "409":
-          description: Conflict
-          schema:
-            $ref: '#/definitions/schemes.SchemeResponses409Example'
-        "500":
-          description: Internal Server Error
-          schema:
-            $ref: '#/definitions/schemes.SchemeResponses500Example'
-      security:
-      - ApiKeyAuth: []
-      summary: Get By ID Level Pekerjaan
-      tags:
-      - Level Pekerjaan
   /api/v1/level-pekerjaan/results:
     get:
       consumes:
       - application/json
       description: Get List Level Pekerjaan
       parameters:
+      - description: 'Use ASC or DESC | Available column sort : id, name, active,
+          created_at, updated_at, default is created_at DESC | If you don''t want
+          to use it, fill it blank'
+        in: query
+        name: sort
+        type: string
       - description: Page number for pagination, default is 1 | if you want to disable
           pagination, fill it with the number 0
         in: query
@@ -1889,59 +1725,18 @@ paths:
       summary: Get Delete Pendidikan
       tags:
       - Pendidikan
-  /api/v1/pendidikan/result/{id}:
-    get:
-      consumes:
-      - application/json
-      description: Get By ID Pendidikan
-      parameters:
-      - description: Get By ID Pendidikan
-        in: path
-        name: id
-        required: true
-        type: string
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/schemes.SchemeResponses'
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/schemes.SchemeResponses400Example'
-        "401":
-          description: Unauthorized
-          schema:
-            $ref: '#/definitions/schemes.SchemeResponses401Example'
-        "403":
-          description: Forbidden
-          schema:
-            $ref: '#/definitions/schemes.SchemeResponses403Example'
-        "404":
-          description: Not Found
-          schema:
-            $ref: '#/definitions/schemes.SchemeResponses404Example'
-        "409":
-          description: Conflict
-          schema:
-            $ref: '#/definitions/schemes.SchemeResponses409Example'
-        "500":
-          description: Internal Server Error
-          schema:
-            $ref: '#/definitions/schemes.SchemeResponses500Example'
-      security:
-      - ApiKeyAuth: []
-      summary: Get By ID Pendidikan
-      tags:
-      - Pendidikan
   /api/v1/pendidikan/results:
     get:
       consumes:
       - application/json
       description: Get List Pendidikan
       parameters:
+      - description: 'Use ASC or DESC | Available column sort : id, name, active,
+          created_at, updated_at, default is created_at DESC | If you don''t want
+          to use it, fill it blank'
+        in: query
+        name: sort
+        type: string
       - description: Page number for pagination, default is 1 | if you want to disable
           pagination, fill it with the number 0
         in: query
@@ -2148,59 +1943,18 @@ paths:
       summary: Get Delete Tahun Pengalaman
       tags:
       - Tahun Pengalaman
-  /api/v1/tahun-pengalaman/result/{id}:
-    get:
-      consumes:
-      - application/json
-      description: Get By ID Tahun Pengalaman
-      parameters:
-      - description: Get By ID Tahun Pengalaman
-        in: path
-        name: id
-        required: true
-        type: string
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/schemes.SchemeResponses'
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/schemes.SchemeResponses400Example'
-        "401":
-          description: Unauthorized
-          schema:
-            $ref: '#/definitions/schemes.SchemeResponses401Example'
-        "403":
-          description: Forbidden
-          schema:
-            $ref: '#/definitions/schemes.SchemeResponses403Example'
-        "404":
-          description: Not Found
-          schema:
-            $ref: '#/definitions/schemes.SchemeResponses404Example'
-        "409":
-          description: Conflict
-          schema:
-            $ref: '#/definitions/schemes.SchemeResponses409Example'
-        "500":
-          description: Internal Server Error
-          schema:
-            $ref: '#/definitions/schemes.SchemeResponses500Example'
-      security:
-      - ApiKeyAuth: []
-      summary: Get By ID Tahun Pengalaman
-      tags:
-      - Tahun Pengalaman
   /api/v1/tahun-pengalaman/results:
     get:
       consumes:
       - application/json
       description: Get List Tahun Pengalaman
       parameters:
+      - description: 'Use ASC or DESC | Available column sort : id, name, active,
+          created_at, updated_at, default is created_at DESC | If you don''t want
+          to use it, fill it blank'
+        in: query
+        name: sort
+        type: string
       - description: Page number for pagination, default is 1 | if you want to disable
           pagination, fill it with the number 0
         in: query
@@ -2407,59 +2161,18 @@ paths:
       summary: Get Delete Tipe Pekerjaan
       tags:
       - Tipe Pekerjaan
-  /api/v1/tipe-pekerjaan/result/{id}:
-    get:
-      consumes:
-      - application/json
-      description: Get By ID Tipe Pekerjaan
-      parameters:
-      - description: Get By ID Tipe Pekerjaan
-        in: path
-        name: id
-        required: true
-        type: string
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/schemes.SchemeResponses'
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/schemes.SchemeResponses400Example'
-        "401":
-          description: Unauthorized
-          schema:
-            $ref: '#/definitions/schemes.SchemeResponses401Example'
-        "403":
-          description: Forbidden
-          schema:
-            $ref: '#/definitions/schemes.SchemeResponses403Example'
-        "404":
-          description: Not Found
-          schema:
-            $ref: '#/definitions/schemes.SchemeResponses404Example'
-        "409":
-          description: Conflict
-          schema:
-            $ref: '#/definitions/schemes.SchemeResponses409Example'
-        "500":
-          description: Internal Server Error
-          schema:
-            $ref: '#/definitions/schemes.SchemeResponses500Example'
-      security:
-      - ApiKeyAuth: []
-      summary: Get By ID Tipe Pekerjaan
-      tags:
-      - Tipe Pekerjaan
   /api/v1/tipe-pekerjaan/results:
     get:
       consumes:
       - application/json
       description: Get List Tipe Pekerjaan
       parameters:
+      - description: 'Use ASC or DESC | Available column sort : id, name, active,
+          created_at, updated_at, default is created_at DESC | If you don''t want
+          to use it, fill it blank'
+        in: query
+        name: sort
+        type: string
       - description: Page number for pagination, default is 1 | if you want to disable
           pagination, fill it with the number 0
         in: query
@@ -2662,57 +2375,19 @@ paths:
       summary: Get Delete Kabupaten
       tags:
       - Wilayah
-  /api/v1/wilayah/kabupaten/result/{code_kabupaten}:
-    get:
-      consumes:
-      - application/json
-      description: Get By Code Kabupaten
-      parameters:
-      - description: Get Code Code Kabupaten
-        in: path
-        name: code_kabupaten
-        required: true
-        type: string
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/schemes.SchemeResponses'
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/schemes.SchemeResponses400Example'
-        "401":
-          description: Unauthorized
-          schema:
-            $ref: '#/definitions/schemes.SchemeResponses401Example'
-        "403":
-          description: Forbidden
-          schema:
-            $ref: '#/definitions/schemes.SchemeResponses403Example'
-        "404":
-          description: Not Found
-          schema:
-            $ref: '#/definitions/schemes.SchemeResponses404Example'
-        "409":
-          description: Conflict
-          schema:
-            $ref: '#/definitions/schemes.SchemeResponses409Example'
-        "500":
-          description: Internal Server Error
-          schema:
-            $ref: '#/definitions/schemes.SchemeResponses500Example'
-      summary: Get By Code Kabupaten
-      tags:
-      - Wilayah
   /api/v1/wilayah/kabupaten/results:
     get:
       consumes:
       - application/json
       description: Get List Kabupaten
       parameters:
+      - description: 'Use ASC or DESC | Available column sort : negara.code_negara,
+          negara.name, provinsi.code_provinsi, provinsi.name, kabupaten.code_kabupaten,
+          kabupaten.name, default is kabupaten.name ASC | If you don''t want to use
+          it, fill it blank'
+        in: query
+        name: sort
+        type: string
       - description: Page number for pagination, default is 1 | if you want to disable
           pagination, fill it with the number 0
         in: query
@@ -2723,13 +2398,33 @@ paths:
         in: query
         name: perpage
         type: integer
-      - description: Search by name using LIKE pattern
+      - description: Search for data that matches the input from all columns
+        in: query
+        name: search
+        type: string
+      - description: Search by Code Kabupaten
+        in: query
+        name: code_kabupaten
+        type: string
+      - description: Search by Name Kabupaten
         in: query
         name: name
         type: string
       - description: Search by Code Provinsi
         in: query
         name: parent_code_provinsi
+        type: string
+      - description: Search by Name Provinsi
+        in: query
+        name: name_provinsi
+        type: string
+      - description: Search by Code Negara
+        in: query
+        name: code_negara
+        type: string
+      - description: Search by Name Negara
+        in: query
+        name: name_negara
         type: string
       produces:
       - application/json
@@ -2911,57 +2606,19 @@ paths:
       summary: Get Delete Kecamatan
       tags:
       - Wilayah
-  /api/v1/wilayah/kecamatan/result/{code_kecamatan}:
-    get:
-      consumes:
-      - application/json
-      description: Get By Code Kecamatan
-      parameters:
-      - description: Get Code Code Kecamatan
-        in: path
-        name: code_kecamatan
-        required: true
-        type: string
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/schemes.SchemeResponses'
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/schemes.SchemeResponses400Example'
-        "401":
-          description: Unauthorized
-          schema:
-            $ref: '#/definitions/schemes.SchemeResponses401Example'
-        "403":
-          description: Forbidden
-          schema:
-            $ref: '#/definitions/schemes.SchemeResponses403Example'
-        "404":
-          description: Not Found
-          schema:
-            $ref: '#/definitions/schemes.SchemeResponses404Example'
-        "409":
-          description: Conflict
-          schema:
-            $ref: '#/definitions/schemes.SchemeResponses409Example'
-        "500":
-          description: Internal Server Error
-          schema:
-            $ref: '#/definitions/schemes.SchemeResponses500Example'
-      summary: Get By Code Kecamatan
-      tags:
-      - Wilayah
   /api/v1/wilayah/kecamatan/results:
     get:
       consumes:
       - application/json
       description: Get List Kecamatan
       parameters:
+      - description: 'Use ASC or DESC | Available column sort : negara.code_negara,
+          negara.name, provinsi.code_provinsi, provinsi.name, kabupaten.code_kabupaten,
+          kabupaten.name, kecamatan.code_kecamatan, kecamatan.name, default is kecamatan.name
+          ASC | If you don''t want to use it, fill it blank'
+        in: query
+        name: sort
+        type: string
       - description: Page number for pagination, default is 1 | if you want to disable
           pagination, fill it with the number 0
         in: query
@@ -2972,13 +2629,41 @@ paths:
         in: query
         name: perpage
         type: integer
-      - description: Search by name using LIKE pattern
+      - description: Search for data that matches the input from all columns
+        in: query
+        name: search
+        type: string
+      - description: Search by Code Kecamatan
+        in: query
+        name: code_kecamatan
+        type: string
+      - description: Search by Name Kecamatan
         in: query
         name: name
         type: string
       - description: Search by Code Kabupaten
         in: query
         name: parent_code_kabupaten
+        type: string
+      - description: Search by Name Kabupaten
+        in: query
+        name: name_kabupaten
+        type: string
+      - description: Search by Code Provinsi
+        in: query
+        name: code_provinsi
+        type: string
+      - description: Search by Name Provinsi
+        in: query
+        name: name_provinsi
+        type: string
+      - description: Search by Code Negara
+        in: query
+        name: code_negara
+        type: string
+      - description: Search by Name Negara
+        in: query
+        name: name_negara
         type: string
       produces:
       - application/json
@@ -3160,57 +2845,20 @@ paths:
       summary: Get Delete Kelurahan
       tags:
       - Wilayah
-  /api/v1/wilayah/kelurahan/result/{code_kelurahan}:
-    get:
-      consumes:
-      - application/json
-      description: Get By Code Kelurahan
-      parameters:
-      - description: Get Code Code Kelurahan
-        in: path
-        name: code_kelurahan
-        required: true
-        type: string
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/schemes.SchemeResponses'
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/schemes.SchemeResponses400Example'
-        "401":
-          description: Unauthorized
-          schema:
-            $ref: '#/definitions/schemes.SchemeResponses401Example'
-        "403":
-          description: Forbidden
-          schema:
-            $ref: '#/definitions/schemes.SchemeResponses403Example'
-        "404":
-          description: Not Found
-          schema:
-            $ref: '#/definitions/schemes.SchemeResponses404Example'
-        "409":
-          description: Conflict
-          schema:
-            $ref: '#/definitions/schemes.SchemeResponses409Example'
-        "500":
-          description: Internal Server Error
-          schema:
-            $ref: '#/definitions/schemes.SchemeResponses500Example'
-      summary: Get By Code Kelurahan
-      tags:
-      - Wilayah
   /api/v1/wilayah/kelurahan/results:
     get:
       consumes:
       - application/json
       description: Get List Kelurahan
       parameters:
+      - description: 'Use ASC or DESC | Available column sort : negara.code_negara,
+          negara.name, provinsi.code_provinsi, provinsi.name, kabupaten.code_kabupaten,
+          kabupaten.name, kecamatan.code_kecamatan, kecamatan.name, kelurahan.code_kelurahan,
+          kelurahan.name, default is kelurahan.name ASC | If you don''t want to use
+          it, fill it blank'
+        in: query
+        name: sort
+        type: string
       - description: Page number for pagination, default is 1 | if you want to disable
           pagination, fill it with the number 0
         in: query
@@ -3221,13 +2869,49 @@ paths:
         in: query
         name: perpage
         type: integer
-      - description: Search by name using LIKE pattern
+      - description: Search for data that matches the input from all columns
+        in: query
+        name: search
+        type: string
+      - description: Search by Code Kelurahan
+        in: query
+        name: code_kelurahan
+        type: string
+      - description: Search by Name Kelurahan
         in: query
         name: name
         type: string
       - description: Search by Code Kecamatan
         in: query
         name: parent_code_kecamatan
+        type: string
+      - description: Search by Name Kecamatan
+        in: query
+        name: name_kecamatan
+        type: string
+      - description: Search by Code Kabupaten
+        in: query
+        name: code_kabupaten
+        type: string
+      - description: Search by Name Kabupaten
+        in: query
+        name: name_kabupaten
+        type: string
+      - description: Search by Code Provinsi
+        in: query
+        name: code_provinsi
+        type: string
+      - description: Search by Name Provinsi
+        in: query
+        name: name_provinsi
+        type: string
+      - description: Search by Code Negara
+        in: query
+        name: code_negara
+        type: string
+      - description: Search by Name Negara
+        in: query
+        name: name_negara
         type: string
       produces:
       - application/json
@@ -3407,51 +3091,6 @@ paths:
           schema:
             $ref: '#/definitions/schemes.SchemeResponses500Example'
       summary: Get Delete Negara
-      tags:
-      - Wilayah
-  /api/v1/wilayah/negara/result/{code_negara}:
-    get:
-      consumes:
-      - application/json
-      description: Get By Code Negara
-      parameters:
-      - description: Get Code Code Negara
-        in: path
-        name: code_negara
-        required: true
-        type: string
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/schemes.SchemeResponses'
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/schemes.SchemeResponses400Example'
-        "401":
-          description: Unauthorized
-          schema:
-            $ref: '#/definitions/schemes.SchemeResponses401Example'
-        "403":
-          description: Forbidden
-          schema:
-            $ref: '#/definitions/schemes.SchemeResponses403Example'
-        "404":
-          description: Not Found
-          schema:
-            $ref: '#/definitions/schemes.SchemeResponses404Example'
-        "409":
-          description: Conflict
-          schema:
-            $ref: '#/definitions/schemes.SchemeResponses409Example'
-        "500":
-          description: Internal Server Error
-          schema:
-            $ref: '#/definitions/schemes.SchemeResponses500Example'
-      summary: Get By Code Negara
       tags:
       - Wilayah
   /api/v1/wilayah/negara/results:
@@ -3654,57 +3293,18 @@ paths:
       summary: Get Delete Provinsi
       tags:
       - Wilayah
-  /api/v1/wilayah/provinsi/result/{code_provinsi}:
-    get:
-      consumes:
-      - application/json
-      description: Get By Code Provinsi
-      parameters:
-      - description: Get Code Code Provinsi
-        in: path
-        name: code_provinsi
-        required: true
-        type: string
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/schemes.SchemeResponses'
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/schemes.SchemeResponses400Example'
-        "401":
-          description: Unauthorized
-          schema:
-            $ref: '#/definitions/schemes.SchemeResponses401Example'
-        "403":
-          description: Forbidden
-          schema:
-            $ref: '#/definitions/schemes.SchemeResponses403Example'
-        "404":
-          description: Not Found
-          schema:
-            $ref: '#/definitions/schemes.SchemeResponses404Example'
-        "409":
-          description: Conflict
-          schema:
-            $ref: '#/definitions/schemes.SchemeResponses409Example'
-        "500":
-          description: Internal Server Error
-          schema:
-            $ref: '#/definitions/schemes.SchemeResponses500Example'
-      summary: Get By Code Provinsi
-      tags:
-      - Wilayah
   /api/v1/wilayah/provinsi/results:
     get:
       consumes:
       - application/json
       description: Get List Provinsi
       parameters:
+      - description: 'Use ASC or DESC | Available column sort : negara.code_negara,
+          negara.name, provinsi.code_provinsi, provinsi.name, default is provinsi.name
+          ASC | If you don''t want to use it, fill it blank'
+        in: query
+        name: sort
+        type: string
       - description: Page number for pagination, default is 1 | if you want to disable
           pagination, fill it with the number 0
         in: query
@@ -3715,13 +3315,25 @@ paths:
         in: query
         name: perpage
         type: integer
-      - description: Search by name using LIKE pattern
+      - description: Search for data that matches the input from all columns
+        in: query
+        name: search
+        type: string
+      - description: Search by Code Provinsi
+        in: query
+        name: code_provinsi
+        type: string
+      - description: Search by Name Provinsi
         in: query
         name: name
         type: string
       - description: Search by Code Negara
         in: query
         name: parent_code_negara
+        type: string
+      - description: Search by Name Negara
+        in: query
+        name: name_negara
         type: string
       produces:
       - application/json
