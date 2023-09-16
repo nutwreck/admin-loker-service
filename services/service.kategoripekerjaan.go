@@ -36,6 +36,7 @@ func (s *serviceKategoriPekerjaan) EntityCreate(input *schemes.SchemeKategoriPek
 
 func (s *serviceKategoriPekerjaan) EntityResults(input *schemes.SchemeKategoriPekerjaan) (*[]models.ModelKategoriPekerjaan, int64, schemes.SchemeDatabaseError) {
 	var kategoriPekerjaan schemes.SchemeKategoriPekerjaan
+	kategoriPekerjaan.Sort = input.Sort
 	kategoriPekerjaan.Page = input.Page
 	kategoriPekerjaan.PerPage = input.PerPage
 	kategoriPekerjaan.Name = input.Name

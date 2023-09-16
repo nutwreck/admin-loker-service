@@ -7,6 +7,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/sirupsen/logrus"
 
+	"github.com/nutwreck/admin-loker-service/constants"
 	"github.com/nutwreck/admin-loker-service/helpers"
 	"github.com/nutwreck/admin-loker-service/pkg"
 )
@@ -15,15 +16,15 @@ func AuthToken() gin.HandlerFunc {
 	return gin.HandlerFunc(func(ctx *gin.Context) {
 		bearer := ctx.GetHeader("Authorization")
 
-		if bearer == "" {
-			ctx.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{"message": "Authorization header is required"})
+		if bearer == constants.EMPTY_VALUE {
+			ctx.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{"code": "401", "message": "Authorization header is required"})
 			return
 		}
 
 		token := strings.Split(bearer, " ")
 
 		if len(token) < 2 {
-			ctx.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{"message": "Access Token is required"})
+			ctx.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{"code": "401", "message": "Access Token is required"})
 			return
 		}
 
@@ -31,7 +32,7 @@ func AuthToken() gin.HandlerFunc {
 
 		if err != nil {
 			defer logrus.Error(err)
-			ctx.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{"message": "Access Token Expired"})
+			ctx.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{"code": "401", "message": "Access Token Expired"})
 		}
 
 		accessToken := helpers.ExtractToken(decodeToken)

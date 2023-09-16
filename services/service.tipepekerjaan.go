@@ -36,6 +36,7 @@ func (s *serviceTipePekerjaan) EntityCreate(input *schemes.SchemeTipePekerjaan) 
 
 func (s *serviceTipePekerjaan) EntityResults(input *schemes.SchemeTipePekerjaan) (*[]models.ModelTipePekerjaan, int64, schemes.SchemeDatabaseError) {
 	var tipePekerjaan schemes.SchemeTipePekerjaan
+	tipePekerjaan.Sort = input.Sort
 	tipePekerjaan.Page = input.Page
 	tipePekerjaan.PerPage = input.PerPage
 	tipePekerjaan.Name = input.Name

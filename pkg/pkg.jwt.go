@@ -8,15 +8,15 @@ import (
 	"github.com/golang-jwt/jwt"
 	"github.com/sirupsen/logrus"
 
+	"github.com/nutwreck/admin-loker-service/constants"
 	"github.com/nutwreck/admin-loker-service/schemes"
 )
 
-func Sign(configs *schemes.JWtMetaRequest) (string, error) {
-	expiredAt := time.Now().Add(time.Duration(time.Minute) * configs.Options.ExpiredAt).Unix()
-
+func Sign(configs *schemes.JWtMetaRequest) (string, time.Time, error) {
+	expiredAt := time.Now().Add(time.Duration(time.Minute) * (24 * 60) * configs.Options.ExpiredAt)
 	claims := jwt.MapClaims{}
 	claims["jwt"] = configs.Data
-	claims["exp"] = (24 * 60) * expiredAt
+	claims["exp"] = expiredAt.Unix()
 	claims["audience"] = configs.Options.Audience
 	claims["authorization"] = true
 
@@ -25,10 +25,10 @@ func Sign(configs *schemes.JWtMetaRequest) (string, error) {
 
 	if err != nil {
 		logrus.Error(err.Error())
-		return accessToken, err
+		return accessToken, expiredAt.Local(), err
 	}
 
-	return accessToken, nil
+	return accessToken, expiredAt.Local(), nil
 }
 
 func VerifyToken(accessToken, SecretPublicKey string) (*jwt.Token, error) {
@@ -49,7 +49,7 @@ func GenerateRefreshTokenFromClaims(claims jwt.MapClaims, jwtSecretKey []byte) (
 
 	tokenString, err := token.SignedString(jwtSecretKey)
 	if err != nil {
-		return "", err
+		return constants.EMPTY_VALUE, err
 	}
 
 	return tokenString, nil

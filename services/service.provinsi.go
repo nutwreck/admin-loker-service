@@ -36,8 +36,12 @@ func (s *serviceProvinsi) EntityCreate(input *schemes.SchemeProvinsi) (*models.M
 *======================================
  */
 
-func (s *serviceProvinsi) EntityResults(input *schemes.SchemeProvinsi) (*[]models.ModelProvinsi, int64, schemes.SchemeDatabaseError) {
+func (s *serviceProvinsi) EntityResults(input *schemes.SchemeProvinsi) (*[]schemes.SchemeGetDataProvinsi, int64, schemes.SchemeDatabaseError) {
 	var provinsi schemes.SchemeProvinsi
+	provinsi.Sort = input.Sort
+	provinsi.Search = input.Search
+	provinsi.NameNegara = input.NameNegara
+	provinsi.CodeProvinsi = input.CodeProvinsi
 	provinsi.Page = input.Page
 	provinsi.PerPage = input.PerPage
 	provinsi.ParentCodeNegara = input.ParentCodeNegara

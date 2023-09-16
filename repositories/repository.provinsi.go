@@ -2,6 +2,7 @@ package repositories
 
 import (
 	"net/http"
+	"net/url"
 	"strings"
 
 	"github.com/nutwreck/admin-loker-service/constants"
@@ -64,53 +65,108 @@ func (r *repositoryProvinsi) EntityCreate(input *schemes.SchemeProvinsi) (*model
 *=========================================
  */
 
-func (r *repositoryProvinsi) EntityResults(input *schemes.SchemeProvinsi) (*[]models.ModelProvinsi, int64, schemes.SchemeDatabaseError) {
+func (r *repositoryProvinsi) EntityResults(input *schemes.SchemeProvinsi) (*[]schemes.SchemeGetDataProvinsi, int64, schemes.SchemeDatabaseError) {
 	var (
-		provinsi  []models.ModelProvinsi
-		totalData int64
+		provinsi        []models.ModelProvinsi
+		result          []schemes.SchemeGetDataProvinsi
+		countData       schemes.SchemeCountData
+		args            []interface{}
+		totalData       int64
+		sortData        string = "provinsi.name ASC"
+		queryCountData  string = constants.EMPTY_VALUE
+		queryData       string = constants.EMPTY_VALUE
+		queryAdditional string = constants.EMPTY_VALUE
 	)
 
 	err := make(chan schemes.SchemeDatabaseError, 1)
 
 	db := r.db.Model(&provinsi)
 
-	if input.Name != "" {
-		db = db.Where("model_provinsis.name LIKE ?", "%"+strings.ToUpper(input.Name)+"%")
-	}
-
-	if input.ParentCodeNegara != "" {
-		db = db.Where("model_provinsis.parent_code_negara", input.ParentCodeNegara)
+	if input.Sort != constants.EMPTY_VALUE {
+		unScape, _ := url.QueryUnescape(input.Sort)
+		sortData = strings.Replace(unScape, "'", constants.EMPTY_VALUE, -1)
 	}
 
 	offset := int((input.Page - 1) * input.PerPage)
 
-	checkData := db.Debug().Order("model_provinsis.name ASC").Offset(offset).Limit(int(input.PerPage)).Find(&provinsi)
+	//Untuk mengambil jumlah data tanpa limit
+	queryCountData = `
+		SELECT
+			COUNT(provinsi.*) AS count_data
+		FROM model_provinsis AS provinsi
+	`
 
-	if checkData.RowsAffected < 1 {
+	//Untuk mengambil detail data
+	queryData = `
+		SELECT
+			negara.code_negara AS code_negara,
+			negara.name AS name_negara,
+			provinsi.code_provinsi AS code_provinsi,
+			provinsi.name AS name_provinsi
+		FROM model_provinsis AS provinsi
+	`
+
+	queryAdditional = `
+		JOIN model_negaras AS negara ON provinsi.parent_code_negara = negara.code_negara
+	`
+
+	queryAdditional += ` WHERE TRUE`
+
+	if input.Name != constants.EMPTY_VALUE {
+		queryAdditional += ` AND provinsi.name LIKE ?`
+		args = append(args, "%"+strings.ToUpper(input.Name)+"%")
+	}
+
+	if input.ParentCodeNegara != constants.EMPTY_VALUE {
+		queryAdditional += ` AND negara.code_negara = ?`
+		args = append(args, input.ParentCodeNegara)
+	}
+
+	if input.CodeProvinsi != constants.EMPTY_VALUE {
+		queryAdditional += ` AND provinsi.code_provinsi = ?`
+		args = append(args, input.CodeProvinsi)
+	}
+
+	if input.NameNegara != constants.EMPTY_VALUE {
+		queryAdditional += ` AND negara.name LIKE ?`
+		args = append(args, "%"+strings.ToUpper(input.NameNegara)+"%")
+	}
+
+	if input.Search != constants.EMPTY_VALUE {
+		queryAdditional += ` AND (negara.name LIKE ? OR provinsi.name LIKE ?)`
+		args = append(args,
+			"%"+strings.ToUpper(input.Search)+"%",
+			"%"+strings.ToUpper(input.Search)+"%")
+	}
+
+	//Eksekusi query ambil jumlah data tanpa limit
+	db.Raw(queryCountData+queryAdditional, args...).Scan(&countData)
+
+	queryAdditional += ` ORDER BY ` + sortData
+
+	if input.Page != constants.EMPTY_NUMBER || input.PerPage != constants.EMPTY_NUMBER {
+		queryAdditional += ` LIMIT ?`
+		args = append(args, int(input.PerPage))
+
+		queryAdditional += ` OFFSET ?`
+		args = append(args, offset)
+	}
+
+	getDatas := db.Raw(queryData+queryAdditional, args...).Scan(&result)
+
+	if getDatas.RowsAffected < 1 {
 		err <- schemes.SchemeDatabaseError{
 			Code: http.StatusNotFound,
 			Type: "error_results_01",
 		}
-		return &provinsi, totalData, <-err
+		return &result, totalData, <-err
 	}
 
 	// Menghitung total data yang diambil
-	db.Model(&models.ModelProvinsi{}).Count(&totalData)
-
-	if input.Page == constants.EMPTY_NUMBER || input.PerPage == constants.EMPTY_NUMBER { //Off Pagination
-		db.Debug().
-			Preload("Negara").
-			Find(&provinsi)
-	} else {
-		db.Debug().
-			Offset(offset).
-			Limit(int(input.PerPage)).
-			Preload("Negara").
-			Find(&provinsi)
-	}
+	totalData = countData.CountData
 
 	err <- schemes.SchemeDatabaseError{}
-	return &provinsi, totalData, <-err
+	return &result, totalData, <-err
 }
 
 /**

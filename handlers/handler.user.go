@@ -10,6 +10,7 @@ import (
 	"github.com/golang-jwt/jwt"
 	gpc "github.com/restuwahyu13/go-playground-converter"
 
+	"github.com/nutwreck/admin-loker-service/configs"
 	"github.com/nutwreck/admin-loker-service/entities"
 	"github.com/nutwreck/admin-loker-service/helpers"
 	"github.com/nutwreck/admin-loker-service/pkg"
@@ -133,13 +134,11 @@ func (h *handlerUser) HandlerLogin(ctx *gin.Context) {
 		return
 	}
 
-	accessToken, errorJwt := pkg.Sign(&schemes.JWtMetaRequest{
+	accessToken, expiredAt, errorJwt := pkg.Sign(&schemes.JWtMetaRequest{
 		Data:      gin.H{"id": res.ID, "email": res.Email, "role": res.Role},
 		SecretKey: pkg.GodotEnv("JWT_SECRET_KEY"),
-		Options:   schemes.JwtMetaOptions{Audience: pkg.GodotEnv("JWT_AUD"), ExpiredAt: 1},
+		Options:   schemes.JwtMetaOptions{Audience: pkg.GodotEnv("JWT_AUD"), ExpiredAt: configs.DayExpiredJWT},
 	})
-
-	expiredAt := time.Now().Add(time.Duration(time.Minute) * (24 * 60) * 1).Local()
 
 	if errorJwt != nil {
 		helpers.APIResponse(ctx, "Generate access token failed", http.StatusBadRequest, nil)
@@ -177,12 +176,14 @@ func (h *handlerUser) HandlerRefreshToken(ctx *gin.Context) {
 	})
 
 	if err != nil {
-		helpers.APIResponse(ctx, "Invalid refreshing token", http.StatusBadRequest, nil)
+		helpers.APIResponse(ctx, "Invalid refreshing token", http.StatusBadRequest, err.Error())
 		return
 	}
 
+	expiredAt := time.Now().Add(time.Duration(time.Minute) * (24 * 60) * configs.DayExpiredJWT)
+
 	// Update the expired time of the refresh token
-	claims["exp"] = time.Now().Add(time.Duration(time.Minute) * (24 * 60) * 1).Local() // Refresh token expires in 1 days
+	claims["exp"] = expiredAt.Unix()
 
 	// Generate a new refresh token
 	newRefreshToken, err := pkg.GenerateRefreshTokenFromClaims(claims, jwtSecretKey)
@@ -191,7 +192,7 @@ func (h *handlerUser) HandlerRefreshToken(ctx *gin.Context) {
 		return
 	}
 
-	helpers.APIResponse(ctx, "Refresh Token successfully", http.StatusOK, gin.H{"accessToken": newRefreshToken, "expiredAt": claims["exp"]})
+	helpers.APIResponse(ctx, "Refresh Token successfully", http.StatusOK, gin.H{"accessToken": newRefreshToken, "expiredAt": expiredAt.Local()})
 }
 
 /**

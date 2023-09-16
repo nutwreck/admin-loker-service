@@ -63,7 +63,7 @@ func (h *handleKabupaten) HandlerCreate(ctx *gin.Context) {
 
 	_, error := h.kabupaten.EntityCreate(&body)
 
-	if error.Type == "error_update_01" {
+	if error.Type == "error_create_01" {
 		helpers.APIResponse(ctx, "Kabupaten name already exist", error.Code, nil)
 		return
 	}
@@ -87,10 +87,16 @@ func (h *handleKabupaten) HandlerCreate(ctx *gin.Context) {
 // @Tags		Wilayah
 // @Accept		json
 // @Produce		json
+// @Param sort query string false "Use ASC or DESC | Available column sort : negara.code_negara, negara.name, provinsi.code_provinsi, provinsi.name, kabupaten.code_kabupaten, kabupaten.name, default is kabupaten.name ASC | If you don't want to use it, fill it blank"
 // @Param page query int false "Page number for pagination, default is 1 | if you want to disable pagination, fill it with the number 0"
 // @Param perpage query int false "Items per page for pagination, default is 10 | if you want to disable pagination, fill it with the number 0"
-// @Param name query string false "Search by name using LIKE pattern"
+// @Param search query string false "Search for data that matches the input from all columns"
+// @Param code_kabupaten query string false "Search by Code Kabupaten"
+// @Param name query string false "Search by Name Kabupaten"
 // @Param parent_code_provinsi query string false "Search by Code Provinsi"
+// @Param name_provinsi query string false "Search by Name Provinsi"
+// @Param code_negara query string false "Search by Code Negara"
+// @Param name_negara query string false "Search by Name Negara"
 // @Success 200 {object} schemes.SchemeResponsesPagination
 // @Failure 400 {object} schemes.SchemeResponses400Example
 // @Failure 401 {object} schemes.SchemeResponses401Example
@@ -110,7 +116,8 @@ func (h *handleKabupaten) HandlerResults(ctx *gin.Context) {
 		totalPages    int
 		totalDatas    int
 	)
-	pageParam := ctx.DefaultQuery("page", "")
+
+	pageParam := ctx.DefaultQuery("page", constants.EMPTY_VALUE)
 	body.Page = reqPage
 	if pageParam != constants.EMPTY_VALUE {
 		page, err := strconv.Atoi(pageParam)
@@ -121,7 +128,7 @@ func (h *handleKabupaten) HandlerResults(ctx *gin.Context) {
 		reqPage = page
 		body.Page = page
 	}
-	perPageParam := ctx.DefaultQuery("perpage", "")
+	perPageParam := ctx.DefaultQuery("perpage", constants.EMPTY_VALUE)
 	body.PerPage = reqPerPage
 	if perPageParam != constants.EMPTY_VALUE {
 		perPage, err := strconv.Atoi(perPageParam)
@@ -132,18 +139,42 @@ func (h *handleKabupaten) HandlerResults(ctx *gin.Context) {
 		reqPerPage = perPage
 		body.PerPage = perPage
 	}
-	nameParam := ctx.DefaultQuery("name", "")
+	nameParam := ctx.DefaultQuery("name", constants.EMPTY_VALUE)
 	if nameParam != constants.EMPTY_VALUE {
 		body.Name = nameParam
 	}
-	parentCodeParam := ctx.DefaultQuery("parent_code_provinsi", "")
+	parentCodeParam := ctx.DefaultQuery("parent_code_provinsi", constants.EMPTY_VALUE)
 	if parentCodeParam != constants.EMPTY_VALUE {
 		body.ParentCodeProvinsi = parentCodeParam
+	}
+	searchParam := ctx.DefaultQuery("search", constants.EMPTY_VALUE)
+	if searchParam != constants.EMPTY_VALUE {
+		body.Search = searchParam
+	}
+	codeNegaraParam := ctx.DefaultQuery("code_negara", constants.EMPTY_VALUE)
+	if codeNegaraParam != constants.EMPTY_VALUE {
+		body.CodeNegara = codeNegaraParam
+	}
+	nameNegaraParam := ctx.DefaultQuery("name_negara", constants.EMPTY_VALUE)
+	if nameNegaraParam != constants.EMPTY_VALUE {
+		body.NameNegara = nameNegaraParam
+	}
+	nameProvinsiParam := ctx.DefaultQuery("name_provinsi", constants.EMPTY_VALUE)
+	if nameProvinsiParam != constants.EMPTY_VALUE {
+		body.NameProvinsi = nameProvinsiParam
+	}
+	codeKabupatenParam := ctx.DefaultQuery("code_kabupaten", constants.EMPTY_VALUE)
+	if codeKabupatenParam != constants.EMPTY_VALUE {
+		body.CodeKabupaten = codeKabupatenParam
+	}
+	sortParam := ctx.DefaultQuery("sort", constants.EMPTY_VALUE)
+	if sortParam != constants.EMPTY_VALUE {
+		body.Sort = sortParam
 	}
 
 	if reqPage == constants.EMPTY_NUMBER || reqPerPage == constants.EMPTY_NUMBER { //Jika Off Pagination tapi kolom pencarian dikosongkan
 		if parentCodeParam == constants.EMPTY_VALUE && nameParam == constants.EMPTY_VALUE {
-			helpers.APIResponsePagination(ctx, "Kolom Name & Code Tidak Boleh Kosong Jika Pagination Dimatikan!", http.StatusBadRequest, nil, pages, perPages, totalPages, totalDatas)
+			helpers.APIResponsePagination(ctx, "Kolom Name Kabupaten & Parent Code Provinsi Tidak Boleh Kosong Jika Pagination Dimatikan!", http.StatusBadRequest, nil, pages, perPages, totalPages, totalDatas)
 			return
 		}
 	}
@@ -166,26 +197,6 @@ func (h *handleKabupaten) HandlerResults(ctx *gin.Context) {
 	helpers.APIResponsePagination(ctx, "Kabupaten data already to use", http.StatusOK, res, pages, perPages, totalPages, totalDatas)
 }
 
-/**
-* =========================================
-* Handler Result Kabupaten By Code Teritory
-*==========================================
- */
-// GetByCodeKabupaten godoc
-// @Summary		Get By Code Kabupaten
-// @Description	Get By Code Kabupaten
-// @Tags		Wilayah
-// @Accept		json
-// @Produce		json
-// @Param		code_kabupaten path string true "Get Code Code Kabupaten"
-// @Success 200 {object} schemes.SchemeResponses
-// @Failure 400 {object} schemes.SchemeResponses400Example
-// @Failure 401 {object} schemes.SchemeResponses401Example
-// @Failure 403 {object} schemes.SchemeResponses403Example
-// @Failure 404 {object} schemes.SchemeResponses404Example
-// @Failure 409 {object} schemes.SchemeResponses409Example
-// @Failure 500 {object} schemes.SchemeResponses500Example
-// @Router /api/v1/wilayah/kabupaten/result/{code_kabupaten} [get]
 func (h *handleKabupaten) HandlerResult(ctx *gin.Context) {
 	var body schemes.SchemeKabupaten
 	codes := ctx.Param("code_kabupaten")

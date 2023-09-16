@@ -36,8 +36,18 @@ func (s *serviceKelurahan) EntityCreate(input *schemes.SchemeKelurahan) (*models
 *=======================================
  */
 
-func (s *serviceKelurahan) EntityResults(input *schemes.SchemeKelurahan) (*[]models.ModelKelurahan, int64, schemes.SchemeDatabaseError) {
+func (s *serviceKelurahan) EntityResults(input *schemes.SchemeKelurahan) (*[]schemes.SchemeGetDataKelurahan, int64, schemes.SchemeDatabaseError) {
 	var kelurahan schemes.SchemeKelurahan
+	kelurahan.CodeKelurahan = input.CodeKelurahan
+	kelurahan.Sort = input.Sort
+	kelurahan.Search = input.Search
+	kelurahan.CodeNegara = input.CodeNegara
+	kelurahan.NameNegara = input.NameNegara
+	kelurahan.CodeProvinsi = input.CodeProvinsi
+	kelurahan.NameProvinsi = input.NameProvinsi
+	kelurahan.CodeKabupaten = input.CodeKabupaten
+	kelurahan.NameKabupaten = input.NameKabupaten
+	kelurahan.NameKecamatan = input.NameKecamatan
 	kelurahan.Page = input.Page
 	kelurahan.PerPage = input.PerPage
 	kelurahan.ParentCodeKecamatan = input.ParentCodeKecamatan

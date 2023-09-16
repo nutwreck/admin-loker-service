@@ -38,6 +38,8 @@ func (s *serviceNegara) EntityCreate(input *schemes.SchemeNegara) (*models.Model
 
 func (s *serviceNegara) EntityResults(input *schemes.SchemeNegara) (*[]models.ModelNegara, int64, schemes.SchemeDatabaseError) {
 	var negara schemes.SchemeNegara
+	negara.SortBy = input.SortBy
+	negara.OrderBy = input.OrderBy
 	negara.Page = input.Page
 	negara.PerPage = input.PerPage
 	negara.Name = input.Name

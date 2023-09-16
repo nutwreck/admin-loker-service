@@ -63,7 +63,7 @@ func (h *handleNegara) HandlerCreate(ctx *gin.Context) {
 
 	_, error := h.negara.EntityCreate(&body)
 
-	if error.Type == "error_update_01" {
+	if error.Type == "error_create_01" {
 		helpers.APIResponse(ctx, "Negara name already exist", error.Code, nil)
 		return
 	}
@@ -109,7 +109,17 @@ func (h *handleNegara) HandlerResults(ctx *gin.Context) {
 		totalPages    int
 		totalDatas    int
 	)
-	pageParam := ctx.DefaultQuery("page", "")
+
+	sortByParam := ctx.DefaultQuery("sortby", constants.EMPTY_VALUE)
+	if sortByParam != constants.EMPTY_VALUE {
+		body.SortBy = sortByParam
+	}
+	orderByParam := ctx.DefaultQuery("orderby", constants.EMPTY_VALUE)
+	if orderByParam != constants.EMPTY_VALUE {
+		body.OrderBy = orderByParam
+	}
+
+	pageParam := ctx.DefaultQuery("page", constants.EMPTY_VALUE)
 	body.Page = reqPage
 	if pageParam != constants.EMPTY_VALUE {
 		page, err := strconv.Atoi(pageParam)
@@ -120,7 +130,7 @@ func (h *handleNegara) HandlerResults(ctx *gin.Context) {
 		reqPage = page
 		body.Page = page
 	}
-	perPageParam := ctx.DefaultQuery("perpage", "")
+	perPageParam := ctx.DefaultQuery("perpage", constants.EMPTY_VALUE)
 	body.PerPage = reqPerPage
 	if perPageParam != constants.EMPTY_VALUE {
 		perPage, err := strconv.Atoi(perPageParam)
@@ -131,7 +141,7 @@ func (h *handleNegara) HandlerResults(ctx *gin.Context) {
 		reqPerPage = perPage
 		body.PerPage = perPage
 	}
-	nameParam := ctx.DefaultQuery("name", "")
+	nameParam := ctx.DefaultQuery("name", constants.EMPTY_VALUE)
 	if nameParam != constants.EMPTY_VALUE {
 		body.Name = nameParam
 	}
@@ -161,26 +171,6 @@ func (h *handleNegara) HandlerResults(ctx *gin.Context) {
 	helpers.APIResponsePagination(ctx, "Negara data already to use", http.StatusOK, res, pages, perPages, totalPages, totalDatas)
 }
 
-/**
-* ======================================
-* Handler Result Negara By Code Teritory
-*=======================================
- */
-// GetByCodeNegara godoc
-// @Summary		Get By Code Negara
-// @Description	Get By Code Negara
-// @Tags		Wilayah
-// @Accept		json
-// @Produce		json
-// @Param		code_negara path string true "Get Code Code Negara"
-// @Success 200 {object} schemes.SchemeResponses
-// @Failure 400 {object} schemes.SchemeResponses400Example
-// @Failure 401 {object} schemes.SchemeResponses401Example
-// @Failure 403 {object} schemes.SchemeResponses403Example
-// @Failure 404 {object} schemes.SchemeResponses404Example
-// @Failure 409 {object} schemes.SchemeResponses409Example
-// @Failure 500 {object} schemes.SchemeResponses500Example
-// @Router /api/v1/wilayah/negara/result/{code_negara} [get]
 func (h *handleNegara) HandlerResult(ctx *gin.Context) {
 	var body schemes.SchemeNegara
 	codes := ctx.Param("code_negara")

@@ -672,79 +672,6 @@ const docTemplate = `{
                 }
             }
         },
-        "/api/v1/jenis-perusahaan/result/{id}": {
-            "get": {
-                "security": [
-                    {
-                        "ApiKeyAuth": []
-                    }
-                ],
-                "description": "Get By ID Jenis Perusahaan",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "Jenis Perusahaan"
-                ],
-                "summary": "Get By ID Jenis Perusahaan",
-                "parameters": [
-                    {
-                        "type": "string",
-                        "description": "Get By ID Jenis Perusahaan",
-                        "name": "id",
-                        "in": "path",
-                        "required": true
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/schemes.SchemeResponses"
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "schema": {
-                            "$ref": "#/definitions/schemes.SchemeResponses400Example"
-                        }
-                    },
-                    "401": {
-                        "description": "Unauthorized",
-                        "schema": {
-                            "$ref": "#/definitions/schemes.SchemeResponses401Example"
-                        }
-                    },
-                    "403": {
-                        "description": "Forbidden",
-                        "schema": {
-                            "$ref": "#/definitions/schemes.SchemeResponses403Example"
-                        }
-                    },
-                    "404": {
-                        "description": "Not Found",
-                        "schema": {
-                            "$ref": "#/definitions/schemes.SchemeResponses404Example"
-                        }
-                    },
-                    "409": {
-                        "description": "Conflict",
-                        "schema": {
-                            "$ref": "#/definitions/schemes.SchemeResponses409Example"
-                        }
-                    },
-                    "500": {
-                        "description": "Internal Server Error",
-                        "schema": {
-                            "$ref": "#/definitions/schemes.SchemeResponses500Example"
-                        }
-                    }
-                }
-            }
-        },
         "/api/v1/jenis-perusahaan/results": {
             "get": {
                 "security": [
@@ -764,6 +691,12 @@ const docTemplate = `{
                 ],
                 "summary": "Get List Jenis Perusahaan",
                 "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Use ASC or DESC | Available column sort : id, name, active, created_at, updated_at, default is created_at DESC | If you don't want to use it, fill it blank",
+                        "name": "sort",
+                        "in": "query"
+                    },
                     {
                         "type": "integer",
                         "description": "Page number for pagination, default is 1 | if you want to disable pagination, fill it with the number 0",
@@ -1071,79 +1004,6 @@ const docTemplate = `{
                 }
             }
         },
-        "/api/v1/kategori-pekerjaan/result/{id}": {
-            "get": {
-                "security": [
-                    {
-                        "ApiKeyAuth": []
-                    }
-                ],
-                "description": "Get By ID Kategori Pekerjaan",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "Kategori Pekerjaan"
-                ],
-                "summary": "Get By ID Kategori Pekerjaan",
-                "parameters": [
-                    {
-                        "type": "string",
-                        "description": "Get By ID Kategori Pekerjaan",
-                        "name": "id",
-                        "in": "path",
-                        "required": true
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/schemes.SchemeResponses"
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "schema": {
-                            "$ref": "#/definitions/schemes.SchemeResponses400Example"
-                        }
-                    },
-                    "401": {
-                        "description": "Unauthorized",
-                        "schema": {
-                            "$ref": "#/definitions/schemes.SchemeResponses401Example"
-                        }
-                    },
-                    "403": {
-                        "description": "Forbidden",
-                        "schema": {
-                            "$ref": "#/definitions/schemes.SchemeResponses403Example"
-                        }
-                    },
-                    "404": {
-                        "description": "Not Found",
-                        "schema": {
-                            "$ref": "#/definitions/schemes.SchemeResponses404Example"
-                        }
-                    },
-                    "409": {
-                        "description": "Conflict",
-                        "schema": {
-                            "$ref": "#/definitions/schemes.SchemeResponses409Example"
-                        }
-                    },
-                    "500": {
-                        "description": "Internal Server Error",
-                        "schema": {
-                            "$ref": "#/definitions/schemes.SchemeResponses500Example"
-                        }
-                    }
-                }
-            }
-        },
         "/api/v1/kategori-pekerjaan/results": {
             "get": {
                 "security": [
@@ -1163,6 +1023,12 @@ const docTemplate = `{
                 ],
                 "summary": "Get List Kategori Pekerjaan",
                 "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Use ASC or DESC | Available column sort : id, name, active, created_at, updated_at, default is created_at DESC | If you don't want to use it, fill it blank",
+                        "name": "sort",
+                        "in": "query"
+                    },
                     {
                         "type": "integer",
                         "description": "Page number for pagination, default is 1 | if you want to disable pagination, fill it with the number 0",
@@ -1470,79 +1336,6 @@ const docTemplate = `{
                 }
             }
         },
-        "/api/v1/keahlian/result/{id}": {
-            "get": {
-                "security": [
-                    {
-                        "ApiKeyAuth": []
-                    }
-                ],
-                "description": "Get By ID Keahlian",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "Keahlian"
-                ],
-                "summary": "Get By ID Keahlian",
-                "parameters": [
-                    {
-                        "type": "string",
-                        "description": "Get By ID Keahlian",
-                        "name": "id",
-                        "in": "path",
-                        "required": true
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/schemes.SchemeResponses"
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "schema": {
-                            "$ref": "#/definitions/schemes.SchemeResponses400Example"
-                        }
-                    },
-                    "401": {
-                        "description": "Unauthorized",
-                        "schema": {
-                            "$ref": "#/definitions/schemes.SchemeResponses401Example"
-                        }
-                    },
-                    "403": {
-                        "description": "Forbidden",
-                        "schema": {
-                            "$ref": "#/definitions/schemes.SchemeResponses403Example"
-                        }
-                    },
-                    "404": {
-                        "description": "Not Found",
-                        "schema": {
-                            "$ref": "#/definitions/schemes.SchemeResponses404Example"
-                        }
-                    },
-                    "409": {
-                        "description": "Conflict",
-                        "schema": {
-                            "$ref": "#/definitions/schemes.SchemeResponses409Example"
-                        }
-                    },
-                    "500": {
-                        "description": "Internal Server Error",
-                        "schema": {
-                            "$ref": "#/definitions/schemes.SchemeResponses500Example"
-                        }
-                    }
-                }
-            }
-        },
         "/api/v1/keahlian/results": {
             "get": {
                 "security": [
@@ -1562,6 +1355,12 @@ const docTemplate = `{
                 ],
                 "summary": "Get List Keahlian",
                 "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Use ASC or DESC | Available column sort : id, name, active, created_at, updated_at, default is created_at DESC | If you don't want to use it, fill it blank",
+                        "name": "sort",
+                        "in": "query"
+                    },
                     {
                         "type": "integer",
                         "description": "Page number for pagination, default is 1 | if you want to disable pagination, fill it with the number 0",
@@ -1869,79 +1668,6 @@ const docTemplate = `{
                 }
             }
         },
-        "/api/v1/level-pekerjaan/result/{id}": {
-            "get": {
-                "security": [
-                    {
-                        "ApiKeyAuth": []
-                    }
-                ],
-                "description": "Get By ID Level Pekerjaan",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "Level Pekerjaan"
-                ],
-                "summary": "Get By ID Level Pekerjaan",
-                "parameters": [
-                    {
-                        "type": "string",
-                        "description": "Get By ID Level Pekerjaan",
-                        "name": "id",
-                        "in": "path",
-                        "required": true
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/schemes.SchemeResponses"
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "schema": {
-                            "$ref": "#/definitions/schemes.SchemeResponses400Example"
-                        }
-                    },
-                    "401": {
-                        "description": "Unauthorized",
-                        "schema": {
-                            "$ref": "#/definitions/schemes.SchemeResponses401Example"
-                        }
-                    },
-                    "403": {
-                        "description": "Forbidden",
-                        "schema": {
-                            "$ref": "#/definitions/schemes.SchemeResponses403Example"
-                        }
-                    },
-                    "404": {
-                        "description": "Not Found",
-                        "schema": {
-                            "$ref": "#/definitions/schemes.SchemeResponses404Example"
-                        }
-                    },
-                    "409": {
-                        "description": "Conflict",
-                        "schema": {
-                            "$ref": "#/definitions/schemes.SchemeResponses409Example"
-                        }
-                    },
-                    "500": {
-                        "description": "Internal Server Error",
-                        "schema": {
-                            "$ref": "#/definitions/schemes.SchemeResponses500Example"
-                        }
-                    }
-                }
-            }
-        },
         "/api/v1/level-pekerjaan/results": {
             "get": {
                 "security": [
@@ -1961,6 +1687,12 @@ const docTemplate = `{
                 ],
                 "summary": "Get List Level Pekerjaan",
                 "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Use ASC or DESC | Available column sort : id, name, active, created_at, updated_at, default is created_at DESC | If you don't want to use it, fill it blank",
+                        "name": "sort",
+                        "in": "query"
+                    },
                     {
                         "type": "integer",
                         "description": "Page number for pagination, default is 1 | if you want to disable pagination, fill it with the number 0",
@@ -2268,79 +2000,6 @@ const docTemplate = `{
                 }
             }
         },
-        "/api/v1/pendidikan/result/{id}": {
-            "get": {
-                "security": [
-                    {
-                        "ApiKeyAuth": []
-                    }
-                ],
-                "description": "Get By ID Pendidikan",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "Pendidikan"
-                ],
-                "summary": "Get By ID Pendidikan",
-                "parameters": [
-                    {
-                        "type": "string",
-                        "description": "Get By ID Pendidikan",
-                        "name": "id",
-                        "in": "path",
-                        "required": true
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/schemes.SchemeResponses"
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "schema": {
-                            "$ref": "#/definitions/schemes.SchemeResponses400Example"
-                        }
-                    },
-                    "401": {
-                        "description": "Unauthorized",
-                        "schema": {
-                            "$ref": "#/definitions/schemes.SchemeResponses401Example"
-                        }
-                    },
-                    "403": {
-                        "description": "Forbidden",
-                        "schema": {
-                            "$ref": "#/definitions/schemes.SchemeResponses403Example"
-                        }
-                    },
-                    "404": {
-                        "description": "Not Found",
-                        "schema": {
-                            "$ref": "#/definitions/schemes.SchemeResponses404Example"
-                        }
-                    },
-                    "409": {
-                        "description": "Conflict",
-                        "schema": {
-                            "$ref": "#/definitions/schemes.SchemeResponses409Example"
-                        }
-                    },
-                    "500": {
-                        "description": "Internal Server Error",
-                        "schema": {
-                            "$ref": "#/definitions/schemes.SchemeResponses500Example"
-                        }
-                    }
-                }
-            }
-        },
         "/api/v1/pendidikan/results": {
             "get": {
                 "security": [
@@ -2360,6 +2019,12 @@ const docTemplate = `{
                 ],
                 "summary": "Get List Pendidikan",
                 "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Use ASC or DESC | Available column sort : id, name, active, created_at, updated_at, default is created_at DESC | If you don't want to use it, fill it blank",
+                        "name": "sort",
+                        "in": "query"
+                    },
                     {
                         "type": "integer",
                         "description": "Page number for pagination, default is 1 | if you want to disable pagination, fill it with the number 0",
@@ -2667,79 +2332,6 @@ const docTemplate = `{
                 }
             }
         },
-        "/api/v1/tahun-pengalaman/result/{id}": {
-            "get": {
-                "security": [
-                    {
-                        "ApiKeyAuth": []
-                    }
-                ],
-                "description": "Get By ID Tahun Pengalaman",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "Tahun Pengalaman"
-                ],
-                "summary": "Get By ID Tahun Pengalaman",
-                "parameters": [
-                    {
-                        "type": "string",
-                        "description": "Get By ID Tahun Pengalaman",
-                        "name": "id",
-                        "in": "path",
-                        "required": true
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/schemes.SchemeResponses"
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "schema": {
-                            "$ref": "#/definitions/schemes.SchemeResponses400Example"
-                        }
-                    },
-                    "401": {
-                        "description": "Unauthorized",
-                        "schema": {
-                            "$ref": "#/definitions/schemes.SchemeResponses401Example"
-                        }
-                    },
-                    "403": {
-                        "description": "Forbidden",
-                        "schema": {
-                            "$ref": "#/definitions/schemes.SchemeResponses403Example"
-                        }
-                    },
-                    "404": {
-                        "description": "Not Found",
-                        "schema": {
-                            "$ref": "#/definitions/schemes.SchemeResponses404Example"
-                        }
-                    },
-                    "409": {
-                        "description": "Conflict",
-                        "schema": {
-                            "$ref": "#/definitions/schemes.SchemeResponses409Example"
-                        }
-                    },
-                    "500": {
-                        "description": "Internal Server Error",
-                        "schema": {
-                            "$ref": "#/definitions/schemes.SchemeResponses500Example"
-                        }
-                    }
-                }
-            }
-        },
         "/api/v1/tahun-pengalaman/results": {
             "get": {
                 "security": [
@@ -2759,6 +2351,12 @@ const docTemplate = `{
                 ],
                 "summary": "Get List Tahun Pengalaman",
                 "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Use ASC or DESC | Available column sort : id, name, active, created_at, updated_at, default is created_at DESC | If you don't want to use it, fill it blank",
+                        "name": "sort",
+                        "in": "query"
+                    },
                     {
                         "type": "integer",
                         "description": "Page number for pagination, default is 1 | if you want to disable pagination, fill it with the number 0",
@@ -3066,79 +2664,6 @@ const docTemplate = `{
                 }
             }
         },
-        "/api/v1/tipe-pekerjaan/result/{id}": {
-            "get": {
-                "security": [
-                    {
-                        "ApiKeyAuth": []
-                    }
-                ],
-                "description": "Get By ID Tipe Pekerjaan",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "Tipe Pekerjaan"
-                ],
-                "summary": "Get By ID Tipe Pekerjaan",
-                "parameters": [
-                    {
-                        "type": "string",
-                        "description": "Get By ID Tipe Pekerjaan",
-                        "name": "id",
-                        "in": "path",
-                        "required": true
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/schemes.SchemeResponses"
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "schema": {
-                            "$ref": "#/definitions/schemes.SchemeResponses400Example"
-                        }
-                    },
-                    "401": {
-                        "description": "Unauthorized",
-                        "schema": {
-                            "$ref": "#/definitions/schemes.SchemeResponses401Example"
-                        }
-                    },
-                    "403": {
-                        "description": "Forbidden",
-                        "schema": {
-                            "$ref": "#/definitions/schemes.SchemeResponses403Example"
-                        }
-                    },
-                    "404": {
-                        "description": "Not Found",
-                        "schema": {
-                            "$ref": "#/definitions/schemes.SchemeResponses404Example"
-                        }
-                    },
-                    "409": {
-                        "description": "Conflict",
-                        "schema": {
-                            "$ref": "#/definitions/schemes.SchemeResponses409Example"
-                        }
-                    },
-                    "500": {
-                        "description": "Internal Server Error",
-                        "schema": {
-                            "$ref": "#/definitions/schemes.SchemeResponses500Example"
-                        }
-                    }
-                }
-            }
-        },
         "/api/v1/tipe-pekerjaan/results": {
             "get": {
                 "security": [
@@ -3158,6 +2683,12 @@ const docTemplate = `{
                 ],
                 "summary": "Get List Tipe Pekerjaan",
                 "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Use ASC or DESC | Available column sort : id, name, active, created_at, updated_at, default is created_at DESC | If you don't want to use it, fill it blank",
+                        "name": "sort",
+                        "in": "query"
+                    },
                     {
                         "type": "integer",
                         "description": "Page number for pagination, default is 1 | if you want to disable pagination, fill it with the number 0",
@@ -3455,74 +2986,6 @@ const docTemplate = `{
                 }
             }
         },
-        "/api/v1/wilayah/kabupaten/result/{code_kabupaten}": {
-            "get": {
-                "description": "Get By Code Kabupaten",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "Wilayah"
-                ],
-                "summary": "Get By Code Kabupaten",
-                "parameters": [
-                    {
-                        "type": "string",
-                        "description": "Get Code Code Kabupaten",
-                        "name": "code_kabupaten",
-                        "in": "path",
-                        "required": true
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/schemes.SchemeResponses"
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "schema": {
-                            "$ref": "#/definitions/schemes.SchemeResponses400Example"
-                        }
-                    },
-                    "401": {
-                        "description": "Unauthorized",
-                        "schema": {
-                            "$ref": "#/definitions/schemes.SchemeResponses401Example"
-                        }
-                    },
-                    "403": {
-                        "description": "Forbidden",
-                        "schema": {
-                            "$ref": "#/definitions/schemes.SchemeResponses403Example"
-                        }
-                    },
-                    "404": {
-                        "description": "Not Found",
-                        "schema": {
-                            "$ref": "#/definitions/schemes.SchemeResponses404Example"
-                        }
-                    },
-                    "409": {
-                        "description": "Conflict",
-                        "schema": {
-                            "$ref": "#/definitions/schemes.SchemeResponses409Example"
-                        }
-                    },
-                    "500": {
-                        "description": "Internal Server Error",
-                        "schema": {
-                            "$ref": "#/definitions/schemes.SchemeResponses500Example"
-                        }
-                    }
-                }
-            }
-        },
         "/api/v1/wilayah/kabupaten/results": {
             "get": {
                 "description": "Get List Kabupaten",
@@ -3538,6 +3001,12 @@ const docTemplate = `{
                 "summary": "Get List Kabupaten",
                 "parameters": [
                     {
+                        "type": "string",
+                        "description": "Use ASC or DESC | Available column sort : negara.code_negara, negara.name, provinsi.code_provinsi, provinsi.name, kabupaten.code_kabupaten, kabupaten.name, default is kabupaten.name ASC | If you don't want to use it, fill it blank",
+                        "name": "sort",
+                        "in": "query"
+                    },
+                    {
                         "type": "integer",
                         "description": "Page number for pagination, default is 1 | if you want to disable pagination, fill it with the number 0",
                         "name": "page",
@@ -3551,7 +3020,19 @@ const docTemplate = `{
                     },
                     {
                         "type": "string",
-                        "description": "Search by name using LIKE pattern",
+                        "description": "Search for data that matches the input from all columns",
+                        "name": "search",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Search by Code Kabupaten",
+                        "name": "code_kabupaten",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Search by Name Kabupaten",
                         "name": "name",
                         "in": "query"
                     },
@@ -3559,6 +3040,24 @@ const docTemplate = `{
                         "type": "string",
                         "description": "Search by Code Provinsi",
                         "name": "parent_code_provinsi",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Search by Name Provinsi",
+                        "name": "name_provinsi",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Search by Code Negara",
+                        "name": "code_negara",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Search by Name Negara",
+                        "name": "name_negara",
                         "in": "query"
                     }
                 ],
@@ -3829,74 +3328,6 @@ const docTemplate = `{
                 }
             }
         },
-        "/api/v1/wilayah/kecamatan/result/{code_kecamatan}": {
-            "get": {
-                "description": "Get By Code Kecamatan",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "Wilayah"
-                ],
-                "summary": "Get By Code Kecamatan",
-                "parameters": [
-                    {
-                        "type": "string",
-                        "description": "Get Code Code Kecamatan",
-                        "name": "code_kecamatan",
-                        "in": "path",
-                        "required": true
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/schemes.SchemeResponses"
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "schema": {
-                            "$ref": "#/definitions/schemes.SchemeResponses400Example"
-                        }
-                    },
-                    "401": {
-                        "description": "Unauthorized",
-                        "schema": {
-                            "$ref": "#/definitions/schemes.SchemeResponses401Example"
-                        }
-                    },
-                    "403": {
-                        "description": "Forbidden",
-                        "schema": {
-                            "$ref": "#/definitions/schemes.SchemeResponses403Example"
-                        }
-                    },
-                    "404": {
-                        "description": "Not Found",
-                        "schema": {
-                            "$ref": "#/definitions/schemes.SchemeResponses404Example"
-                        }
-                    },
-                    "409": {
-                        "description": "Conflict",
-                        "schema": {
-                            "$ref": "#/definitions/schemes.SchemeResponses409Example"
-                        }
-                    },
-                    "500": {
-                        "description": "Internal Server Error",
-                        "schema": {
-                            "$ref": "#/definitions/schemes.SchemeResponses500Example"
-                        }
-                    }
-                }
-            }
-        },
         "/api/v1/wilayah/kecamatan/results": {
             "get": {
                 "description": "Get List Kecamatan",
@@ -3912,6 +3343,12 @@ const docTemplate = `{
                 "summary": "Get List Kecamatan",
                 "parameters": [
                     {
+                        "type": "string",
+                        "description": "Use ASC or DESC | Available column sort : negara.code_negara, negara.name, provinsi.code_provinsi, provinsi.name, kabupaten.code_kabupaten, kabupaten.name, kecamatan.code_kecamatan, kecamatan.name, default is kecamatan.name ASC | If you don't want to use it, fill it blank",
+                        "name": "sort",
+                        "in": "query"
+                    },
+                    {
                         "type": "integer",
                         "description": "Page number for pagination, default is 1 | if you want to disable pagination, fill it with the number 0",
                         "name": "page",
@@ -3925,7 +3362,19 @@ const docTemplate = `{
                     },
                     {
                         "type": "string",
-                        "description": "Search by name using LIKE pattern",
+                        "description": "Search for data that matches the input from all columns",
+                        "name": "search",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Search by Code Kecamatan",
+                        "name": "code_kecamatan",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Search by Name Kecamatan",
                         "name": "name",
                         "in": "query"
                     },
@@ -3933,6 +3382,36 @@ const docTemplate = `{
                         "type": "string",
                         "description": "Search by Code Kabupaten",
                         "name": "parent_code_kabupaten",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Search by Name Kabupaten",
+                        "name": "name_kabupaten",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Search by Code Provinsi",
+                        "name": "code_provinsi",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Search by Name Provinsi",
+                        "name": "name_provinsi",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Search by Code Negara",
+                        "name": "code_negara",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Search by Name Negara",
+                        "name": "name_negara",
                         "in": "query"
                     }
                 ],
@@ -4203,74 +3682,6 @@ const docTemplate = `{
                 }
             }
         },
-        "/api/v1/wilayah/kelurahan/result/{code_kelurahan}": {
-            "get": {
-                "description": "Get By Code Kelurahan",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "Wilayah"
-                ],
-                "summary": "Get By Code Kelurahan",
-                "parameters": [
-                    {
-                        "type": "string",
-                        "description": "Get Code Code Kelurahan",
-                        "name": "code_kelurahan",
-                        "in": "path",
-                        "required": true
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/schemes.SchemeResponses"
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "schema": {
-                            "$ref": "#/definitions/schemes.SchemeResponses400Example"
-                        }
-                    },
-                    "401": {
-                        "description": "Unauthorized",
-                        "schema": {
-                            "$ref": "#/definitions/schemes.SchemeResponses401Example"
-                        }
-                    },
-                    "403": {
-                        "description": "Forbidden",
-                        "schema": {
-                            "$ref": "#/definitions/schemes.SchemeResponses403Example"
-                        }
-                    },
-                    "404": {
-                        "description": "Not Found",
-                        "schema": {
-                            "$ref": "#/definitions/schemes.SchemeResponses404Example"
-                        }
-                    },
-                    "409": {
-                        "description": "Conflict",
-                        "schema": {
-                            "$ref": "#/definitions/schemes.SchemeResponses409Example"
-                        }
-                    },
-                    "500": {
-                        "description": "Internal Server Error",
-                        "schema": {
-                            "$ref": "#/definitions/schemes.SchemeResponses500Example"
-                        }
-                    }
-                }
-            }
-        },
         "/api/v1/wilayah/kelurahan/results": {
             "get": {
                 "description": "Get List Kelurahan",
@@ -4286,6 +3697,12 @@ const docTemplate = `{
                 "summary": "Get List Kelurahan",
                 "parameters": [
                     {
+                        "type": "string",
+                        "description": "Use ASC or DESC | Available column sort : negara.code_negara, negara.name, provinsi.code_provinsi, provinsi.name, kabupaten.code_kabupaten, kabupaten.name, kecamatan.code_kecamatan, kecamatan.name, kelurahan.code_kelurahan, kelurahan.name, default is kelurahan.name ASC | If you don't want to use it, fill it blank",
+                        "name": "sort",
+                        "in": "query"
+                    },
+                    {
                         "type": "integer",
                         "description": "Page number for pagination, default is 1 | if you want to disable pagination, fill it with the number 0",
                         "name": "page",
@@ -4299,7 +3716,19 @@ const docTemplate = `{
                     },
                     {
                         "type": "string",
-                        "description": "Search by name using LIKE pattern",
+                        "description": "Search for data that matches the input from all columns",
+                        "name": "search",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Search by Code Kelurahan",
+                        "name": "code_kelurahan",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Search by Name Kelurahan",
                         "name": "name",
                         "in": "query"
                     },
@@ -4307,6 +3736,48 @@ const docTemplate = `{
                         "type": "string",
                         "description": "Search by Code Kecamatan",
                         "name": "parent_code_kecamatan",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Search by Name Kecamatan",
+                        "name": "name_kecamatan",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Search by Code Kabupaten",
+                        "name": "code_kabupaten",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Search by Name Kabupaten",
+                        "name": "name_kabupaten",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Search by Code Provinsi",
+                        "name": "code_provinsi",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Search by Name Provinsi",
+                        "name": "name_provinsi",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Search by Code Negara",
+                        "name": "code_negara",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Search by Name Negara",
+                        "name": "name_negara",
                         "in": "query"
                     }
                 ],
@@ -4526,74 +3997,6 @@ const docTemplate = `{
                     {
                         "type": "string",
                         "description": "Delete Negara",
-                        "name": "code_negara",
-                        "in": "path",
-                        "required": true
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/schemes.SchemeResponses"
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "schema": {
-                            "$ref": "#/definitions/schemes.SchemeResponses400Example"
-                        }
-                    },
-                    "401": {
-                        "description": "Unauthorized",
-                        "schema": {
-                            "$ref": "#/definitions/schemes.SchemeResponses401Example"
-                        }
-                    },
-                    "403": {
-                        "description": "Forbidden",
-                        "schema": {
-                            "$ref": "#/definitions/schemes.SchemeResponses403Example"
-                        }
-                    },
-                    "404": {
-                        "description": "Not Found",
-                        "schema": {
-                            "$ref": "#/definitions/schemes.SchemeResponses404Example"
-                        }
-                    },
-                    "409": {
-                        "description": "Conflict",
-                        "schema": {
-                            "$ref": "#/definitions/schemes.SchemeResponses409Example"
-                        }
-                    },
-                    "500": {
-                        "description": "Internal Server Error",
-                        "schema": {
-                            "$ref": "#/definitions/schemes.SchemeResponses500Example"
-                        }
-                    }
-                }
-            }
-        },
-        "/api/v1/wilayah/negara/result/{code_negara}": {
-            "get": {
-                "description": "Get By Code Negara",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "Wilayah"
-                ],
-                "summary": "Get By Code Negara",
-                "parameters": [
-                    {
-                        "type": "string",
-                        "description": "Get Code Code Negara",
                         "name": "code_negara",
                         "in": "path",
                         "required": true
@@ -4945,74 +4348,6 @@ const docTemplate = `{
                 }
             }
         },
-        "/api/v1/wilayah/provinsi/result/{code_provinsi}": {
-            "get": {
-                "description": "Get By Code Provinsi",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "Wilayah"
-                ],
-                "summary": "Get By Code Provinsi",
-                "parameters": [
-                    {
-                        "type": "string",
-                        "description": "Get Code Code Provinsi",
-                        "name": "code_provinsi",
-                        "in": "path",
-                        "required": true
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/schemes.SchemeResponses"
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "schema": {
-                            "$ref": "#/definitions/schemes.SchemeResponses400Example"
-                        }
-                    },
-                    "401": {
-                        "description": "Unauthorized",
-                        "schema": {
-                            "$ref": "#/definitions/schemes.SchemeResponses401Example"
-                        }
-                    },
-                    "403": {
-                        "description": "Forbidden",
-                        "schema": {
-                            "$ref": "#/definitions/schemes.SchemeResponses403Example"
-                        }
-                    },
-                    "404": {
-                        "description": "Not Found",
-                        "schema": {
-                            "$ref": "#/definitions/schemes.SchemeResponses404Example"
-                        }
-                    },
-                    "409": {
-                        "description": "Conflict",
-                        "schema": {
-                            "$ref": "#/definitions/schemes.SchemeResponses409Example"
-                        }
-                    },
-                    "500": {
-                        "description": "Internal Server Error",
-                        "schema": {
-                            "$ref": "#/definitions/schemes.SchemeResponses500Example"
-                        }
-                    }
-                }
-            }
-        },
         "/api/v1/wilayah/provinsi/results": {
             "get": {
                 "description": "Get List Provinsi",
@@ -5028,6 +4363,12 @@ const docTemplate = `{
                 "summary": "Get List Provinsi",
                 "parameters": [
                     {
+                        "type": "string",
+                        "description": "Use ASC or DESC | Available column sort : negara.code_negara, negara.name, provinsi.code_provinsi, provinsi.name, default is provinsi.name ASC | If you don't want to use it, fill it blank",
+                        "name": "sort",
+                        "in": "query"
+                    },
+                    {
                         "type": "integer",
                         "description": "Page number for pagination, default is 1 | if you want to disable pagination, fill it with the number 0",
                         "name": "page",
@@ -5041,7 +4382,19 @@ const docTemplate = `{
                     },
                     {
                         "type": "string",
-                        "description": "Search by name using LIKE pattern",
+                        "description": "Search for data that matches the input from all columns",
+                        "name": "search",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Search by Code Provinsi",
+                        "name": "code_provinsi",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Search by Name Provinsi",
                         "name": "name",
                         "in": "query"
                     },
@@ -5049,6 +4402,12 @@ const docTemplate = `{
                         "type": "string",
                         "description": "Search by Code Negara",
                         "name": "parent_code_negara",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Search by Name Negara",
+                        "name": "name_negara",
                         "in": "query"
                     }
                 ],

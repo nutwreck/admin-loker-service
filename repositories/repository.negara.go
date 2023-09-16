@@ -4,6 +4,7 @@ import (
 	"net/http"
 	"strings"
 
+	"github.com/nutwreck/admin-loker-service/constants"
 	"github.com/nutwreck/admin-loker-service/models"
 	"github.com/nutwreck/admin-loker-service/schemes"
 	"gorm.io/gorm"
@@ -73,7 +74,7 @@ func (r *repositoryNegara) EntityResults(input *schemes.SchemeNegara) (*[]models
 
 	db := r.db.Model(&negara)
 
-	if input.Name != "" {
+	if input.Name != constants.EMPTY_VALUE {
 		db = db.Where("name LIKE ?", "%"+strings.ToUpper(input.Name)+"%")
 	}
 
